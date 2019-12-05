@@ -1,0 +1,119 @@
+---
+title: "U.S. Mothers as Primary Breadwinners: Propensity and Duration"
+subtitle: "Data Analysis using the SIPP 2008 data"
+author: "Joanna R. Pepin"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+# Getting the data
+This analysis uses data downloaded from the [National Bureau of Economic Research](https://www.nber.org/data/survey-of-income-and-program-participation-sipp-data.html). We use the Core 2008 data files, waves 1-16. 
+
+To begin, use the 0. Breadwinning_data download syntax file to set up the folder directories.  
+
+For each wave (2008 core; 1-16):  
+1. Download the zip file and then decompress the folder. Save each folder in the rawDir (generated from 0. Breadwinning_data download).  
+2. Right click on the corresponding .do files and .dct files and click "save link as" and save the files in the corresponding wave folders (e.g. folder "l08puw1").
+
+The result should be 16 folders that each contain the .dat, .dct, and .do files for each wave.
+
+3. Change the appropriate file paths in each .do file as instructed. Delete the first line that creates a log.
+``` {r, eval=F, echo=T}
+*** SAMPLE STATA CODE TO REPLACE FILEPATHS
+*** Asummes you have already created a "SIPP" folder and two sub-folders: "SIPP2008_raw" & "SIPP2008".
+******************************************************************************************************
+
+global datadir "C:\Users\YourName\Dropbox\Data\SIPP" /* This is your master SIPP data folder */
+
+local dat_name "$datadir\SIPP2008_raw\l08puw1\l08puw1.dat" /*Put all wave folders into sub-folder "SIPP2008_raw" */
+
+** The following line should contain the path to your output '.dta' file 
+local dta_name "$datadir\SIPP2008\sippl08puw1.dta" /*Output all data files into sub-folder "SIPP2008" */
+
+** The following line should contain the path to the data dictionary file 
+local dct_name "$datadir\SIPP2008_raw\l08puw1\sippl08puw1.dct"
+
+```
+
+
+4. Run the .do files to create the stata data files. Use the sample code below to automate this process.  
+
+Sample Stata code checks if each wave of the data file already exists, and runs the .do file for the wave if it doesn't exist. 
+``` {r, eval=F, echo=T}
+*** SAMPLE STATA CODE
+*** Run this code after the file paths in each of the .do files have been changed and saved.
+******************************************************************************************************
+
+*** Change file paths as appropriate.
+global datadir "C:\Users\YourName\Dropbox\Data\SIPP"
+cd $datadir
+
+*** Loop over each of the waves
+forvalues w=1/16{
+  capture confirm file "$datadir\SIPP2008\sippl08puw`w'.dta"
+  if _rc==0 {
+    display "The file File_sippl08puw`w'.dta exists"
+  }
+  else {
+    do "$datadir/SIPP2008_raw/l08puw`w'/sippl08puw`w'"
+clear all
+  }
+}
+```
+
+5. Import the (Stata) data files and merge them together.
+``` {r, eval=T, echo=T}
+library(plyr)
+library(tidyverse)
+library(readstata13)
+library(haven)
+library(data.table)
+
+setwd(file.path(dataDir, sipp08Dir))
+
+fileNames <- list.files(pattern = "^sippl08puw.*\\.dta$") # create a list of all waves
+
+sipp <- lapply(fileNames, function(x) {
+        read.dta13(x, 
+        select.cols = c("ssuid", "shhadid", "rfid", "epppnum", "swave", "srefmon",
+                        "tpearn", "thearn", "tfearn", 
+                        "thothinc", "thtotinc", "tftotinc", "tpprpinc", "tptrninc", "tpothinc",
+                        "tmlmsum", "amlmsum", 
+                        "efnp", "t15amt", "eeducate", 
+                        "aoincb1", "aoincb2", "eoincb1", "eoincb2",  
+                        "tbmsum1", "tbmsum2", "abmsum1", "abmsum2",
+                        "tpmsum1", "tpmsum2", "apmsum1", "apmsum2",
+                        "tprftb1", "tprftb2", "aprftb1", "aprftb2",
+                        "eslryb1", "eslryb2", "aslryb1", "aslryb2")) %>%
+        subset(srefmon=="Fourth Reference month")
+})
+
+# Turn the list of dataframes into one master dataframe.
+data <- rbindlist(sipp)
+
+# Turn the epppnum variable into an integer
+data$epppnum <- as.integer(data$epppnum)
+
+## Subsetting data to match KR in Stata -- delete?
+data <- data %>%
+  subset(swave != 16)
+
+## Save the dataframe for easy open in the future
+save(data, file="sipp08tpearn_all.Rda")
+
+```
+
+# Creating earnings variables
+
+Use the 1. Breadwinning_refine monthly r script
+
+# Create Household Composition variables and merge earnings and income data to hh_change data files
+
+Use the 2. Breadwinning_create relearn R script
+
+This script relies on datafiles that are created using [10.1007/s13524-019-00806-1 Supplementary Materials](https://link.springer.com/article/10.1007/s13524-019-00806-1#SupplementaryMaterial). These syntax files have been updated and are available for download from this Github repository in sub-folder "childhh":
+
+SIPP_Breadwinning
+ |
+ +-- childhh
+ 
+ rmarkdown::render('breadwinning.Rmd', output_file = 'results/breadwinning.html')
