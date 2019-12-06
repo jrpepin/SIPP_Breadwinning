@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_logs/normalize_ages.log
   log type:  text
- opened on:   5 Dec 2019, 16:25:46
+ opened on:   5 Dec 2019, 19:55:06
 
 . 
 . 
@@ -50,7 +50,7 @@ XAA00000000000000000000000000000000000000000000000000000000000000000000000000000
 
 . 
 . macro list
-S_FNDATE:        5 Dec 2019 16:25
+S_FNDATE:        5 Dec 2019 19:55
 S_FN:           C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_data/stata_tmp/person_wide.dta
 ReS_jv2:        1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
 ReS_Call:       version 15.1:
@@ -754,7 +754,7 @@ file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_data/
 
 . 
 . reshape long adj_age ems errp wpfinwgt eorigin ebornus etypmom etypdad mom_educ dad_educ mom_immigrant dad_immigrant mom_age biomom_age biomom_educ dad_age biodad_age innext ref_person ref_person_s
-> ex ref_person_educ, i(ssuid epppnum) j(SWAVE)
+> ex ref_person_educ, i(ssuid epppnum) j(swave)
 (note: j = 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15)
 (note: innext15 not found)
 
@@ -762,7 +762,7 @@ Data                               wide   ->   long
 -----------------------------------------------------------------------------
 Number of obs.                   130851   -> 2.0e+06
 Number of variables                 324   ->      32
-j variable (15 values)                    ->   SWAVE
+j variable (15 values)                    ->   swave
 xij variables:
         adj_age1 adj_age2 ... adj_age15   ->   adj_age
                     ems1 ems2 ... ems15   ->   ems
@@ -872,5 +872,5 @@ XAA00000000000000000000000000000000000000000000000000000000000000000000000000000
       name:  <unnamed>
        log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_logs/normalize_ages.log
   log type:  text
- closed on:   5 Dec 2019, 16:26:39
+ closed on:   5 Dec 2019, 19:55:53
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_logs/convert_to_wide.log
   log type:  text
- opened on:   5 Dec 2019, 16:24:36
+ opened on:   5 Dec 2019, 19:54:02
 
 . 
 . 
@@ -50,7 +50,7 @@ XAA00000000000000000000000000000000000000000000000000000000000000000000000000000
 
 . 
 . macro list
-S_FNDATE:        5 Dec 2019 16:24
+S_FNDATE:        5 Dec 2019 19:54
 S_FN:           C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_data/stata_tmp/ref_person_wide.dta
 ReS_jv2:        1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
 ReS_Call:       version 15.1:
@@ -1357,5 +1357,5 @@ XAA00000000000000000000000000000000000000000000000000000000000000000000000000000
       name:  <unnamed>
        log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_logs/convert_to_wide.log
   log type:  text
- closed on:   5 Dec 2019, 16:25:46
+ closed on:   5 Dec 2019, 19:55:06
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

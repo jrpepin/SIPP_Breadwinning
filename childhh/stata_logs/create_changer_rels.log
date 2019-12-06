@@ -530,3 +530,191 @@ end of do-file
 
 r(9);
 
+. do "C:\Users\Joanna\AppData\Local\Temp\STD3f6c_000000.tmp"
+
+. //==============================================================================//
+. //===== Children's Household Instability Project
+. //===== Dataset: SIPP2008
+. //===== Purpose: Executes do files to create core datafiles:
+. //===== 
+. 
+. //=========================================================================//
+. //== Purpose: Preparation for running the program.
+. //== 
+. //== Note: This program requires the mdesc and confirmdir packages. If you do not have this, type ssc install mdesc/confirmdir before running.
+. //=========================================================================//
+. 
+. ***************************************************************************
+. ** Section: The following code attempts to make sure these packages are installed before allowing execution.
+. ***************************************************************************
+. capture findfile mdesc.ado
+
+. if ("`r(fn)'" == "") {
+.     display as error "It appears the mdesc package is not installed."
+.     display as error "Try 'ssc install mdesc' to acquire it."
+.     exit
+. }
+
+. 
+. capture findfile confirmdir.ado
+
+. if ("`r(fn)'" == "") {
+.     display as error "It appears the confirmdir package is not installed."
+.     display as error "Try 'ssc install confirmdir' to acquire it."
+.     exit
+. }
+
+. 
+. ***************************************************************************
+. ** Section: Creates macros for wave, age, month, relationships
+. ***************************************************************************
+. do "$childhh_base_code/SIPP2008/project_macros" /* this do-file contains macros of wave, age, month, relationships */
+
+. //================================================================================================//
+. //===== Children's Household Instability Project                                               
+. //===== Dataset: SIPP2008                                                                    
+. //===== Purpose: Create macros of waves, age, month, relationships. 
+. //===== Also, create program executed by multiple do files to reduce number of relationship categories.
+. //================================================================================================//
+. 
+. global first_wave 1
+
+. global final_wave 15
+
+. global second_wave = ${first_wave} + 1
+
+. global penultimate_wave = ${final_wave} - 1
+
+. 
+. global adult_age 18
+
+. 
+. global refmon 4
+
+. 
+. ** A global macro for the number of transitive closure passes we want to do.
+. global max_tc 1
+
+. 
+. //==============================================================================//
+. //== Function: Computes simplified relationships from the more complex ones
+. //==
+. //== Arguments Created: 
+. //     input_rel - The name of the existing relationship variable.
+. //     simplified_rel - The name of the variable to be created containing the intermediate simplification of relationships.
+. //     ultra_simple_rel - The name of the variable to be created containing the most compact form of relationships.
+. //
+. //== Note: The program assumes that input_rel uses the value label "relationships".
+. //==============================================================================//
+. capture program drop simplify_relationships
+
+. program define simplify_relationships
+  1.     args input_rel simplified_rel ultra_simple_rel
+  2.     * TODO:  It would be friendly to check that all three args are provided and to error out if not.
+.     gen `simplified_rel' = .
+  3.     label values `simplified_rel' relationship
+  4.     replace `simplified_rel' = "CHILD":relationship if inlist(`input_rel', "BIOCHILD":relationship, "STEPCHILD":relationship, "ADOPTCHILD":relationship, "CHILDOFPARTNER":relationship, "CHILD":re
+> lationship)
+  5.     replace `simplified_rel' = "PARENT":relationship if inlist(`input_rel', "BIOMOM":relationship, "STEPMOM":relationship, "ADOPTMOM":relationship, "BIODAD":relationship, "STEPDAD":relationship,
+>  "ADOPTDAD":relationship, "PARENT":relationship)
+  6.     replace `simplified_rel' = "GRANDCHILD":relationship if inlist(`input_rel', "GRANDCHILD":relationship, "GREATGRANDCHILD":relationship)
+  7.     replace `simplified_rel' = "GRANDPARENT":relationship if inlist(`input_rel', "GRANDPARENT":relationship, "GREATGRANDPARENT":relationship)
+  8.     replace `simplified_rel' = "SIBLING":relationship if inlist(`input_rel', "SIBLING":relationship)
+  9.     replace `simplified_rel' = "OTHER_REL":relationship if inlist(`input_rel', "OTHER_REL":relationship, "SPOUSE":relationship, "AUNTUNCLE_OR_PARENT":relationship, "AUNTUNCLE":relationship, "NEP
+> HEWNIECE":relationship, "SIBLING_OR_COUSIN":relationship, "CHILD_OR_NEPHEWNIECE":relationship)
+ 10.     replace `simplified_rel' = "NOREL":relationship if inlist(`input_rel', "NOREL":relationship, "PARTNER":relationship)
+ 11. 
+.         replace `simplified_rel' = "FOSTER":relationship if inlist(`input_rel', "F_CHILD":relationship, "F_PARENT":relationship, "F_SIB":relationship)
+ 12.     replace `simplified_rel' = "GRANDCHILD_P":relationship if inlist(`input_rel', "GRANDCHILD_P":relationship)
+ 13.     replace `simplified_rel' = "GRANDPARENT_P":relationship if inlist(`input_rel', "GRANDPARENT_P":relationship)
+ 14.     replace `simplified_rel' = "OTHER_REL_P":relationship if inlist(`input_rel', "OTHER_REL_P":relationship)
+ 15. 
+.     replace `simplified_rel' = "DONTKNOW":relationship if inlist(`input_rel', "DONTKNOW":relationship)
+ 16. 
+.     replace `simplified_rel' = "CONFUSED":relationship if inlist(`input_rel', "CONFUSED":relationship, .a, .m)
+ 17. 
+.     gen `ultra_simple_rel' = .
+ 18.     label values `ultra_simple_rel' ultra_simple_rel
+ 19.     replace `ultra_simple_rel' = "CHILD":ultra_simple_rel if (`simplified_rel' == "CHILD":relationship)
+ 20.     replace `ultra_simple_rel' = "SIBLING":ultra_simple_rel if (`simplified_rel' == "SIBLING":relationship)
+ 21.     replace `ultra_simple_rel' = "GRANDCHILD":ultra_simple_rel if (`simplified_rel' == "GRANDCHILD":relationship)
+ 22.     replace `ultra_simple_rel' = "OTHER_CHILD":ultra_simple_rel if (missing(`ultra_simple_rel') & (to_age < $adult_age))
+ 23.     replace `ultra_simple_rel' = "OTHER_ADULT":ultra_simple_rel if (missing(`ultra_simple_rel'))
+ 24. end
+
+. 
+end of do-file
+
+. 
+. ***************************************************************************
+. ** Section: Check to make sure the required directories exist.
+. ***************************************************************************
+. 
+. if ("$sipp2008_code" == "") {
+.     display as error "sipp2008_code macro not set."
+.     display as error "This macro tells us where to find the project code."
+.     exit
+. }
+
+. 
+. if ("$sipp2008_logs" == "") {
+.     display as error "sipp2008_logs macro not set."
+.     display as error "This macro tells us where to put the log files."
+.     exit
+. }
+
+. 
+. confirmdir "$sipp2008_logs"
+
+. if `r(confirmdir)' {
+.     display as error "The sipp2008_logs macro specifies a directory that does not exist:  $sipp2008_logs"
+.     exit
+. }
+
+. 
+. confirmdir "$sipp2008_code"
+
+. if `r(confirmdir)' {
+.     display as error "The sipp2008_code macro specifies a directory that does not exist:  $sipp2008_code"
+.     exit
+. }
+
+. 
+. ********************************************************************************
+. * Execute scripts to process data.
+. ********************************************************************************
+. ** Combines all the waves into a long file where every person-wave is a record. 
+. do "$childhh_base_code/do_and_log" "$sipp2008_code" "$sipp2008_logs" merge_waves  
+
+. * This file executes do files, but first executes
+. * standard startup boilerplate and last executes
+. * standard completion boilerplate.
+. 
+. * It takes three parameters, 
+. *  1. the directory where the project code lives.
+. *  2. the directory where log files should go.
+. *  3. the basename of the do file.  
+. *
+. * "Basename" just means the name without the .do or .log on the end.
+. * The basename is also used as the basename of the log file.
+. 
+. 
+. 
+. args codedir logdir fname
+
+. 
+. 
+. do "$childhh_base_code/childhh_prolog" "`logdir'" "`fname'"
+
+. * Boilerplate prolog for ChildHH project.
+. * This should be executed at least once at the
+. * beginning of running (sub)project code.
+. 
+. * It takes two parameters, the log directory and the basename of the log file.  
+. * "Basename" just means the name without the .log on the end.
+. 
+. 
+. args logdir fname
+
+. 
+. capture log close
