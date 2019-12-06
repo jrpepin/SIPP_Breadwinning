@@ -1,20 +1,20 @@
 //==============================================================================
 //===== Children's Household Instability Project                                                    
 //===== Dataset: SIPP2008                                                                               
-//===== Purpose: Create a wide database by person (SSUID EPPPNUM) including variables describing parental characteristics, race and sex. 
+//===== Purpose: Create a wide database by person (ssuid epppnum) including variables describing parental characteristics, race and sex. 
 //===== Logic: This file generates variables indicating the first and last wave numbers in which this person is encountered.
 //=====        Also, generates a single value for race and sex even though for some people reports vary across waves.
 //==============================================================================
  
 use "$tempdir/allwaves", clear  
 
-merge m:1 SSUID SHHADID SWAVE using "$tempdir/shhadid_members" 
+merge m:1 ssuid shhadid swave using "$tempdir/shhadid_members" 
 assert _merge == 3
 drop _merge
 
 
 * Add characteristics of reference person
-merge m:1 SSUID SHHADID SWAVE using "$tempdir/ref_person_long"
+merge m:1 ssuid shhadid swave using "$tempdir/ref_person_long"
 
 assert _merge == 3
 drop _merge
@@ -26,8 +26,8 @@ drop _merge
 *           (created in make_auxiliary_datasets)using pdemo_eppnum as key
 ********************************************************************************
 
-recode EPNMOM (9999 = .), gen(pdemo_epppnum)
-merge m:1 SSUID pdemo_epppnum SWAVE using "$tempdir/person_pdemo"
+recode epnmom (9999 = .), gen(pdemo_epppnum)
+merge m:1 ssuid pdemo_epppnum swave using "$tempdir/person_pdemo"
 assert missing(pdemo_epppnum) if (_merge == 1)
 drop if _merge == 2
 drop _merge
@@ -36,8 +36,8 @@ rename educ mom_educ
 rename immigrant mom_immigrant
 rename page mom_age
 
-gen biomom_age=mom_age if ETYPMOM==1
-gen biomom_educ=mom_educ if ETYPMOM==1
+gen biomom_age=mom_age if etypmom==1
+gen biomom_educ=mom_educ if etypmom==1
 
 label var mom_educ "Mother's (bio, step, adopt) educational level (this wave)"
 label var mom_immigrant "Mother's (bio, step, adopt) immigration status (this wave)"
@@ -45,8 +45,8 @@ label var mom_age "Mother's (bio, step, adoptive) Age (uncleaned)"
 label var biomom_age "Age of coresident biological mother if present (uncleaned)"
 label var biomom_educ "Education of coresident biological mother if present"
 
-recode EPNDAD (9999 = .), gen(pdemo_epppnum)
-merge m:1 SSUID pdemo_epppnum SWAVE using "$tempdir/person_pdemo"
+recode epndad (9999 = .), gen(pdemo_epppnum)
+merge m:1 ssuid pdemo_epppnum swave using "$tempdir/person_pdemo"
 assert missing(pdemo_epppnum) if (_merge == 1)
 drop if _merge == 2
 drop _merge
@@ -55,7 +55,7 @@ rename educ dad_educ
 rename immigrant dad_immigrant
 rename page dad_age
 
-gen biodad_age=dad_age if ETYPDAD==1
+gen biodad_age=dad_age if etypdad==1
 
 label var dad_educ "Father's (bio, step, adopt) educational level (this wave)"
 label var dad_immigrant "Father's (bio, step, adopt) immigration status (this wave)"
@@ -66,9 +66,9 @@ label var biodad_age "Age of coresident biological father if present"
 * Section: Make the dataset wide by wave (15 waves).
 ********************************************************************************
 
-local i_vars "SSUID EPPPNUM"
-local j_vars "SWAVE"
-local wide_vars "SHHADID EPNMOM EPNDAD ETYPMOM ETYPDAD EPNSPOUS TAGE EMS ERRP WPFINWGT ERACE ESEX EORIGIN EBORNUS mom_educ biomom_educ dad_educ mom_immigrant dad_immigrant mom_age biomom_age dad_age biodad_age shhadid_members max_shhadid_members ref_person ref_person_sex ref_person_educ"
+local i_vars "ssuid epppnum"
+local j_vars "swave"
+local wide_vars "shhadid epnmom epndad etypmom etypdad epnspous tage ems errp wpfinwgt erace esex eorigin ebornus mom_educ biomom_educ dad_educ mom_immigrant dad_immigrant mom_age biomom_age dad_age biodad_age shhadid_members max_shhadid_members ref_person ref_person_sex ref_person_educ"
 local extra_vars "overall_max_shhadid_members"
 
 keep `i_vars' `j_vars' `wide_vars' `extra_vars'
@@ -95,10 +95,10 @@ label define racealt  1 "NH white"
 
 * there was a variable for race in each wave
 forvalues wave = $first_wave/$final_wave {
-    recode ERACE`wave' (1=1) (2=2) (3=4) (4=5), generate (race`wave')
-    replace race`wave' = 3 if ((EORIGIN`wave' == 1) & (ERACE`wave' != 2)) /* non-black Hispanic */
-	recode ERACE`wave' (1=1)(2=2)(3=4)(4=5), generate(racealt`wave')
-	replace racealt`wave' = 3 if EORIGIN`wave'==1 /*All Hispanic */
+    recode erace`wave' (1=1) (2=2) (3=4) (4=5), generate (race`wave')
+    replace race`wave' = 3 if ((eorigin`wave' == 1) & (erace`wave' != 2)) /* non-black Hispanic */
+	recode erace`wave' (1=1)(2=2)(3=4)(4=5), generate(racealt`wave')
+	replace racealt`wave' = 3 if eorigin`wave'==1 /*All Hispanic */
     label values race`wave' race
 	label values racealt`wave' racealt
 }
@@ -130,9 +130,9 @@ tab any_race_diff
 * Section: Create sex variable. Set value of my_sex to the value at first observation. 
 ********************************************************************************
 
-gen my_sex = ESEX$first_wave
+gen my_sex = esex$first_wave
 forvalues wave = $second_wave/$final_wave {
-    replace my_sex = ESEX`wave' if (missing(my_sex))
+    replace my_sex = esex`wave' if (missing(my_sex))
 }
 
 #delimit ;
@@ -149,10 +149,10 @@ label values my_sex sex
 gen sex_diff$first_wave = .
 forvalues wave = $second_wave/$final_wave {
     gen sex_diff`wave' = .
-    replace sex_diff`wave' = 1 if ((!missing(my_sex)) & (!missing(ESEX`wave')) & (ESEX`wave' != my_sex))
-    replace sex_diff`wave' = 0 if ((!missing(my_sex)) & (!missing(ESEX`wave')) & (ESEX`wave' == my_sex))
+    replace sex_diff`wave' = 1 if ((!missing(my_sex)) & (!missing(esex`wave')) & (esex`wave' != my_sex))
+    replace sex_diff`wave' = 0 if ((!missing(my_sex)) & (!missing(esex`wave')) & (esex`wave' == my_sex))
     tab sex_diff`wave'
-    tab my_sex ESEX`wave' if (sex_diff`wave' == 1)
+    tab my_sex esex`wave' if (sex_diff`wave' == 1)
 }
 egen any_sex_diff = rowmax(sex_diff*)
 tab any_sex_diff
@@ -167,10 +167,10 @@ gen mom_measure=0
 
 * bio mom first
 gen biomom_ed_first=biomom_educ$first_wave 
-gen momageatbirth=biomom_age$first_wave-TAGE$first_wave if biomom_age$first_wave-TAGE$first_wave > 10 & biomom_age$first_wave-TAGE$first_wave < 50
+gen momageatbirth=biomom_age$first_wave-tage$first_wave if biomom_age$first_wave-tage$first_wave > 10 & biomom_age$first_wave-tage$first_wave < 50
 forvalues wave = $second_wave/$final_wave {
 	replace biomom_ed_first=biomom_educ`wave' if missing(biomom_ed_first)
-	replace momageatbirth=biomom_age`wave'-TAGE`wave' if missing(momageatbirth) & biomom_age`wave'-TAGE`wave' > 10 & biomom_age$first_wave-TAGE$first_wave < 50
+	replace momageatbirth=biomom_age`wave'-tage`wave' if missing(momageatbirth) & biomom_age`wave'-tage`wave' > 10 & biomom_age$first_wave-tage$first_wave < 50
 }
 
 replace mom_measure=1 if !missing(biomom_ed_first)
@@ -207,28 +207,28 @@ tab par_ed_first
 ********************************************************************************
 
 * Merge in file with information on number of persons in sampling unit per wave and overall (make_auxiliary_datasets)
-merge m:1 SSUID using "$tempdir/ssuid_members_wide"
+merge m:1 ssuid using "$tempdir/ssuid_members_wide"
 assert _merge == 3
 drop _merge
 
 * Merge in file with information on number of addresses in sampling unit per wave and overall (make_auxiliary_datasets)
-merge m:1 SSUID using "$tempdir/ssuid_shhadid_wide"
+merge m:1 ssuid using "$tempdir/ssuid_shhadid_wide"
 assert _merge == 3
 drop _merge
 
 * Create variables identifying first and last wave of appearance for each person(which is often the same as the whole household).
-* Note: SHHADID is never missing in the base data, so we can assume here that a missing SHHADID means the person was absent from that wave.
-gen my_last_wave = ${first_wave} if (!missing(SHHADID${first_wave}))
+* Note: shhadid is never missing in the base data, so we can assume here that a missing shhadid means the person was absent from that wave.
+gen my_last_wave = ${first_wave} if (!missing(shhadid${first_wave}))
 forvalues wave = $second_wave/$final_wave {
-    replace my_last_wave = `wave' if (!missing(SHHADID`wave'))
+    replace my_last_wave = `wave' if (!missing(shhadid`wave'))
 }
 
-gen my_first_wave = ${final_wave} if (!missing(SHHADID${final_wave}))
+gen my_first_wave = ${final_wave} if (!missing(shhadid${final_wave}))
 forvalues wave = $penultimate_wave (-1) $first_wave {
-    replace my_first_wave = `wave' if (!missing(SHHADID`wave'))
+    replace my_first_wave = `wave' if (!missing(shhadid`wave'))
 }
 
-drop ERACE* race* ESEX*
+drop erace* race* esex*
 drop any_race_diff any_sex_diff sex*
 
 save "$tempdir/person_wide", $replace

@@ -1,0 +1,4 @@
+*.dta
+*.dat
+*.gz
+*.Rhistory

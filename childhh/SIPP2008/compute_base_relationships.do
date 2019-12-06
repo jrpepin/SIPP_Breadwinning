@@ -1,7 +1,7 @@
 //========================================================================================================//
 //===== Children's Household Instability Project                                     
 //===== Dataset: SIPP2008                                                            
-//===== Purpose: Compute relationships of ego to other household members using EPNMOM, EPNDAD, EPNSPOUSE and ERRP 
+//===== Purpose: Compute relationships of ego to other household members using epnmom, epndad, epnspouse and errp 
 //========================================================================================================//
 
 ********************************************************************************
@@ -22,8 +22,8 @@ program define compute_relationships
     gen relationship_tc0 = "`relationship_1_2'":relationship if `condition'
     label values relationship_tc0 relationship
     gen reason_tc0 = "`reason'" if `condition'
-    tab relationship_tc0 SWAVE
-    keep SSUID SHHADID SWAVE relfrom relto relationship_tc0 reason_tc0
+    tab relationship_tc0 swave
+    keep ssuid shhadid swave relfrom relto relationship_tc0 reason_tc0
     drop if missing(relationship_tc0)
     drop if (relfrom == relto)
     save "$tempdir/`filename_1_2'", $replace
@@ -35,8 +35,8 @@ program define compute_relationships
     gen relationship_tc0 = "`relationship_2_1'":relationship if `condition'
     label values relationship_tc0 relationship
     gen reason_tc0 = "`reason'" if `condition'
-    tab relationship_tc0 SWAVE
-    keep SSUID SHHADID SWAVE relfrom relto relationship_tc0 reason_tc0
+    tab relationship_tc0 swave
+    keep ssuid shhadid swave relfrom relto relationship_tc0 reason_tc0
     drop if missing(relationship_tc0)
     drop if (relfrom == relto)
     save "$tempdir/`filename_2_1'", $replace
@@ -73,30 +73,34 @@ do "$sipp2008_code/relationship_label"
 ********************************************************************************
 
 * A small number of cases identified themselves as their own mother, father, or spouse
-replace EPNMOM=. if EPPPNUM==EPNMOM
-replace EPNDAD=. if EPPPNUM==EPNDAD
-replace EPNSPOUS=. if EPPPNUM==EPNSPOUS
+destring epppnum, generate(epppnum_n)
+drop epppnum
+rename epppnum_n epppnum
+
+replace epnmom=.   if epppnum==epnmom
+replace epndad=.   if epppnum==epndad
+replace epnspous=. if epppnum==epnspous
 
 ********************************************************************************
-** Section: Process parent/child relationships from EPNMOM, EPNDAD, and EPNSPOUS.
+** Section: Process parent/child relationships from epnmom, epndad, and epnspous.
 **
 ** Use Program: compute_relationships
 **        args: person1 person2 relationship_1_2 relationship_2_1 reason condition filename_1_2 filename_2_1
 ********************************************************************************
-compute_relationships EPPPNUM EPNMOM BIOCHILD BIOMOM EPNMOM "((!missing(EPNMOM)) & (EPNMOM != 9999) & (ETYPMOM == 1))" biochild_of_mom biomom
-compute_relationships EPPPNUM EPNDAD BIOCHILD BIODAD EPNDAD "((!missing(EPNDAD)) & (EPNDAD != 9999) & (ETYPDAD == 1))" biochild_of_dad biodad
-compute_relationships EPPPNUM EPNMOM STEPCHILD STEPMOM EPNMOM "((!missing(EPNMOM)) & (EPNMOM != 9999) & (ETYPMOM == 2))" stepchild_of_mom stepmom
-compute_relationships EPPPNUM EPNDAD STEPCHILD STEPDAD EPNDAD "((!missing(EPNDAD)) & (EPNDAD != 9999) & (ETYPDAD == 2))" stepchild_of_dad stepdad
-compute_relationships EPPPNUM EPNMOM ADOPTCHILD ADOPTMOM EPNMOM "((!missing(EPNMOM)) & (EPNMOM != 9999) & (ETYPMOM == 3))" adoptchild_of_mom adoptmom
-compute_relationships EPPPNUM EPNDAD ADOPTCHILD ADOPTDAD EPNDAD "((!missing(EPNDAD)) & (EPNDAD != 9999) & (ETYPDAD == 3))" adoptchild_of_dad adoptdad
-compute_relationships EPPPNUM EPNSPOUS SPOUSE SPOUSE EPNSPOUS "((!missing(EPNSPOUS)) & (EPNSPOUS != 9999) & (ESEX == 1))" epnspous1 epnspous2 
+compute_relationships epppnum epnmom biochild biomom epnmom "((!missing(epnmom)) & (epnmom != 9999) & (etypmom == 1))" biochild_of_mom biomom
+compute_relationships epppnum epndad biochild biodad epndad "((!missing(epndad)) & (epndad != 9999) & (etypdad == 1))" biochild_of_dad biodad
+compute_relationships epppnum epnmom stepchild stepmom epnmom "((!missing(epnmom)) & (epnmom != 9999) & (etypmom == 2))" stepchild_of_mom stepmom
+compute_relationships epppnum epndad stepchild stepdad epndad "((!missing(epndad)) & (epndad != 9999) & (etypdad == 2))" stepchild_of_dad stepdad
+compute_relationships epppnum epnmom adoptchild adoptmom epnmom "((!missing(epnmom)) & (epnmom != 9999) & (etypmom == 3))" adoptchild_of_mom adoptmom
+compute_relationships epppnum epndad adoptchild adoptdad epndad "((!missing(epndad)) & (epndad != 9999) & (etypdad == 3))" adoptchild_of_dad adoptdad
+compute_relationships epppnum epnspous spouse spouse epnspous "((!missing(epnspous)) & (epnspous != 9999) & (esex == 1))" epnspous1 epnspous2 
 
 ********************************************************************************
-** Section: Merge in ERRP, a variable indicating the reference person for the household.
+** Section: Merge in errp, a variable indicating the reference person for the household.
 **          ref_person_long was created with make_auxiliary_datasets
 ********************************************************************************
 
-merge m:1 SSUID SHHADID SWAVE using "$tempdir/ref_person_long"
+merge m:1 ssuid shhadid swave using "$tempdir/ref_person_long"
 assert missing(ref_person) if (_merge == 2)
 drop if (_merge == 2)
 assert (_merge == 3)
@@ -106,43 +110,46 @@ drop _merge
 
 ********************************************************************************
 ** Section: Generate records for spouse, child, grandchild, parent, sibling, 
-**          others, foster child, partener, no relation based ERRP. 
+**          others, foster child, partener, no relation based errp. 
 ** Note: The 1 and 2 suffixes below are convenient but not very descriptive.
 **        1 means the relationship as stated; 2 means the reverse.  
-**        E.g., errp_child_of_mom2 are moms of children identified by ERRP == 4.
+**        E.g., errp_child_of_mom2 are moms of children identified by errp == 4.
 **
 ** Use Program: compute_relationships
 **        args: person1 person2 relationship_1_2 relationship_2_1 reason condition filename_1_2 filename_2_1
 ***********************************************************************************************************************
+destring ref_person, generate(ref_person_n)
+drop ref_person
+rename ref_person_n ref_person
 
 * Spouse of reference person.
-compute_relationships EPPPNUM ref_person SPOUSE SPOUSE ERRP_3 "(ERRP == 3)" errp_spouse1 errp_spouse2
+compute_relationships epppnum ref_person spouse spouse errp_3 "(errp == 3)" errp_spouse1 errp_spouse2
 
-* Child of reference person.  You'd expect EPNMOM/DAD to capture this, too.
-compute_relationships EPPPNUM ref_person CHILD MOM ERRP_4 "((ERRP == 4) & (ref_person_sex == 2))" errp_child_of_mom1 errp_child_of_mom2
-compute_relationships EPPPNUM ref_person CHILD DAD ERRP_4 "((ERRP == 4) & (ref_person_sex == 1))" errp_child_of_dad1 errp_child_of_dad2
+* Child of reference person.  You'd expect epnmom/dad to capture this, too.
+compute_relationships epppnum ref_person child mom errp_4 "((errp == 4) & (ref_person_sex == 2))" errp_child_of_mom1 errp_child_of_mom2
+compute_relationships epppnum ref_person child dad errp_4 "((errp == 4) & (ref_person_sex == 1))" errp_child_of_dad1 errp_child_of_dad2
 
 * Grandchild of reference person.
-compute_relationships EPPPNUM ref_person GRANDCHILD GRANDPARENT ERRP_5 "(ERRP == 5)" errp_grandchild1 errp_grandchild2
+compute_relationships epppnum ref_person grandchild grandparent errp_5 "(errp == 5)" errp_grandchild1 errp_grandchild2
 
 * Parent of reference person.
-compute_relationships EPPPNUM ref_person MOM CHILD ERRP_6 "((ERRP == 6) & (ESEX == 2))" errp_mom1 errp_mom2
-compute_relationships EPPPNUM ref_person DAD CHILD ERRP_6 "((ERRP == 6) & (ESEX == 1))" errp_dad1 errp_dad2
+compute_relationships epppnum ref_person mom child errp_6 "((errp == 6) & (esex == 2))" errp_mom1 errp_mom2
+compute_relationships epppnum ref_person dad child errp_6 "((errp == 6) & (esex == 1))" errp_dad1 errp_dad2
 
 * Sibling of reference person.
-compute_relationships EPPPNUM ref_person SIBLING SIBLING ERRP_7 "(ERRP == 7)" errp_sibling1 errp_sibling2
+compute_relationships epppnum ref_person sibling sibling errp_7 "(errp == 7)" errp_sibling1 errp_sibling2
 
 * Other relative.
-compute_relationships EPPPNUM ref_person OTHER_REL OTHER_REL ERRP_8 "(ERRP == 8)" errp_otherrel1 errp_otherrel2
+compute_relationships epppnum ref_person other_rel other_rel errp_8 "(errp == 8)" errp_otherrel1 errp_otherrel2
 
 * Foster child.
-compute_relationships EPPPNUM ref_person F_CHILD F_PARENT ERRP_9 "(ERRP == 9)" errp_fosterchild1 errp_fosterchild2
+compute_relationships epppnum ref_person f_child f_parent errp_9 "(errp == 9)" errp_fosterchild1 errp_fosterchild2
 
 * Partner of reference person.
-compute_relationships EPPPNUM ref_person PARTNER PARTNER ERRP_10 "(ERRP == 10)" errp_partner1 errp_partner2
+compute_relationships epppnum ref_person partner partner errp_10 "(errp == 10)" errp_partner1 errp_partner2
 
 * No relation.
-compute_relationships EPPPNUM ref_person NOREL NOREL ERRP_GE_11 "((ERRP == 11) | (ERRP == 12) | (ERRP == 13))" errp_norelation1 errp_norelation2
+compute_relationships epppnum ref_person norel norel errp_ge_11 "((errp == 11) | (errp == 12) | (errp == 13))" errp_norelation1 errp_norelation2
 
 clear
 
@@ -188,7 +195,7 @@ append using "$tempdir/epnspous2"
 
 
 * Force drop when we have more than one reason for the SAME relationship 
-duplicates drop SSUID SHHADID SWAVE relfrom relto relationship_tc0, force
+duplicates drop ssuid shhadid swave relfrom relto relationship_tc0, force
 
 save "$tempdir/relationships_tc0_all", $replace
 
@@ -196,36 +203,36 @@ save "$tempdir/relationships_tc0_all", $replace
 ** Section: Find pairs for which we have more than one relationship type in a single wave.
 **           Select the more specific one
 ********************************************************************************
-sort SSUID SHHADID SWAVE relfrom relto
-by SSUID SHHADID SWAVE relfrom relto:  gen numrels_tc0 = _N /* total number of relationships */
-by SSUID SHHADID SWAVE relfrom relto:  gen relnum_tc0 = _n
+sort ssuid shhadid swave relfrom relto
+by ssuid shhadid swave relfrom relto:  gen numrels_tc0 = _N /* total number of relationships */
+by ssuid shhadid swave relfrom relto:  gen relnum_tc0 = _n
 
 assert (numrels_tc0 <= 2)
 
 *reshape so that we can compare relationships for pairs (within wave) with more than one relationship type
-reshape wide relationship_tc0 reason_tc0, i(SSUID SHHADID SWAVE relfrom relto) j(relnum_tc0)
+reshape wide relationship_tc0 reason_tc0, i(ssuid shhadid swave relfrom relto) j(relnum_tc0)
 
 display "Number of relationships in a wave before any fix-ups"
 tab numrels_tc0
 
 ** Use program: fixup_rel_pair args: args preferred_rel second_rel
 * start with biological parents
-fixup_rel_pair BIOMOM MOM
-fixup_rel_pair BIODAD DAD
-fixup_rel_pair BIOCHILD CHILD
+fixup_rel_pair biomom mom
+fixup_rel_pair biodad dad
+fixup_rel_pair biochild child
 
-display "Number of relationships in a wave after BIO fixes"
+display "Number of relationships in a wave after bio fixes"
 tab numrels_tc0
 
 * Fix adopt and step. 
-fixup_rel_pair STEPMOM MOM
-fixup_rel_pair STEPDAD DAD
-fixup_rel_pair STEPCHILD CHILD
-fixup_rel_pair ADOPTMOM MOM
-fixup_rel_pair ADOPTDAD DAD
-fixup_rel_pair ADOPTCHILD CHILD
+fixup_rel_pair stepmom mom
+fixup_rel_pair stepdad dad
+fixup_rel_pair stepchild child
+fixup_rel_pair adoptmom mom
+fixup_rel_pair adoptdad dad
+fixup_rel_pair adoptchild child
 
-display "Number of relationships in a wave after STEP and ADOPT fixes"
+display "Number of relationships in a wave after step and adopt fixes"
 tab numrels_tc0
 
 tab relationship_tc01 relationship_tc02 if (numrels_tc0 > 1)

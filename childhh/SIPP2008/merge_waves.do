@@ -6,15 +6,15 @@
 //=====================================================================//
 
 ** Import first wave. 
-use "$SIPP2008/wave${first_wave}_extract", clear 
+use "$SIPP2008/sippl08puw${first_wave}", clear 
 
 ** Keep only observations in the reference month. 
-keep if SREFMON == ${refmon}
+keep if srefmon == ${refmon}
 
 ** Append the first wave with waves from the second to last, also keep only observations from the reference month. 
 forvalues wave = $second_wave/$final_wave {
-    append using "$SIPP2008/wave`wave'_extract"
-    keep if SREFMON == ${refmon} 
+    append using "$SIPP2008/sippl08puw`wave'"
+    keep if srefmon == ${refmon} 
 }
 
 ** allwaves.dta is a long-form datasets include all the waves from SIPP2008, month 4 data. 

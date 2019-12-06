@@ -1,6 +1,7 @@
 * Set up the base ChildHH (Children's Households) environment.
 
 * The current directory is assumed to be the one with the base ChildHH code.
+cd "C:\Users\Joanna\Dropbox\Repositories\SIPP_Breadwinning\childhh"
 
 * We expect to find your setup file, named setup_<username>.do
 * in the base ChildHH directory (as defined above).

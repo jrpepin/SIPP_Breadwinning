@@ -86,15 +86,15 @@ end
 	tab relationship1, m
 	
     * Joinby creates a record for every combination of records matching 
-	* SSUID SHHADID SWAVE and intermediate_person in the two files.
-    joinby SSUID SHHADID SWAVE intermediate_person using `relmerge'
+	* ssuid shhadid swave and intermediate_person in the two files.
+    joinby ssuid shhadid swave intermediate_person using `relmerge'
 
 	tab relationship1, m
 	tab relationship2, m
 	
 	* Flag records where we already know relationship of A to C.
 	* Using data is pairs for which we already know the relationship
-	merge m:1 SSUID SHHADID SWAVE relfrom relto using "$tempdir/relationships_tc0_wide"
+	merge m:1 ssuid shhadid swave relfrom relto using "$tempdir/relationships_tc0_wide"
 
 	*drop  cases in base_relationships not matched in joinby data because they are in two-person households 
 	* and thus can never have an intermediated relationship
@@ -123,148 +123,148 @@ end
     gen relationship = .
     label values relationship relationship
 
-    local all_child_types CHILD BIOCHILD STEPCHILD ADOPTCHILD
-    local all_parent_types MOM BIOMOM STEPMOM ADOPTMOM DAD BIODAD STEPDAD ADOPTDAD PARENT
+    local all_child_types child biochild stepchild adoptchild
+    local all_parent_types mom biomom stepmom adoptmom dad biodad stepdad adoptdad parent
 
 foreach rel1 in `all_child_types' {
-  *read as set generate_relationship equal to CHILD if rel1 is any of the child types and rel2 is SPOUSE
-  generate_relationship "CHILD"					"`rel1'"	"SPOUSE"
-  generate_relationship "CHILD"					"`rel1'"	"PARTNER"
-  generate_relationship "GREATGRANDCHILD" 		"`rel1'" 	"GRANDCHILD"
-  generate_relationship "AUNTUNCLE_OR_PARENT" 	"`rel1'" 	"GRANDPARENT"
-  generate_relationship "NEPHEWNIECE" 			"`rel1'" 	"SIBLING"
-  generate_relationship "COUSIN" 				"`rel1'" 	"AUNTUNCLE"
-  generate_relationship "OTHER_REL" 			"SPOUSE" 	"`rel1'" 
-  generate_relationship "OTHER_REL_P" 			"PARTNER" 	"`rel1'" 
+  *read as set generate_relationship equal to child if rel1 is any of the child types and rel2 is spouse
+  generate_relationship "child"					"`rel1'"	"spouse"
+  generate_relationship "child"					"`rel1'"	"partner"
+  generate_relationship "greatgrandchild" 		"`rel1'" 	"grandchild"
+  generate_relationship "auntuncle_or_parent" 	"`rel1'" 	"grandparent"
+  generate_relationship "nephewniece" 			"`rel1'" 	"sibling"
+  generate_relationship "cousin" 				"`rel1'" 	"auntuncle"
+  generate_relationship "other_rel" 			"spouse" 	"`rel1'" 
+  generate_relationship "other_rel_p" 			"partner" 	"`rel1'" 
   
   foreach rel2 in `all_child_types' {
-     generate_relationship "GRANDCHILD" 		"`rel1'" 	"`rel2'"
+     generate_relationship "grandchild" 		"`rel1'" 	"`rel2'"
   }
   
   foreach rel2 in `all_parent_types' {
-     generate_relationship "SIBLING" 			"`rel1'" 	"`rel2'"
+     generate_relationship "sibling" 			"`rel1'" 	"`rel2'"
   }
 
-  generate_relationship "OTHER_REL" 			"`rel1'" 	"OTHER_REL"
-  generate_relationship "OTHER_REL" 			"OTHER_REL" "`rel1'" 
-  generate_relationship "NOREL" 				"`rel1'" 	"NOREL"
-  generate_relationship "NOREL" 				"NOREL" 	"`rel1'" 
-  generate_relationship "F_SIB" 				"`rel1'" 	"F_CHILD"
-  generate_relationship "F_SIB" 				"F_CHILD" 	"`rel1'"
-  generate_relationship "F_SIB" 				"`rel1'" 	"F_PARENT"
+  generate_relationship "other_rel" 			"`rel1'" 	"other_rel"
+  generate_relationship "other_rel" 			"other_rel" "`rel1'" 
+  generate_relationship "norel" 				"`rel1'" 	"norel"
+  generate_relationship "norel" 				"norel" 	"`rel1'" 
+  generate_relationship "f_sib" 				"`rel1'" 	"f_child"
+  generate_relationship "f_sib" 				"f_child" 	"`rel1'"
+  generate_relationship "f_sib" 				"`rel1'" 	"f_parent"
 }
 
 foreach rel2 in `all_child_types' {
-  generate_relationship "GREATGRANDCHILD" 		"GRANDCHILD" "`rel2'"
-  generate_relationship "PARENT" "SIBLING" 		"`rel2'"
-  generate_relationship "PARENT_OR_RELATIVE" 	"GRANDPARENT" "`rel2'"
-  generate_relationship "F_SIB" "F_CHILD" 		"`rel2'"
+  generate_relationship "greatgrandchild" 		"grandchild" "`rel2'"
+  generate_relationship "parent" "sibling" 		"`rel2'"
+  generate_relationship "parent_or_relative" 	"grandparent" "`rel2'"
+  generate_relationship "f_sib" "f_child" 		"`rel2'"
 }
 
 foreach rel1 in `all_parent_types' {
    foreach rel2 in `all_parent_types' {
-      generate_relationship "GRANDPARENT" 		"`rel1'" 	"`rel2'"
+      generate_relationship "grandparent" 		"`rel1'" 	"`rel2'"
    }
    
-   * Should we call these PARTNERS?  Or something less certain?
+   * Should we call these partnerS?  Or something less certain?
    foreach rel2 in `all_child_types' {
-      generate_relationship "PARTNER" 			"`rel1'" 	"`rel2'"
+      generate_relationship "partner" 			"`rel1'" 	"`rel2'"
    }
 
-   generate_relationship "GREATGRANDPARENT" 	"`rel1'" 	"GRANDPARENT"
-   generate_relationship "PARENT" 				"`rel1'" 	"SIBLING"
-   generate_relationship "CHILD_OR_RELATIVE" 	"`rel1'" 	"GRANDCHILD"
-   generate_relationship "OTHER_REL" 			"`rel1'" 	"SPOUSE"
-   generate_relationship "OTHER_REL_P" 			"`rel1'" 	"PARTNER"
-   generate_relationship "OTHER_REL" 			"`rel1'" 	"OTHER_REL"
-   generate_relationship "OTHER_REL" 			"OTHER_REL" "`rel1'" 
+   generate_relationship "greatgrandparent" 	"`rel1'" 	"grandparent"
+   generate_relationship "parent" 				"`rel1'" 	"sibling"
+   generate_relationship "child_or_relative" 	"`rel1'" 	"grandchild"
+   generate_relationship "other_rel" 			"`rel1'" 	"spouse"
+   generate_relationship "other_rel_p" 			"`rel1'" 	"partner"
+   generate_relationship "other_rel" 			"`rel1'" 	"other_rel"
+   generate_relationship "other_rel" 			"other_rel" "`rel1'" 
 
-   generate_relationship "NOREL" 				"`rel1'" 	"NOREL"
-   generate_relationship "NOREL" 				"NOREL" 	"`rel1'" 
+   generate_relationship "norel" 				"`rel1'" 	"norel"
+   generate_relationship "norel" 				"norel" 	"`rel1'" 
 }
 
     foreach rel2 in `all_parent_types' {
-        generate_relationship "PARENT" 			"SPOUSE" "`rel2'"
-        generate_relationship "PARENT" 			"PARTNER" "`rel2'"
+        generate_relationship "parent" 			"spouse" "`rel2'"
+        generate_relationship "parent" 			"partner" "`rel2'"
 
-        generate_relationship "AUNTUNCLE" 		"SIBLING" "`rel2'"
+        generate_relationship "auntuncle" 		"sibling" "`rel2'"
 
-        generate_relationship "CHILD_OR_NEPHEWNIECE" "GRANDCHILD" "`rel2'"
+        generate_relationship "child_or_nephewniece" "grandchild" "`rel2'"
 
-        generate_relationship "GREATGRANDPARENT" "GRANDPARENT" "`rel2'"
+        generate_relationship "greatgrandparent" "grandparent" "`rel2'"
 
-        generate_relationship "NOREL" 			"F_CHILD" "`rel2'"
+        generate_relationship "norel" 			"f_child" "`rel2'"
     }
 
-*** rel1 == GRANDCHILD
-generate_relationship "GRANDCHILD" 				"GRANDCHILD" "SPOUSE"
-generate_relationship "GRANDCHILD_P" 			"GRANDCHILD" "PARTNER"
-generate_relationship "OTHER_REL" 				"GRANDCHILD" "SIBLING"
-generate_relationship "SIBLING_OR_COUSIN" 		"GRANDCHILD" "GRANDPARENT"
-generate_relationship "NOREL" 					"GRANDCHILD" "NOREL"
-generate_relationship "OTHER_REL" 				"GRANDCHILD" "OTHER_REL"
+*** rel1 == grandchild
+generate_relationship "grandchild" 				"grandchild" "spouse"
+generate_relationship "grandchild_p" 			"grandchild" "partner"
+generate_relationship "other_rel" 				"grandchild" "sibling"
+generate_relationship "sibling_or_cousin" 		"grandchild" "grandparent"
+generate_relationship "norel" 					"grandchild" "norel"
+generate_relationship "other_rel" 				"grandchild" "other_rel"
 
-*** rel2 == GRANDCHILD
-generate_relationship "NOREL" 					"NOREL" "GRANDCHILD" 
-
-
-*** rel1 == GRANDPARENT
-generate_relationship "OTHER_REL" 				"GRANDPARENT" "SPOUSE"
-generate_relationship "OTHER_REL_P" 			"GRANDPARENT" "PARTNER"
-generate_relationship "NOREL" 					"GRANDPARENT" "NOREL"
-
-*** rel2 == GRANDPARENT
-generate_relationship "OTHER_REL" 				"OTHER_REL" "GRANDPARENT" 
-generate_relationship "NOREL" 					"NOREL" "GRANDPARENT" 
+*** rel2 == grandchild
+generate_relationship "norel" 					"norel" "grandchild" 
 
 
-*** rel1 == SIBLING
-generate_relationship "SIBLING" 				"SIBLING" "SIBLING"
-generate_relationship "OTHER_REL" 				"SIBLING" "SPOUSE"
-generate_relationship "OTHER_REL_P" 			"SIBLING" "PARTNER"
-generate_relationship "OTHER_REL" 				"SIBLING" "GRANDPARENT"
-generate_relationship "OTHER_REL" 				"SIBLING" "OTHER_REL"
-generate_relationship "NOREL" 					"SIBLING" "NOREL"
+*** rel1 == grandparent
+generate_relationship "other_rel" 				"grandparent" "spouse"
+generate_relationship "other_rel_p" 			"grandparent" "partner"
+generate_relationship "norel" 					"grandparent" "norel"
 
-*** rel2 == SIBLING
-generate_relationship "OTHER_REL" 				"OTHER_REL" "SIBLING" 
-generate_relationship "NOREL" 					"NOREL" "SIBLING" 
+*** rel2 == grandparent
+generate_relationship "other_rel" 				"other_rel" "grandparent" 
+generate_relationship "norel" 					"norel" "grandparent" 
 
-*** rel1 == SPOUSE / PARTNER
-generate_relationship "GRANDPARENT" 			"SPOUSE" "GRANDPARENT"
-generate_relationship "GRANDPARENT_P" 			"PARTNER" "GRANDPARENT"
-generate_relationship "OTHER_REL" 				"SPOUSE" "GRANDCHILD"
-generate_relationship "OTHER_REL_P" 			"PARTNER" "GRANDCHILD"
-generate_relationship "OTHER_REL" 				"SPOUSE" "SIBLING"
-generate_relationship "OTHER_REL_P" 			"PARTNER" "SIBLING"
-generate_relationship "OTHER_REL" 				"SPOUSE" "OTHER_REL"
-generate_relationship "OTHER_REL_P" 			"PARTNER" "OTHER_REL"
-generate_relationship "NOREL" 					"SPOUSE" "NOREL"
-generate_relationship "DONTKNOW" 				"PARTNER" "NOREL"
 
-*** rel2 == SPOUSE / PARTNER
-generate_relationship "OTHER_REL_P" 			"OTHER_REL" "PARTNER" 
-generate_relationship "OTHER_REL" 				"OTHER_REL" "SPOUSE" 
-generate_relationship "NOREL" 					"NOREL" "SPOUSE" 
-generate_relationship "DONTKNOW" 				"NOREL" "PARTNER" 
+*** rel1 == sibling
+generate_relationship "sibling" 				"sibling" "sibling"
+generate_relationship "other_rel" 				"sibling" "spouse"
+generate_relationship "other_rel_p" 			"sibling" "partner"
+generate_relationship "other_rel" 				"sibling" "grandparent"
+generate_relationship "other_rel" 				"sibling" "other_rel"
+generate_relationship "norel" 					"sibling" "norel"
 
-*** rel1 == F_CHILD
-generate_relationship "F_CHILD" 				"F_CHILD" "SPOUSE" 
-generate_relationship "F_PARENT" 				"SPOUSE" "F_CHILD"
-generate_relationship "F_PARENT" 				"F_CHILD" "PARTNER"
+*** rel2 == sibling
+generate_relationship "other_rel" 				"other_rel" "sibling" 
+generate_relationship "norel" 					"norel" "sibling" 
 
-*** rel2 == F_PARENT
-generate_relationship "F_SIB" 					"F_CHILD" "F_PARENT"
-generate_relationship "F_PARENT" 				"SPOUSE" "F_PARENT"
-generate_relationship "F_PARENT" 				"PARTNER" "F_PARENT"
+*** rel1 == spouse / partner
+generate_relationship "grandparent" 			"spouse" "grandparent"
+generate_relationship "grandparent_p" 			"partner" "grandparent"
+generate_relationship "other_rel" 				"spouse" "grandchild"
+generate_relationship "other_rel_p" 			"partner" "grandchild"
+generate_relationship "other_rel" 				"spouse" "sibling"
+generate_relationship "other_rel_p" 			"partner" "sibling"
+generate_relationship "other_rel" 				"spouse" "other_rel"
+generate_relationship "other_rel_p" 			"partner" "other_rel"
+generate_relationship "norel" 					"spouse" "norel"
+generate_relationship "dontknow" 				"partner" "norel"
+
+*** rel2 == spouse / partner
+generate_relationship "other_rel_p" 			"other_rel" "partner" 
+generate_relationship "other_rel" 				"other_rel" "spouse" 
+generate_relationship "norel" 					"norel" "spouse" 
+generate_relationship "dontknow" 				"norel" "partner" 
+
+*** rel1 == f_child
+generate_relationship "f_child" 				"f_child" "spouse" 
+generate_relationship "f_parent" 				"spouse" "f_child"
+generate_relationship "f_parent" 				"f_child" "partner"
+
+*** rel2 == f_parent
+generate_relationship "f_sib" 					"f_child" "f_parent"
+generate_relationship "f_parent" 				"spouse" "f_parent"
+generate_relationship "f_parent" 				"partner" "f_parent"
 	
 *** Other
-generate_relationship "OTHER_REL" 				"OTHER_REL" "OTHER_REL" 
+generate_relationship "other_rel" 				"other_rel" "other_rel" 
 
-generate_relationship "NOREL" 					"OTHER_REL" "NOREL"
-generate_relationship "NOREL" 					"NOREL" "OTHER_REL" 
+generate_relationship "norel" 					"other_rel" "norel"
+generate_relationship "norel" 					"norel" "other_rel" 
 
-generate_relationship "DONTKNOW" 				"NOREL" "NOREL"
+generate_relationship "dontknow" 				"norel" "norel"
 
 display "How are we doing at finding relationships?"
 mdesc relationship 
@@ -282,7 +282,7 @@ mdesc relationship
  keep if (!missing(relationship))
 
  * We force the drop because we don't care about the details if the end result is the same.
- duplicates drop SSUID SHHADID SWAVE relfrom relto relationship, force
+ duplicates drop ssuid shhadid swave relfrom relto relationship, force
 
  gen reason = string(relationship1) + " " + string(relationship2) + " via " + string(intermediate_person)
  drop intermediate_person relationship1 relationship2 reason1 reason2
@@ -292,15 +292,15 @@ mdesc relationship
 *          and select "best" relationship when more than one relationship type.
 ********************************************************************************
 
-sort SSUID SHHADID SWAVE relfrom relto
-by SSUID SHHADID SWAVE relfrom relto:  gen numrels_tc1 = _N
-by SSUID SHHADID SWAVE relfrom relto:  gen relnum_tc1 = _n
+sort ssuid shhadid swave relfrom relto
+by ssuid shhadid swave relfrom relto:  gen numrels_tc1 = _N
+by ssuid shhadid swave relfrom relto:  gen relnum_tc1 = _n
 
 display "How many relationships have we generated per person-wave?"
 tab numrels_tc1
 
 *reshape so that we can compare relationships for pairs (within wave) with more than one relationship type	
-reshape wide relationship reason, i(SSUID SHHADID SWAVE relfrom relto) j(relnum_tc1)
+reshape wide relationship reason, i(ssuid shhadid swave relfrom relto) j(relnum_tc1)
 
 save "$tempdir/relationships_tc1_wide", $replace
 
@@ -312,18 +312,18 @@ tab relationship
 	
 * These are lists of relationships. The preferred description of the relationship is the earlier one
 * So, for example, if the same relationship is coded as biodad stepdad and auntuncle_or_parent, we'll choose biodad (below)
-local dad_relations " BIODAD STEPDAD ADOPTDAD DAD F_PARENT PARENT AUNTUNCLE_OR_PARENT OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
-local mom_relations " BIOMOM STEPMOM ADOPTMOM MOM F_PARENT PARENT AUNTUNCLE_OR_PARENT OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
-local child_relations " BIOCHILD STEPCHILD ADOPTCHILD CHILDOFPARTNER F_CHILD CHILD CHILD_OR_NEPHEWNIECE CHILD_OR_RELATIVE OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
-local spouse_relations " SPOUSE PARTNER OTHER_REL OTHER_REL_P NOREL CONFUSED DONTKNOW "
-local sibling_relations " SIBLING SIBLING_OR_COUSIN  F_SIB OTHER_REL OTHER_REL_P NOREL CONFUSED DONTKNOW "
-local cousin_relations " COUSIN SIBLING_OR_COUSIN OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
-local grandparent_relations " GRANDPARENT GRANDPARENT_P OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
-local grandchild_relations " GRANDCHILD GRANDCHILD_P OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
-local greatgrandchild_relations " GREATGRANDCHILD OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
-local nephewniece_relations " NEPHEWNIECE OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
-local norel_relations " NOREL CONFUSED DONTKNOW "
-local otherrel_relations " OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
+local dad_relations " biodad stepdad adoptdad dad f_parent parent auntuncle_or_parent other_rel other_rel_p confused dontknow "
+local mom_relations " biomom stepmom adoptmom mom f_parent parent auntuncle_or_parent other_rel other_rel_p confused dontknow "
+local child_relations " biochild stepchild adoptchild childofpartner f_child child child_or_nephewniece child_or_relative other_rel other_rel_p confused dontknow "
+local spouse_relations " spouse partner other_rel other_rel_p norel confused dontknow "
+local sibling_relations " sibling sibling_or_cousin  f_sib other_rel other_rel_p norel confused dontknow "
+local cousin_relations " cousin sibling_or_cousin other_rel other_rel_p confused dontknow "
+local grandparent_relations " grandparent grandparent_p other_rel other_rel_p confused dontknow "
+local grandchild_relations " grandchild grandchild_p other_rel other_rel_p confused dontknow "
+local greatgrandchild_relations " greatgrandchild other_rel other_rel_p confused dontknow "
+local nephewniece_relations " nephewniece other_rel other_rel_p confused dontknow "
+local norel_relations " norel confused dontknow "
+local otherrel_relations " other_rel other_rel_p confused dontknow "
 
 foreach r in dad mom child spouse sibling cousin grandparent grandchild greatgrandchild nephewniece norel otherrel {
    make_relationship_list ``r'_relations'

@@ -1,0 +1,1361 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_logs/convert_to_wide.log
+  log type:  text
+ opened on:   5 Dec 2019, 16:24:36
+
+. 
+. 
+. * I would love to turn off line wrap so the state is a single
+. * continuous string.  This seems not to be possible.  The best
+. * we can do is set the line length to 255.  That's about 20 times
+. * too short so why bother.
+. *
+. * Also, I considered saving the state as a note in the dataset
+. * but this generic do file can't assume there is a dataset at all.
+. display "Starting random number generator state"
+Starting random number generator state
+
+. display "`c(rngstate)'"
+XAA0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 000000000000000000000000000000000000000000000000000000000000000000000001000001391839
+
+. 
+. 
+. set varabbrev off
+
+. 
+. macro list
+S_FNDATE:        5 Dec 2019 16:24
+S_FN:           C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_data/stata_tmp/ref_person_wide.dta
+ReS_jv2:        1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+ReS_Call:       version 15.1:
+max_tc:         1
+refmon:         4
+adult_age:      18
+penultimate_wave:
+                14
+second_wave:    2
+final_wave:     15
+first_wave:     1
+replace:        replace
+SIPP08keep:     C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_data/SIPP08_Processed
+tempdir:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_data/stata_tmp
+results:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//results
+sipp2008_logs:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_logs
+sipp2008_code:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//SIPP2008
+childhh_base_code:
+                C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh/
+SIPP2008:       C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008
+homedir:        C:\Users\Joanna
+S_level:        95
+F1:             help advice;
+F2:             describe;
+F7:             save
+F8:             use
+S_ADO:          BASE;SITE;.;PERSONAL;PLUS;OLDPLACE
+S_StataMP:      MP
+S_StataSE:      SE
+S_FLAVOR:       Intercooled
+S_OS:           Windows
+S_OSDTL:        64-bit
+S_MACH:         PC (64-bit x86-64)
+_fname:         convert_to_wide
+_logdir:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_logs
+_2:             convert_to_wide
+_1:             C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_logs
+_0:             "C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_logs" "convert_to_wide"
+
+. 
+. pwd
+C:\Users\Joanna\Dropbox\Repositories\SIPP_Breadwinning\childhh
+
+. 
+end of do-file
+
+. 
+. 
+. do "`codedir'/`fname'"
+
+. //==============================================================================
+. //===== Children's Household Instability Project                                                    
+. //===== Dataset: SIPP2008                                                                               
+. //===== Purpose: Create a wide database by person (ssuid epppnum) including variables describing parental characteristics, race and sex. 
+. //===== Logic: This file generates variables indicating the first and last wave numbers in which this person is encountered.
+. //=====        Also, generates a single value for race and sex even though for some people reports vary across waves.
+. //==============================================================================
+.  
+. use "$tempdir/allwaves", clear  
+
+. 
+. merge m:1 ssuid shhadid swave using "$tempdir/shhadid_members" 
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                         1,279,471  (_merge==3)
+    -----------------------------------------
+
+. assert _merge == 3
+
+. drop _merge
+
+. 
+. 
+. * Add characteristics of reference person
+. merge m:1 ssuid shhadid swave using "$tempdir/ref_person_long"
+(label esex already defined)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                         1,279,471  (_merge==3)
+    -----------------------------------------
+
+. 
+. assert _merge == 3
+
+. drop _merge
+
+. 
+. 
+. ********************************************************************************
+. * Section: create variables describing mother's and father's education and mother's
+. *           immigration status by merging to person_pdemo 
+. *           (created in make_auxiliary_datasets)using pdemo_eppnum as key
+. ********************************************************************************
+. 
+. recode epnmom (9999 = .), gen(pdemo_epppnum)
+(868822 differences between epnmom and pdemo_epppnum)
+
+. merge m:1 ssuid pdemo_epppnum swave using "$tempdir/person_pdemo"
+(label tage already defined)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                     1,924,550
+        from master                   868,822  (_merge==1)
+        from using                  1,055,728  (_merge==2)
+
+    matched                           410,649  (_merge==3)
+    -----------------------------------------
+
+. assert missing(pdemo_epppnum) if (_merge == 1)
+
+. drop if _merge == 2
+(1,055,728 observations deleted)
+
+. drop _merge
+
+. drop pdemo_epppnum
+
+. rename educ mom_educ
+
+. rename immigrant mom_immigrant
+
+. rename page mom_age
+
+. 
+. gen biomom_age=mom_age if etypmom==1
+(892,258 missing values generated)
+
+. gen biomom_educ=mom_educ if etypmom==1
+(892,258 missing values generated)
+
+. 
+. label var mom_educ "Mother's (bio, step, adopt) educational level (this wave)"
+
+. label var mom_immigrant "Mother's (bio, step, adopt) immigration status (this wave)"
+
+. label var mom_age "Mother's (bio, step, adoptive) Age (uncleaned)"
+
+. label var biomom_age "Age of coresident biological mother if present (uncleaned)"
+
+. label var biomom_educ "Education of coresident biological mother if present"
+
+. 
+. recode epndad (9999 = .), gen(pdemo_epppnum)
+(968554 differences between epndad and pdemo_epppnum)
+
+. merge m:1 ssuid pdemo_epppnum swave using "$tempdir/person_pdemo"
+(label tage already defined)
+(label educ already defined)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                     2,083,849
+        from master                   968,554  (_merge==1)
+        from using                  1,115,295  (_merge==2)
+
+    matched                           310,917  (_merge==3)
+    -----------------------------------------
+
+. assert missing(pdemo_epppnum) if (_merge == 1)
+
+. drop if _merge == 2
+(1,115,295 observations deleted)
+
+. drop _merge
+
+. drop pdemo_epppnum
+
+. rename educ dad_educ
+
+. rename immigrant dad_immigrant
+
+. rename page dad_age
+
+. 
+. gen biodad_age=dad_age if etypdad==1
+(1,005,195 missing values generated)
+
+. 
+. label var dad_educ "Father's (bio, step, adopt) educational level (this wave)"
+
+. label var dad_immigrant "Father's (bio, step, adopt) immigration status (this wave)"
+
+. label var dad_age "Father's (bio, step, adoptive) Age (uncleaned)"
+
+. label var biodad_age "Age of coresident biological father if present"
+
+. 
+. ********************************************************************************
+. * Section: Make the dataset wide by wave (15 waves).
+. ********************************************************************************
+. 
+. local i_vars "ssuid epppnum"
+
+. local j_vars "swave"
+
+. local wide_vars "shhadid epnmom epndad etypmom etypdad epnspous tage ems errp wpfinwgt erace esex eorigin ebornus mom_educ biomom_educ dad_educ mom_immigrant dad_immigrant mom_age biomom_age dad_ag
+> e biodad_age shhadid_members max_shhadid_members ref_person ref_person_sex ref_person_educ"
+
+. local extra_vars "overall_max_shhadid_members"
+
+. 
+. keep `i_vars' `j_vars' `wide_vars' `extra_vars'
+
+. reshape wide `wide_vars', i(`i_vars') j(`j_vars')
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                  1.3e+06   ->  130851
+Number of variables                  32   ->     423
+j variable (15 values)            swave   ->   (dropped)
+xij variables:
+                                shhadid   ->   shhadid1 shhadid2 ... shhadid15
+                                 epnmom   ->   epnmom1 epnmom2 ... epnmom15
+                                 epndad   ->   epndad1 epndad2 ... epndad15
+                                etypmom   ->   etypmom1 etypmom2 ... etypmom15
+                                etypdad   ->   etypdad1 etypdad2 ... etypdad15
+                               epnspous   ->   epnspous1 epnspous2 ... epnspous15
+                                   tage   ->   tage1 tage2 ... tage15
+                                    ems   ->   ems1 ems2 ... ems15
+                                   errp   ->   errp1 errp2 ... errp15
+                               wpfinwgt   ->   wpfinwgt1 wpfinwgt2 ... wpfinwgt15
+                                  erace   ->   erace1 erace2 ... erace15
+                                   esex   ->   esex1 esex2 ... esex15
+                                eorigin   ->   eorigin1 eorigin2 ... eorigin15
+                                ebornus   ->   ebornus1 ebornus2 ... ebornus15
+                               mom_educ   ->   mom_educ1 mom_educ2 ... mom_educ15
+                            biomom_educ   ->   biomom_educ1 biomom_educ2 ... biomom_educ15
+                               dad_educ   ->   dad_educ1 dad_educ2 ... dad_educ15
+                          mom_immigrant   ->   mom_immigrant1 mom_immigrant2 ... mom_immigrant15
+                          dad_immigrant   ->   dad_immigrant1 dad_immigrant2 ... dad_immigrant15
+                                mom_age   ->   mom_age1 mom_age2 ... mom_age15
+                             biomom_age   ->   biomom_age1 biomom_age2 ... biomom_age15
+                                dad_age   ->   dad_age1 dad_age2 ... dad_age15
+                             biodad_age   ->   biodad_age1 biodad_age2 ... biodad_age15
+                        shhadid_members   ->   shhadid_members1 shhadid_members2 ... shhadid_members15
+                    max_shhadid_members   ->   max_shhadid_members1 max_shhadid_members2 ... max_shhadid_members15
+                             ref_person   ->   ref_person1 ref_person2 ... ref_person15
+                         ref_person_sex   ->   ref_person_sex1 ref_person_sex2 ... ref_person_sex15
+                        ref_person_educ   ->   ref_person_educ1 ref_person_educ2 ... ref_person_educ15
+-----------------------------------------------------------------------------
+
+. 
+. ***********************************************************************
+. * Section: Create Race/Ethnicity variables (2 versions) and set my_race 
+. *           (and my_race_v2) equal to first observation. 
+. ***********************************************************************
+. 
+. #delimit ;
+delimiter now ;
+. label define race   1 "NH white"
+>                     2 "black"
+>                     3 "non-black Hispanic"
+>                     4 "NH Asian"
+>                     5 "NH other";
+
+. label define racealt  1 "NH white"
+>                                         2 "NH black"
+>                                         3 "Hispanic"
+>                                         4 "NH Asian"
+>                                         5 "NH Other";
+
+. #delimit cr
+delimiter now cr
+. 
+. * there was a variable for race in each wave
+. forvalues wave = $first_wave/$final_wave {
+  2.     recode erace`wave' (1=1) (2=2) (3=4) (4=5), generate (race`wave')
+  3.     replace race`wave' = 3 if ((eorigin`wave' == 1) & (erace`wave' != 2)) /* non-black Hispanic */
+  4.         recode erace`wave' (1=1)(2=2)(3=4)(4=5), generate(racealt`wave')
+  5.         replace racealt`wave' = 3 if eorigin`wave'==1 /*All Hispanic */
+  6.     label values race`wave' race
+  7.         label values racealt`wave' racealt
+  8. }
+(9272 differences between erace1 and race1)
+(13,515 real changes made)
+(9272 differences between erace1 and racealt1)
+(14,079 real changes made)
+(8476 differences between erace2 and race2)
+(12,372 real changes made)
+(8476 differences between erace2 and racealt2)
+(12,947 real changes made)
+(7955 differences between erace3 and race3)
+(11,956 real changes made)
+(7955 differences between erace3 and racealt3)
+(12,492 real changes made)
+(7627 differences between erace4 and race4)
+(11,498 real changes made)
+(7627 differences between erace4 and racealt4)
+(12,000 real changes made)
+(7585 differences between erace5 and race5)
+(11,507 real changes made)
+(7585 differences between erace5 and racealt5)
+(11,970 real changes made)
+(7401 differences between erace6 and race6)
+(11,408 real changes made)
+(7401 differences between erace6 and racealt6)
+(11,911 real changes made)
+(7133 differences between erace7 and race7)
+(10,996 real changes made)
+(7133 differences between erace7 and racealt7)
+(11,460 real changes made)
+(7029 differences between erace8 and race8)
+(11,081 real changes made)
+(7029 differences between erace8 and racealt8)
+(11,484 real changes made)
+(6847 differences between erace9 and race9)
+(10,867 real changes made)
+(6847 differences between erace9 and racealt9)
+(11,273 real changes made)
+(6718 differences between erace10 and race10)
+(10,572 real changes made)
+(6718 differences between erace10 and racealt10)
+(10,939 real changes made)
+(6468 differences between erace11 and race11)
+(10,500 real changes made)
+(6468 differences between erace11 and racealt11)
+(10,833 real changes made)
+(6361 differences between erace12 and race12)
+(10,189 real changes made)
+(6361 differences between erace12 and racealt12)
+(10,521 real changes made)
+(6259 differences between erace13 and race13)
+(9,994 real changes made)
+(6259 differences between erace13 and racealt13)
+(10,325 real changes made)
+(6266 differences between erace14 and race14)
+(9,942 real changes made)
+(6266 differences between erace14 and racealt14)
+(10,277 real changes made)
+(6009 differences between erace15 and race15)
+(9,666 real changes made)
+(6009 differences between erace15 and racealt15)
+(9,964 real changes made)
+
+. 
+. * use the race value in the first observation.
+. gen my_race = race$first_wave
+(25,188 missing values generated)
+
+. gen my_racealt = racealt$first_wave
+(25,188 missing values generated)
+
+. forvalues wave = $second_wave/$final_wave {
+  2.     replace my_race = race`wave' if (missing(my_race))
+  3.         replace my_racealt=racealt`wave' if (missing(my_racealt))
+  4. }
+(2,616 real changes made)
+(2,616 real changes made)
+(2,542 real changes made)
+(2,542 real changes made)
+(2,505 real changes made)
+(2,505 real changes made)
+(2,264 real changes made)
+(2,264 real changes made)
+(2,113 real changes made)
+(2,113 real changes made)
+(1,878 real changes made)
+(1,878 real changes made)
+(1,660 real changes made)
+(1,660 real changes made)
+(1,673 real changes made)
+(1,673 real changes made)
+(1,597 real changes made)
+(1,597 real changes made)
+(1,368 real changes made)
+(1,368 real changes made)
+(1,350 real changes made)
+(1,350 real changes made)
+(1,532 real changes made)
+(1,532 real changes made)
+(1,161 real changes made)
+(1,161 real changes made)
+(929 real changes made)
+(929 real changes made)
+
+. label values my_race race 
+
+. label values my_racealt racealt
+
+. 
+. * Create flag variables (race_diff*) for difference between reported race and my_race throughout the 15 waves.
+. * Use the 15 flag variables to create an indicator variable (any_race_diff) to indicate if there's any different reported race and my_race in any wave. 
+. gen race_diff$first_wave = .
+(130,851 missing values generated)
+
+. forvalues wave = $second_wave/$final_wave {
+  2.     gen race_diff`wave' = .
+  3.     replace race_diff`wave' = 1 if ((!missing(my_race)) & (!missing(race`wave')) & (race`wave' != my_race))
+  4.     replace race_diff`wave' = 0 if ((!missing(my_race)) & (!missing(race`wave')) & (race`wave' == my_race))
+  5.     tab race_diff`wave'
+  6.     tab my_race race`wave' if (race_diff`wave' == 1)
+  7. }
+(130,851 missing values generated)
+(392 real changes made)
+(98,112 real changes made)
+
+ race_diff2 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     98,112       99.60       99.60
+          1 |        392        0.40      100.00
+------------+-----------------------------------
+      Total |     98,504      100.00
+
+                   |               RECODE of erace2 (2 erace)
+           my_race |  NH white      black  non-black   NH Asian   NH other |     Total
+-------------------+-------------------------------------------------------+----------
+          NH white |         0         21         41          9          4 |        75 
+             black |        48          0         29          2          2 |        81 
+non-black Hispanic |        90         85          0          0          9 |       184 
+          NH Asian |        25          1          3          0          0 |        29 
+          NH other |        17          3          2          1          0 |        23 
+-------------------+-------------------------------------------------------+----------
+             Total |       180        110         75         12         15 |       392 
+(130,851 missing values generated)
+(372 real changes made)
+(94,880 real changes made)
+
+ race_diff3 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     94,880       99.61       99.61
+          1 |        372        0.39      100.00
+------------+-----------------------------------
+      Total |     95,252      100.00
+
+                   |               RECODE of erace3 (3 erace)
+           my_race |  NH white      black  non-black   NH Asian   NH other |     Total
+-------------------+-------------------------------------------------------+----------
+          NH white |         0         21         39          5          5 |        70 
+             black |        51          0         36          2          0 |        89 
+non-black Hispanic |        95         65          0          0          3 |       163 
+          NH Asian |        25          0          3          0          1 |        29 
+          NH other |        15          2          3          1          0 |        21 
+-------------------+-------------------------------------------------------+----------
+             Total |       186         88         81          8          9 |       372 
+(130,851 missing values generated)
+(417 real changes made)
+(90,802 real changes made)
+
+ race_diff4 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     90,802       99.54       99.54
+          1 |        417        0.46      100.00
+------------+-----------------------------------
+      Total |     91,219      100.00
+
+                   |               RECODE of erace4 (4 erace)
+           my_race |  NH white      black  non-black   NH Asian   NH other |     Total
+-------------------+-------------------------------------------------------+----------
+          NH white |         0         31         46          9         12 |        98 
+             black |        55          0         24          2          0 |        81 
+non-black Hispanic |        89         78          0          0          7 |       174 
+          NH Asian |        22          0          4          0          2 |        28 
+          NH other |        30          1          4          1          0 |        36 
+-------------------+-------------------------------------------------------+----------
+             Total |       196        110         78         12         21 |       417 
+(130,851 missing values generated)
+(477 real changes made)
+(90,000 real changes made)
+
+ race_diff5 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     90,000       99.47       99.47
+          1 |        477        0.53      100.00
+------------+-----------------------------------
+      Total |     90,477      100.00
+
+                   |               RECODE of erace5 (5 erace)
+           my_race |  NH white      black  non-black   NH Asian   NH other |     Total
+-------------------+-------------------------------------------------------+----------
+          NH white |         0         25         69         11          8 |       113 
+             black |        51          0         41          7          1 |       100 
+non-black Hispanic |       108         81          0          0          7 |       196 
+          NH Asian |        17          0         16          0          1 |        34 
+          NH other |        18          3          8          5          0 |        34 
+-------------------+-------------------------------------------------------+----------
+             Total |       194        109        134         23         17 |       477 
+(130,851 missing values generated)
+(490 real changes made)
+(87,674 real changes made)
+
+ race_diff6 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     87,674       99.44       99.44
+          1 |        490        0.56      100.00
+------------+-----------------------------------
+      Total |     88,164      100.00
+
+                   |               RECODE of erace6 (6 erace)
+           my_race |  NH white      black  non-black   NH Asian   NH other |     Total
+-------------------+-------------------------------------------------------+----------
+          NH white |         0         24         83         10         11 |       128 
+             black |        54          0         34          7          2 |        97 
+non-black Hispanic |        98         79          0          1         10 |       188 
+          NH Asian |        24          3         16          0          1 |        44 
+          NH other |        22          3          4          4          0 |        33 
+-------------------+-------------------------------------------------------+----------
+             Total |       198        109        137         22         24 |       490 
+(130,851 missing values generated)
+(492 real changes made)
+(84,905 real changes made)
+
+ race_diff7 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     84,905       99.42       99.42
+          1 |        492        0.58      100.00
+------------+-----------------------------------
+      Total |     85,397      100.00
+
+                   |               RECODE of erace7 (7 erace)
+           my_race |  NH white      black  non-black   NH Asian   NH other |     Total
+-------------------+-------------------------------------------------------+----------
+          NH white |         0         28         80          8         18 |       134 
+             black |        56          0         43          7          6 |       112 
+non-black Hispanic |        90         69          0          1         10 |       170 
+          NH Asian |        25          2         17          0          1 |        45 
+          NH other |        19          4          8          0          0 |        31 
+-------------------+-------------------------------------------------------+----------
+             Total |       190        103        148         16         35 |       492 
+(130,851 missing values generated)
+(481 real changes made)
+(83,919 real changes made)
+
+ race_diff8 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     83,919       99.43       99.43
+          1 |        481        0.57      100.00
+------------+-----------------------------------
+      Total |     84,400      100.00
+
+                   |               RECODE of erace8 (8 erace)
+           my_race |  NH white      black  non-black   NH Asian   NH other |     Total
+-------------------+-------------------------------------------------------+----------
+          NH white |         0         26         91          8         15 |       140 
+             black |        61          0         61          7          2 |       131 
+non-black Hispanic |        96         28          0          1          9 |       134 
+          NH Asian |        30          2         14          0          1 |        47 
+          NH other |        20          3          6          0          0 |        29 
+-------------------+-------------------------------------------------------+----------
+             Total |       207         59        172         16         27 |       481 
+(130,851 missing values generated)
+(525 real changes made)
+(81,735 real changes made)
+
+ race_diff9 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     81,735       99.36       99.36
+          1 |        525        0.64      100.00
+------------+-----------------------------------
+      Total |     82,260      100.00
+
+                   |               RECODE of erace9 (9 erace)
+           my_race |  NH white      black  non-black   NH Asian   NH other |     Total
+-------------------+-------------------------------------------------------+----------
+          NH white |         0         28        105          8         22 |       163 
+             black |        64          0         64          7          2 |       137 
+non-black Hispanic |       100         32          0          2          8 |       142 
+          NH Asian |        24          0         14          0          4 |        42 
+          NH other |        29          3          7          2          0 |        41 
+-------------------+-------------------------------------------------------+----------
+             Total |       217         63        190         19         36 |       525 
+(130,851 missing values generated)
+(521 real changes made)
+(78,800 real changes made)
+
+race_diff10 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     78,800       99.34       99.34
+          1 |        521        0.66      100.00
+------------+-----------------------------------
+      Total |     79,321      100.00
+
+                   |              RECODE of erace10 (10 erace)
+           my_race |  NH white      black  non-black   NH Asian   NH other |     Total
+-------------------+-------------------------------------------------------+----------
+          NH white |         0         28        102          8         25 |       163 
+             black |        71          0         60          6          2 |       139 
+non-black Hispanic |       105         28          0          1          6 |       140 
+          NH Asian |        25          5         16          0          4 |        50 
+          NH other |        20          3          4          2          0 |        29 
+-------------------+-------------------------------------------------------+----------
+             Total |       221         64        182         17         37 |       521 
+(130,851 missing values generated)
+(547 real changes made)
+(77,554 real changes made)
+
+race_diff11 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     77,554       99.30       99.30
+          1 |        547        0.70      100.00
+------------+-----------------------------------
+      Total |     78,101      100.00
+
+                   |              RECODE of erace11 (11 erace)
+           my_race |  NH white      black  non-black   NH Asian   NH other |     Total
+-------------------+-------------------------------------------------------+----------
+          NH white |         0         31        109          9         22 |       171 
+             black |        71          0         63          6          3 |       143 
+non-black Hispanic |       112         30          0          1         10 |       153 
+          NH Asian |        29          3         13          0          5 |        50 
+          NH other |        24          2          4          0          0 |        30 
+-------------------+-------------------------------------------------------+----------
+             Total |       236         66        189         16         40 |       547 
+(130,851 missing values generated)
+(563 real changes made)
+(76,724 real changes made)
+
+race_diff12 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     76,724       99.27       99.27
+          1 |        563        0.73      100.00
+------------+-----------------------------------
+      Total |     77,287      100.00
+
+                   |              RECODE of erace12 (12 erace)
+           my_race |  NH white      black  non-black   NH Asian   NH other |     Total
+-------------------+-------------------------------------------------------+----------
+          NH white |         0         33        120          8         25 |       186 
+             black |        67          0         65          6          2 |       140 
+non-black Hispanic |       117         41          0          1          3 |       162 
+          NH Asian |        20          3         13          0          8 |        44 
+          NH other |        21          2          3          5          0 |        31 
+-------------------+-------------------------------------------------------+----------
+             Total |       225         79        201         20         38 |       563 
+(130,851 missing values generated)
+(560 real changes made)
+(75,474 real changes made)
+
+race_diff13 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     75,474       99.26       99.26
+          1 |        560        0.74      100.00
+------------+-----------------------------------
+      Total |     76,034      100.00
+
+                   |              RECODE of erace13 (13 erace)
+           my_race |  NH white      black  non-black   NH Asian   NH other |     Total
+-------------------+-------------------------------------------------------+----------
+          NH white |         0         33        103         10         22 |       168 
+             black |        75          0         63          6          3 |       147 
+non-black Hispanic |       113         46          0          1          4 |       164 
+          NH Asian |        21          4         13          0          8 |        46 
+          NH other |        20          4          5          6          0 |        35 
+-------------------+-------------------------------------------------------+----------
+             Total |       229         87        184         23         37 |       560 
+(130,851 missing values generated)
+(572 real changes made)
+(74,346 real changes made)
+
+race_diff14 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     74,346       99.24       99.24
+          1 |        572        0.76      100.00
+------------+-----------------------------------
+      Total |     74,918      100.00
+
+                   |              RECODE of erace14 (14 erace)
+           my_race |  NH white      black  non-black   NH Asian   NH other |     Total
+-------------------+-------------------------------------------------------+----------
+          NH white |         0         39        112          9         17 |       177 
+             black |        80          0         59          6          3 |       148 
+non-black Hispanic |       120         49          0          0          2 |       171 
+          NH Asian |        35          1          7          0          6 |        49 
+          NH other |        18          3          5          1          0 |        27 
+-------------------+-------------------------------------------------------+----------
+             Total |       253         92        183         16         28 |       572 
+(130,851 missing values generated)
+(704 real changes made)
+(71,770 real changes made)
+
+race_diff15 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     71,770       99.03       99.03
+          1 |        704        0.97      100.00
+------------+-----------------------------------
+      Total |     72,474      100.00
+
+                   |              RECODE of erace15 (15 erace)
+           my_race |  NH white      black  non-black   NH Asian   NH other |     Total
+-------------------+-------------------------------------------------------+----------
+          NH white |         0         52        124         19         22 |       217 
+             black |        94          0         79          8          6 |       187 
+non-black Hispanic |       140         43          0          4          7 |       194 
+          NH Asian |        38          7         17          0          6 |        68 
+          NH other |        26          3          8          1          0 |        38 
+-------------------+-------------------------------------------------------+----------
+             Total |       298        105        228         32         41 |       704 
+
+. egen any_race_diff = rowmax(race_diff*)
+(3756 missing values generated)
+
+. tab any_race_diff
+
+any_race_di |
+         ff |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |    125,772       98.96       98.96
+          1 |      1,323        1.04      100.00
+------------+-----------------------------------
+      Total |    127,095      100.00
+
+. 
+. ********************************************************************************
+. * Section: Create sex variable. Set value of my_sex to the value at first observation. 
+. ********************************************************************************
+. 
+. gen my_sex = esex$first_wave
+(25,188 missing values generated)
+
+. forvalues wave = $second_wave/$final_wave {
+  2.     replace my_sex = esex`wave' if (missing(my_sex))
+  3. }
+(2,616 real changes made)
+(2,542 real changes made)
+(2,505 real changes made)
+(2,264 real changes made)
+(2,113 real changes made)
+(1,878 real changes made)
+(1,660 real changes made)
+(1,673 real changes made)
+(1,597 real changes made)
+(1,368 real changes made)
+(1,350 real changes made)
+(1,532 real changes made)
+(1,161 real changes made)
+(929 real changes made)
+
+. 
+. #delimit ;
+delimiter now ;
+. label define sex    1 "male"
+>                     2 "female"
+>                                         ;
+
+. #delimit cr
+delimiter now cr
+. 
+. label values my_sex sex
+
+. 
+. * Create flag variables (sex_diff*) to indicate whether sex information is the same as reported in the first wave.
+. * Use these flag variables to generate an indicator (any_sex_diff) for any different sex value through out waves. 
+. gen sex_diff$first_wave = .
+(130,851 missing values generated)
+
+. forvalues wave = $second_wave/$final_wave {
+  2.     gen sex_diff`wave' = .
+  3.     replace sex_diff`wave' = 1 if ((!missing(my_sex)) & (!missing(esex`wave')) & (esex`wave' != my_sex))
+  4.     replace sex_diff`wave' = 0 if ((!missing(my_sex)) & (!missing(esex`wave')) & (esex`wave' == my_sex))
+  5.     tab sex_diff`wave'
+  6.     tab my_sex esex`wave' if (sex_diff`wave' == 1)
+  7. }
+(130,851 missing values generated)
+(70 real changes made)
+(98,434 real changes made)
+
+  sex_diff2 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     98,434       99.93       99.93
+          1 |         70        0.07      100.00
+------------+-----------------------------------
+      Total |     98,504      100.00
+
+           |        2 esex
+    my_sex |      Male     Female |     Total
+-----------+----------------------+----------
+      male |         0         43 |        43 
+    female |        27          0 |        27 
+-----------+----------------------+----------
+     Total |        27         43 |        70 
+(130,851 missing values generated)
+(88 real changes made)
+(95,164 real changes made)
+
+  sex_diff3 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     95,164       99.91       99.91
+          1 |         88        0.09      100.00
+------------+-----------------------------------
+      Total |     95,252      100.00
+
+           |        3 esex
+    my_sex |      Male     Female |     Total
+-----------+----------------------+----------
+      male |         0         48 |        48 
+    female |        40          0 |        40 
+-----------+----------------------+----------
+     Total |        40         48 |        88 
+(130,851 missing values generated)
+(94 real changes made)
+(91,125 real changes made)
+
+  sex_diff4 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     91,125       99.90       99.90
+          1 |         94        0.10      100.00
+------------+-----------------------------------
+      Total |     91,219      100.00
+
+           |        4 esex
+    my_sex |      Male     Female |     Total
+-----------+----------------------+----------
+      male |         0         50 |        50 
+    female |        44          0 |        44 
+-----------+----------------------+----------
+     Total |        44         50 |        94 
+(130,851 missing values generated)
+(102 real changes made)
+(90,375 real changes made)
+
+  sex_diff5 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     90,375       99.89       99.89
+          1 |        102        0.11      100.00
+------------+-----------------------------------
+      Total |     90,477      100.00
+
+           |        5 esex
+    my_sex |      Male     Female |     Total
+-----------+----------------------+----------
+      male |         0         55 |        55 
+    female |        47          0 |        47 
+-----------+----------------------+----------
+     Total |        47         55 |       102 
+(130,851 missing values generated)
+(113 real changes made)
+(88,051 real changes made)
+
+  sex_diff6 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     88,051       99.87       99.87
+          1 |        113        0.13      100.00
+------------+-----------------------------------
+      Total |     88,164      100.00
+
+           |        6 esex
+    my_sex |      Male     Female |     Total
+-----------+----------------------+----------
+      male |         0         59 |        59 
+    female |        54          0 |        54 
+-----------+----------------------+----------
+     Total |        54         59 |       113 
+(130,851 missing values generated)
+(136 real changes made)
+(85,261 real changes made)
+
+  sex_diff7 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     85,261       99.84       99.84
+          1 |        136        0.16      100.00
+------------+-----------------------------------
+      Total |     85,397      100.00
+
+           |        7 esex
+    my_sex |      Male     Female |     Total
+-----------+----------------------+----------
+      male |         0         69 |        69 
+    female |        67          0 |        67 
+-----------+----------------------+----------
+     Total |        67         69 |       136 
+(130,851 missing values generated)
+(142 real changes made)
+(84,258 real changes made)
+
+  sex_diff8 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     84,258       99.83       99.83
+          1 |        142        0.17      100.00
+------------+-----------------------------------
+      Total |     84,400      100.00
+
+           |        8 esex
+    my_sex |      Male     Female |     Total
+-----------+----------------------+----------
+      male |         0         71 |        71 
+    female |        71          0 |        71 
+-----------+----------------------+----------
+     Total |        71         71 |       142 
+(130,851 missing values generated)
+(147 real changes made)
+(82,113 real changes made)
+
+  sex_diff9 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     82,113       99.82       99.82
+          1 |        147        0.18      100.00
+------------+-----------------------------------
+      Total |     82,260      100.00
+
+           |        9 esex
+    my_sex |      Male     Female |     Total
+-----------+----------------------+----------
+      male |         0         79 |        79 
+    female |        68          0 |        68 
+-----------+----------------------+----------
+     Total |        68         79 |       147 
+(130,851 missing values generated)
+(160 real changes made)
+(79,161 real changes made)
+
+ sex_diff10 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     79,161       99.80       99.80
+          1 |        160        0.20      100.00
+------------+-----------------------------------
+      Total |     79,321      100.00
+
+           |        10 esex
+    my_sex |      Male     Female |     Total
+-----------+----------------------+----------
+      male |         0         78 |        78 
+    female |        82          0 |        82 
+-----------+----------------------+----------
+     Total |        82         78 |       160 
+(130,851 missing values generated)
+(163 real changes made)
+(77,938 real changes made)
+
+ sex_diff11 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     77,938       99.79       99.79
+          1 |        163        0.21      100.00
+------------+-----------------------------------
+      Total |     78,101      100.00
+
+           |        11 esex
+    my_sex |      Male     Female |     Total
+-----------+----------------------+----------
+      male |         0         84 |        84 
+    female |        79          0 |        79 
+-----------+----------------------+----------
+     Total |        79         84 |       163 
+(130,851 missing values generated)
+(158 real changes made)
+(77,129 real changes made)
+
+ sex_diff12 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     77,129       99.80       99.80
+          1 |        158        0.20      100.00
+------------+-----------------------------------
+      Total |     77,287      100.00
+
+           |        12 esex
+    my_sex |      Male     Female |     Total
+-----------+----------------------+----------
+      male |         0         81 |        81 
+    female |        77          0 |        77 
+-----------+----------------------+----------
+     Total |        77         81 |       158 
+(130,851 missing values generated)
+(160 real changes made)
+(75,874 real changes made)
+
+ sex_diff13 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     75,874       99.79       99.79
+          1 |        160        0.21      100.00
+------------+-----------------------------------
+      Total |     76,034      100.00
+
+           |        13 esex
+    my_sex |      Male     Female |     Total
+-----------+----------------------+----------
+      male |         0         76 |        76 
+    female |        84          0 |        84 
+-----------+----------------------+----------
+     Total |        84         76 |       160 
+(130,851 missing values generated)
+(160 real changes made)
+(74,758 real changes made)
+
+ sex_diff14 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     74,758       99.79       99.79
+          1 |        160        0.21      100.00
+------------+-----------------------------------
+      Total |     74,918      100.00
+
+           |        14 esex
+    my_sex |      Male     Female |     Total
+-----------+----------------------+----------
+      male |         0         83 |        83 
+    female |        77          0 |        77 
+-----------+----------------------+----------
+     Total |        77         83 |       160 
+(130,851 missing values generated)
+(157 real changes made)
+(72,317 real changes made)
+
+ sex_diff15 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     72,317       99.78       99.78
+          1 |        157        0.22      100.00
+------------+-----------------------------------
+      Total |     72,474      100.00
+
+           |        15 esex
+    my_sex |      Male     Female |     Total
+-----------+----------------------+----------
+      male |         0         80 |        80 
+    female |        77          0 |        77 
+-----------+----------------------+----------
+     Total |        77         80 |       157 
+
+. egen any_sex_diff = rowmax(sex_diff*)
+(3756 missing values generated)
+
+. tab any_sex_diff
+
+any_sex_dif |
+          f |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |    126,786       99.76       99.76
+          1 |        309        0.24      100.00
+------------+-----------------------------------
+      Total |    127,095      100.00
+
+. 
+. ********************************************************************************
+. * Section: Create biological mother education and age variables. 
+. *          Set value of my_sex to the value at first observation.
+. *          If no biological mother, then use other mother or father 
+. ********************************************************************************
+. 
+. gen mom_measure=0
+
+. 
+. * bio mom first
+. gen biomom_ed_first=biomom_educ$first_wave 
+(99,065 missing values generated)
+
+. gen momageatbirth=biomom_age$first_wave-tage$first_wave if biomom_age$first_wave-tage$first_wave > 10 & biomom_age$first_wave-tage$first_wave < 50
+(99,090 missing values generated)
+
+. forvalues wave = $second_wave/$final_wave {
+  2.         replace biomom_ed_first=biomom_educ`wave' if missing(biomom_ed_first)
+  3.         replace momageatbirth=biomom_age`wave'-tage`wave' if missing(momageatbirth) & biomom_age`wave'-tage`wave' > 10 & biomom_age$first_wave-tage$first_wave < 50
+  4. }
+(1,343 real changes made)
+(0 real changes made)
+(1,220 real changes made)
+(0 real changes made)
+(1,138 real changes made)
+(0 real changes made)
+(1,047 real changes made)
+(0 real changes made)
+(923 real changes made)
+(0 real changes made)
+(816 real changes made)
+(0 real changes made)
+(770 real changes made)
+(0 real changes made)
+(751 real changes made)
+(0 real changes made)
+(716 real changes made)
+(0 real changes made)
+(617 real changes made)
+(0 real changes made)
+(597 real changes made)
+(0 real changes made)
+(653 real changes made)
+(0 real changes made)
+(543 real changes made)
+(0 real changes made)
+(453 real changes made)
+(0 real changes made)
+
+. 
+. replace mom_measure=1 if !missing(biomom_ed_first)
+(43,373 real changes made)
+
+. 
+. *any mom next
+. gen mom_ed_first=biomom_ed_first
+(87,478 missing values generated)
+
+. replace mom_ed_first=mom_educ$first_wave if missing(mom_ed_first)
+(1,679 real changes made)
+
+. 
+. forvalues wave = $second_wave/$final_wave {
+  2.         replace mom_ed_first=mom_educ`wave' if missing(mom_ed_first)
+  3. }
+(118 real changes made)
+(98 real changes made)
+(122 real changes made)
+(98 real changes made)
+(109 real changes made)
+(97 real changes made)
+(94 real changes made)
+(103 real changes made)
+(89 real changes made)
+(95 real changes made)
+(80 real changes made)
+(92 real changes made)
+(61 real changes made)
+(60 real changes made)
+
+. 
+. *dad next 
+. 
+. replace mom_measure=2 if !missing(mom_ed_first) & missing(biomom_ed_first)
+(2,995 real changes made)
+
+. 
+. gen dad_ed_first=dad_educ$first_wave
+(105,610 missing values generated)
+
+. forvalues wave = $second_wave/$final_wave {
+  2.         replace dad_ed_first=dad_educ`wave' if missing(dad_ed_first)
+  3. }
+(1,131 real changes made)
+(1,097 real changes made)
+(935 real changes made)
+(891 real changes made)
+(830 real changes made)
+(744 real changes made)
+(655 real changes made)
+(705 real changes made)
+(653 real changes made)
+(510 real changes made)
+(513 real changes made)
+(615 real changes made)
+(472 real changes made)
+(407 real changes made)
+
+. 
+. replace mom_measure=3 if !missing(dad_ed_first) & missing(biomom_ed_first) & missing(mom_ed_first)
+(2,414 real changes made)
+
+. 
+. gen par_ed_first=biomom_ed_first
+(87,478 missing values generated)
+
+. replace par_ed_first=mom_ed_first if missing(par_ed_first)
+(2,995 real changes made)
+
+. replace par_ed_first=dad_ed_first if missing(par_ed_first)
+(2,414 real changes made)
+
+. 
+. tab mom_measure
+
+mom_measure |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |     82,069       62.72       62.72
+          1 |     43,373       33.15       95.87
+          2 |      2,995        2.29       98.16
+          3 |      2,414        1.84      100.00
+------------+-----------------------------------
+      Total |    130,851      100.00
+
+. tab par_ed_first
+
+par_ed_firs |
+          t |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          1 |      7,782       15.95       15.95
+          2 |     12,597       25.82       41.78
+          3 |     16,856       34.55       76.33
+          4 |     11,547       23.67      100.00
+------------+-----------------------------------
+      Total |     48,782      100.00
+
+. 
+. ********************************************************************************
+. * Section: Add variables for other members of sampling unit and other members who 
+. *          ever share an address
+. ********************************************************************************
+. 
+. * Merge in file with information on number of persons in sampling unit per wave and overall (make_auxiliary_datasets)
+. merge m:1 ssuid using "$tempdir/ssuid_members_wide"
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                           130,851  (_merge==3)
+    -----------------------------------------
+
+. assert _merge == 3
+
+. drop _merge
+
+. 
+. * Merge in file with information on number of addresses in sampling unit per wave and overall (make_auxiliary_datasets)
+. merge m:1 ssuid using "$tempdir/ssuid_shhadid_wide"
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                           130,851  (_merge==3)
+    -----------------------------------------
+
+. assert _merge == 3
+
+. drop _merge
+
+. 
+. * Create variables identifying first and last wave of appearance for each person(which is often the same as the whole household).
+. * Note: shhadid is never missing in the base data, so we can assume here that a missing shhadid means the person was absent from that wave.
+. gen my_last_wave = ${first_wave} if (!missing(shhadid${first_wave}))
+(25,188 missing values generated)
+
+. forvalues wave = $second_wave/$final_wave {
+  2.     replace my_last_wave = `wave' if (!missing(shhadid`wave'))
+  3. }
+(98,504 real changes made)
+(95,252 real changes made)
+(91,219 real changes made)
+(90,477 real changes made)
+(88,164 real changes made)
+(85,397 real changes made)
+(84,400 real changes made)
+(82,260 real changes made)
+(79,321 real changes made)
+(78,101 real changes made)
+(77,287 real changes made)
+(76,034 real changes made)
+(74,918 real changes made)
+(72,474 real changes made)
+
+. 
+. gen my_first_wave = ${final_wave} if (!missing(shhadid${final_wave}))
+(58,377 missing values generated)
+
+. forvalues wave = $penultimate_wave (-1) $first_wave {
+  2.     replace my_first_wave = `wave' if (!missing(shhadid`wave'))
+  3. }
+(74,918 real changes made)
+(76,034 real changes made)
+(77,287 real changes made)
+(78,101 real changes made)
+(79,321 real changes made)
+(82,260 real changes made)
+(84,400 real changes made)
+(85,397 real changes made)
+(88,164 real changes made)
+(90,477 real changes made)
+(91,219 real changes made)
+(95,252 real changes made)
+(98,504 real changes made)
+(105,663 real changes made)
+
+. 
+. drop erace* race* esex*
+
+. drop any_race_diff any_sex_diff sex*
+
+. 
+. save "$tempdir/person_wide", $replace
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_data/stata_tmp/person_wide.dta saved
+
+. 
+. 
+. 
+. 
+. 
+end of do-file
+
+. 
+. 
+. do "$childhh_base_code/childhh_epilog" "`logdir'" "`fname'"
+
+. * Boilerplate epilog for ChildHH project.
+. 
+. display "Ending random number generator state"
+Ending random number generator state
+
+. display "`c(rngstate)'"
+XAA0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 000000000000000000000000000000000000000000000000000000000000000000000001000001391839
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_logs/convert_to_wide.log
+  log type:  text
+ closed on:   5 Dec 2019, 16:25:46
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

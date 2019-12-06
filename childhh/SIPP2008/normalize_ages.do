@@ -7,7 +7,7 @@ use "$tempdir/person_wide"
 
 gen num_ages = 0
 forvalues wave = $first_wave/$final_wave {
-    replace num_ages = num_ages + 1 if (!missing(TAGE`wave'))
+    replace num_ages = num_ages + 1 if (!missing(tage`wave'))
 }
 
 ******************************************************************************
@@ -18,7 +18,7 @@ forvalues wave = $first_wave/$final_wave {
 
 *** We make a simple projection of expected age from the first reported age
 * and from the last reported age.  
-gen expected_age_fwd = TAGE$first_wave
+gen expected_age_fwd = tage$first_wave
 gen expected_age_fwd$first_wave = expected_age_fwd
 
 * a counter; after 3 observations at current age, increase by 1
@@ -29,8 +29,8 @@ forvalues wave = $second_wave/$final_wave {
     * Increment counter of age runs if we have established an age.
     * Set the counter to 1 if we are just now establishing an age.
     replace num_curr_age = num_curr_age + 1 if (!missing(expected_age_fwd))
-    replace num_curr_age = 1 if ((!missing(TAGE`wave')) & (missing(expected_age_fwd)))
-    replace expected_age_fwd = TAGE`wave' if ((!missing(TAGE`wave')) & (missing(expected_age_fwd)))
+    replace num_curr_age = 1 if ((!missing(tage`wave')) & (missing(expected_age_fwd)))
+    replace expected_age_fwd = tage`wave' if ((!missing(tage`wave')) & (missing(expected_age_fwd)))
 
     * Increment the age if we've already used it three times. Reset counter.
     replace expected_age_fwd = expected_age_fwd + 1 if (num_curr_age > 3)
@@ -41,7 +41,7 @@ forvalues wave = $second_wave/$final_wave {
 drop num_curr_age expected_age_fwd
 
 * backward projection.
-gen expected_age_bkwd = TAGE$final_wave
+gen expected_age_bkwd = tage$final_wave
 gen expected_age_bkwd$final_wave = expected_age_bkwd
 
 gen num_curr_age = 0
@@ -51,8 +51,8 @@ forvalues wave = $penultimate_wave (-1) $first_wave {
     * Increment counter of age runs if we have established an age.
     * Set the counter to 1 if we are just now establishing an age.
     replace num_curr_age = num_curr_age + 1 if (!missing(expected_age_bkwd))
-    replace num_curr_age = 1 if ((!missing(TAGE`wave')) & (missing(expected_age_bkwd)))
-    replace expected_age_bkwd = TAGE`wave' if ((!missing(TAGE`wave')) & (missing(expected_age_bkwd)))
+    replace num_curr_age = 1 if ((!missing(tage`wave')) & (missing(expected_age_bkwd)))
+    replace expected_age_bkwd = tage`wave' if ((!missing(tage`wave')) & (missing(expected_age_bkwd)))
 
     * Decrement the age if we've already used it three times.
     replace expected_age_bkwd = expected_age_bkwd - 1 if (num_curr_age > 3)
@@ -70,9 +70,9 @@ drop num_curr_age expected_age_bkwd
 gen num_fwd_matches = 0
 gen num_bkwd_matches = 0
 forvalues wave = $first_wave/$final_wave {
-    gen fwd_match`wave' = ((!missing(TAGE`wave')) & (TAGE`wave' >= expected_age_fwd`wave') & (TAGE`wave' <= expected_age_fwd`wave' + 1))
+    gen fwd_match`wave' = ((!missing(tage`wave')) & (tage`wave' >= expected_age_fwd`wave') & (tage`wave' <= expected_age_fwd`wave' + 1))
     replace num_fwd_matches = num_fwd_matches + 1 if (fwd_match`wave' == 1)
-    gen bkwd_match`wave' = ((!missing(TAGE`wave')) & (TAGE`wave' <= expected_age_bkwd`wave') & (TAGE`wave' >= expected_age_bkwd`wave' - 1))
+    gen bkwd_match`wave' = ((!missing(tage`wave')) & (tage`wave' <= expected_age_bkwd`wave') & (tage`wave' >= expected_age_bkwd`wave' - 1))
     replace num_bkwd_matches = num_bkwd_matches + 1 if (bkwd_match`wave' == 1)
 }
 
@@ -89,12 +89,12 @@ tab anyproblem
 * Section: adjust age to projection if backwards and forwards projection are within 1
 ********************************************************************************
 
-gen adj_age$first_wave = TAGE$first_wave
+gen adj_age$first_wave = tage$first_wave
 forvalues wave = $second_wave/$final_wave {
 
 * fix age when it is out of line with backwards and forwards projections
-    gen adj_age`wave' = TAGE`wave'
-    replace adj_age`wave' = expected_age_fwd`wave' if ((!missing(TAGE`wave')) & (fwd_match`wave' == 0) & (bkwd_match`wave' == 0) & (abs(expected_age_fwd`wave' - expected_age_bkwd`wave') <= 1))
+    gen adj_age`wave' = tage`wave'
+    replace adj_age`wave' = expected_age_fwd`wave' if ((!missing(tage`wave')) & (fwd_match`wave' == 0) & (bkwd_match`wave' == 0) & (abs(expected_age_fwd`wave' - expected_age_bkwd`wave') <= 1))
 	
 * fix age when it is missing. Take forward projection first. If no forward projection, then take backward projection.	
 	replace adj_age`wave'= expected_age_fwd`wave' if missing(adj_age`wave') & !missing(expected_age_fwd`wave')
@@ -149,13 +149,13 @@ drop monotonic
 drop num_adjbkwd_matches num_adjfwd_matches 
 drop anyproblem
 drop any_adj_problem
-drop TAGE*
+drop tage*
 
 
 * Create dummies for whether in this interview to be able to create an indicator for whether in interview next wave
 forvalues w=1/$final_wave {
   gen in`w'=0
-  replace in`w'=1 if !missing(ERRP`w')
+  replace in`w'=1 if !missing(errp`w')
   }
   
 forvalues w=1/$penultimate_wave {
@@ -166,21 +166,21 @@ forvalues w=1/$penultimate_wave {
 
 save "$tempdir/person_wide_adjusted_ages", $replace
 
-keep SSUID EPPPNUM EMS* ERRP* WPFINWGT* EORIGIN* EBORNUS* ETYPMOM* ETYPDAD* my_race my_racealt my_sex mom_educ* dad_educ* mom_immigrant* dad_immigrant* adj_age* mom_age* biomom_age* biomom_educ* dad_age* biodad_age* innext* ref_person* ref_person_sex* ref_person_educ* biomom_ed_first mom_ed_first dad_ed_first par_ed_first mom_measure
+keep ssuid epppnum ems* errp* wpfinwgt* eorigin* ebornus* etypmom* etypdad* my_race my_racealt my_sex mom_educ* dad_educ* mom_immigrant* dad_immigrant* adj_age* mom_age* biomom_age* biomom_educ* dad_age* biodad_age* innext* ref_person* ref_person_sex* ref_person_educ* biomom_ed_first mom_ed_first dad_ed_first par_ed_first mom_measure
 
 save "$tempdir/demo_wide.dta", $replace
 
-reshape long adj_age EMS ERRP WPFINWGT EORIGIN EBORNUS ETYPMOM ETYPDAD mom_educ dad_educ mom_immigrant dad_immigrant mom_age biomom_age biomom_educ dad_age biodad_age innext ref_person ref_person_sex ref_person_educ, i(SSUID EPPPNUM) j(SWAVE)
+reshape long adj_age ems errp wpfinwgt eorigin ebornus etypmom etypdad mom_educ dad_educ mom_immigrant dad_immigrant mom_age biomom_age biomom_educ dad_age biodad_age innext ref_person ref_person_sex ref_person_educ, i(ssuid epppnum) j(swave)
 
 label variable adj_age "Adjusted Age"
 label variable innext "Is this person interviewed in next wave?"
 
-* now includes all observations, even when missing interview. ERRP is missing when no interview.
-tab ERRP,m 
+* now includes all observations, even when missing interview. errp is missing when no interview.
+tab errp,m 
 
 * most important for linking to arrivers who have missing data 
 save "$tempdir/demo_long_all", $replace
 
-drop if missing(ERRP)
+drop if missing(errp)
 
 save "$tempdir/demo_long_interviews", $replace

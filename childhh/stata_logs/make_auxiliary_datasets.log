@@ -1,0 +1,643 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_logs/make_auxiliary_datasets.log
+  log type:  text
+ opened on:   5 Dec 2019, 16:21:04
+
+. 
+. 
+. * I would love to turn off line wrap so the state is a single
+. * continuous string.  This seems not to be possible.  The best
+. * we can do is set the line length to 255.  That's about 20 times
+. * too short so why bother.
+. *
+. * Also, I considered saving the state as a note in the dataset
+. * but this generic do file can't assume there is a dataset at all.
+. display "Starting random number generator state"
+Starting random number generator state
+
+. display "`c(rngstate)'"
+XAA0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 000000000000000000000000000000000000000000000000000000000000000000000001000001391839
+
+. 
+. 
+. set varabbrev off
+
+. 
+. macro list
+S_FNDATE:        5 Dec 2019 16:21
+S_FN:           C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_data/stata_tmp/allwaves.dta
+max_tc:         1
+refmon:         4
+adult_age:      18
+penultimate_wave:
+                14
+second_wave:    2
+final_wave:     15
+first_wave:     1
+replace:        replace
+SIPP08keep:     C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_data/SIPP08_Processed
+tempdir:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_data/stata_tmp
+results:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//results
+sipp2008_logs:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_logs
+sipp2008_code:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//SIPP2008
+childhh_base_code:
+                C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh/
+SIPP2008:       C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008
+homedir:        C:\Users\Joanna
+S_level:        95
+F1:             help advice;
+F2:             describe;
+F7:             save
+F8:             use
+S_ADO:          BASE;SITE;.;PERSONAL;PLUS;OLDPLACE
+S_StataMP:      MP
+S_StataSE:      SE
+S_FLAVOR:       Intercooled
+S_OS:           Windows
+S_OSDTL:        64-bit
+S_MACH:         PC (64-bit x86-64)
+_fname:         make_auxiliary_datasets
+_logdir:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_logs
+_2:             make_auxiliary_datasets
+_1:             C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_logs
+_0:             "C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_logs" "make_auxiliary_datasets"
+
+. 
+. pwd
+C:\Users\Joanna\Dropbox\Repositories\SIPP_Breadwinning\childhh
+
+. 
+end of do-file
+
+. 
+. 
+. do "`codedir'/`fname'"
+
+. //=================================================================================//
+. //====== Children's Household Instability Project                          
+. //====== Dataset: SIPP2008                                               
+. //====== Purpose: Creates sub-databases: shhadid_members.dta, ssuid_members_wide.dta
+. //====== ssuid_shhadid_wide.dta, person_pdemo (parents demographics), partner_of_ref_person_long (and wide)
+. //=================================================================================//
+. 
+. 
+. //================================================================================//
+. //== Purpose: Make the shhadid member database with a single string variable 
+. //== containing a list of all epppnums in a household in a wave. This file will also 
+. //== be used for normalize ages and so it includes a string variable with list of 
+. //== all ages of household members with epppnum.
+. //================================================================================//
+. use "$tempdir/allwaves"
+
+. 
+. local i_vars "ssuid shhadid" 
+
+. local j_vars "swave"
+
+. 
+. keep `i_vars' `j_vars' epppnum tage
+
+. sort `i_vars' `j_vars' epppnum tage
+
+. 
+. by `i_vars' `j_vars':  gen hhmemnum = _n  /* Number the people in household in each wave. */
+
+. 
+. egen maxpnum = max(hhmemnum) /* max n of people in household in any wave. */
+
+. local maxpn = `=maxpnum' /* to use below in forvalues loop */
+
+. 
+. *******************************************************************************
+. ** Section: Generate a horizontal list of people in the household at each wave.
+. *******************************************************************************
+. 
+. * Create for_concat* variables equal to string value of pn's epppnum for for_contact_*[pn] and missing otherwise
+. * and for_concat_age_* variables equal to string value of tage-epppnum
+. forvalues pn = 1/`maxpn' {
+  2.     gen for_concat_person`pn' = epppnum if (hhmemnum == `pn')
+  3. }
+(772,593 missing values generated)
+(916,293 missing values generated)
+(1,079,883 missing values generated)
+(1,158,071 missing values generated)
+(1,226,021 missing values generated)
+(1,258,915 missing values generated)
+(1,271,515 missing values generated)
+(1,276,050 missing values generated)
+(1,277,843 missing values generated)
+(1,278,706 missing values generated)
+(1,279,104 missing values generated)
+(1,279,306 missing values generated)
+(1,279,401 missing values generated)
+(1,279,448 missing values generated)
+(1,279,452 missing values generated)
+(1,279,470 missing values generated)
+(1,279,470 missing values generated)
+(1,279,470 missing values generated)
+(1,279,470 missing values generated)
+(1,279,470 missing values generated)
+(1,279,470 missing values generated)
+(1,279,470 missing values generated)
+
+. 
+. drop hhmemnum
+
+. 
+. * Collapse by address (ssuid SHHADID) to take the first non-missing value of the 
+. * variables we built above. Note that there is exactly one non-missing -- 
+. * only the nth person in the household in this wave got a value set for variable #n.
+. 
+. keep `i_vars' `j_vars' for_concat_person* 
+
+. 
+. collapse (firstnm) for_concat_person* , by (`i_vars' `j_vars')
+
+. 
+. * Concatenate all for_concat* variables into a single string where each person number is separated by a blank.
+. egen shhadid_members = concat(for_concat_person*), punct(" ")
+
+. 
+. * clean up
+. drop for_concat_person* 
+
+. 
+. * Strip out extra spaces.
+. replace shhadid_members = strtrim(shhadid_members)
+(0 real changes made)
+
+. 
+. * Add a space at the beginning and end of the string to make sure every person appears surrounded by spaces.
+. replace shhadid_members = " " + shhadid_members + " "
+variable shhadid_members was str110 now str111
+(506,878 real changes made)
+
+. 
+. ********************************************************************
+. ** Section: Compute number of household members by wave and overall.
+. ********************************************************************
+. sort swave
+
+. gen n_shhadid_members = wordcount(shhadid_members)
+
+. by swave:  egen max_shhadid_members = max(n_shhadid_members)
+
+. egen overall_max_shhadid_members = max(n_shhadid_members)
+
+. drop n_shhadid_members
+
+. 
+. compress 
+  variable max_shhadid_members was float now byte
+  variable overall_max_shhadid_members was float now byte
+  (3,041,268 bytes saved)
+
+. 
+. macro drop i_vars j_vars 
+
+. 
+. save "$tempdir/shhadid_members", $replace
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_data/stata_tmp/shhadid_members.dta saved
+
+. 
+. //================================================================================//
+. //== Purpose: Make the ssuid member database
+. //== The logic is similar for the shhadid database, but here we are going to collapse
+. //== by sample unit (ssuid) instead of address (ssuid SHHADID) to create variables
+. //== describing number of sample unit members across all waves
+. //================================================================================//
+. 
+. use "$tempdir/allwaves"
+
+. 
+. local i_vars "ssuid"
+
+. local j_vars "swave"
+
+. 
+. keep `i_vars' `j_vars' epppnum
+
+. sort `i_vars' `j_vars' epppnum
+
+. 
+. by `i_vars' `j_vars':  gen hhmemnum = _n  /* Number the people in the sampling unit in each wave. */
+
+. 
+. egen maxpnum = max(hhmemnum) /* max n of people in sampling unit in any wave. */
+
+. local maxpn = `=maxpnum' /* to use below in forvalues loop */
+
+. 
+. *******************************************************************
+. ** Section: Generate a horizontal list of people in the ssuid (original sampling unit).
+. ********************************************************************
+. 
+. * Create for_concat* variable equal to string value of pn's epppnum for for_contact_*[pn] and missing otherwise
+. forvalues pn = 1/`maxpn' {
+  2.     gen for_concat_person`pn' = epppnum if (hhmemnum == `pn')
+  3. }
+(792,663 missing values generated)
+(923,956 missing values generated)
+(1,077,604 missing values generated)
+(1,151,880 missing values generated)
+(1,219,853 missing values generated)
+(1,254,179 missing values generated)
+(1,268,339 missing values generated)
+(1,273,923 missing values generated)
+(1,276,521 missing values generated)
+(1,277,898 missing values generated)
+(1,278,647 missing values generated)
+(1,279,081 missing values generated)
+(1,279,297 missing values generated)
+(1,279,381 missing values generated)
+(1,279,417 missing values generated)
+(1,279,452 missing values generated)
+(1,279,458 missing values generated)
+(1,279,466 missing values generated)
+(1,279,468 missing values generated)
+(1,279,468 missing values generated)
+(1,279,470 missing values generated)
+(1,279,470 missing values generated)
+
+. 
+. drop hhmemnum
+
+. 
+. keep `i_vars' `j_vars' for_concat_person*
+
+. 
+. * Collapse to take the first non-missing of the variables we built above.  
+. * There is exactly one non-missing -- only the nth person in the household in this wave got a value set for variable #n.
+. collapse (firstnm) for_concat_person*, by (`i_vars' `j_vars')
+
+. 
+. *Concatenate all person-numbers into a single string.
+. egen ssuid_members = concat(for_concat_person*), punct(" ")
+
+. 
+. drop for_concat_person*
+
+. 
+. * Strip out extra space to save space.
+. replace ssuid_members = strtrim(ssuid_members)
+(0 real changes made)
+
+. 
+. * Add a space at the beginning and end of the string so we are sure every person appears surrounded by spaces.
+. replace ssuid_members = " " + ssuid_members + " "
+variable ssuid_members was str110 now str111
+(486,808 real changes made)
+
+. 
+. * Compute max number of members by wave and overall.
+. sort swave
+
+. gen n_ssuid_members = wordcount(ssuid_members)
+
+. by swave:  egen max_ssuid_members = max(n_ssuid_members)
+
+. egen overall_max_ssuid_members = max(n_ssuid_members)
+
+. drop n_ssuid_members
+
+. 
+. compress 
+  variable max_ssuid_members was float now byte
+  variable overall_max_ssuid_members was float now byte
+  (2,920,848 bytes saved)
+
+. 
+. reshape wide ssuid_members max_ssuid_members, i(`i_vars') j(`j_vars')
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                   486808   ->   42030
+Number of variables                   5   ->      32
+j variable (15 values)            swave   ->   (dropped)
+xij variables:
+                          ssuid_members   ->   ssuid_members1 ssuid_members2 ... ssuid_members15
+                      max_ssuid_members   ->   max_ssuid_members1 max_ssuid_members2 ... max_ssuid_members15
+-----------------------------------------------------------------------------
+
+. 
+. macro drop i_vars j_vars
+
+. 
+. save "$tempdir/ssuid_members_wide", $replace
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_data/stata_tmp/ssuid_members_wide.dta saved
+
+. 
+. //================================================================================//
+. //== Purpose: Make the ssuid SHHADID database with information on the number of addresses (SHHADID)
+. //== in the sampling unit (ssuid) in each wave and overall.
+. //================================================================================//
+. 
+. use "$tempdir/allwaves"
+
+. 
+. local i_vars "ssuid"
+
+. local j_vars "swave"
+
+. 
+. keep `i_vars' `j_vars' shhadid
+
+. sort `i_vars' `j_vars' shhadid
+
+. duplicates drop
+
+Duplicates in terms of all variables
+
+(772,593 observations deleted)
+
+. 
+. 
+. by `i_vars' `j_vars':  gen anum = _n /* Number the addresses in the household for each wave. */
+
+. 
+. * maximum number of addresses in any household in any wave.
+. egen maxanum = max(anum)
+
+. local maxan = `=maxanum'
+
+. 
+. *******************************************************************
+. ** Section: Generate a horizontal list of addresses in the ssuid (original sampling unit).
+. ********************************************************************
+. 
+. * Create for_concat* variable equal to string value of address's SHHADID for for_contact_*[an] and missing otherwise
+. forvalues an = 1/`maxan' {
+  2.     gen for_concat_address`an' = string(shhadid) if (anum == `an')
+  3. }
+(20,070 missing values generated)
+(488,036 missing values generated)
+(505,722 missing values generated)
+(506,811 missing values generated)
+(506,873 missing values generated)
+
+. 
+. drop anum
+
+. 
+. keep `i_vars' `j_vars' for_concat_address* 
+
+. 
+. * Collapse to take the first non-missing of the variables we built above.  
+. * There is exactly one non-missing -- only the nth address in the household in this wave got a value set for variable #n.
+. collapse (firstnm) for_concat_address*, by (`i_vars' `j_vars')
+
+. 
+. 
+. *Concatenate all "addresses" into a single string.
+. egen ssuid_shhadid = concat(for_concat_address*), punct(" ")
+
+. 
+. drop for_concat_address*
+
+. 
+. * Save space by stripping out extra spaces.
+. replace ssuid_shhadid = strtrim(ssuid_shhadid)
+(0 real changes made)
+
+. 
+. * Add a space at the beginning and end of the string so we are sure every person appears surrounded by spaces.
+. replace ssuid_shhadid = " " + ssuid_shhadid + " "
+variable ssuid_shhadid was str20 now str21
+(486,808 real changes made)
+
+. 
+. * Compute max number of addresses by wave and overall.
+. 
+. sort swave
+
+. gen n_ssuid_shhadid = wordcount(ssuid_shhadid)
+
+. by swave:  egen max_ssuid_shhadid = max(n_ssuid_shhadid)
+
+. egen overall_max_ssuid_shhadid = max(n_ssuid_shhadid)
+
+. drop n_ssuid_shhadid
+
+. 
+. compress 
+  variable max_ssuid_shhadid was float now byte
+  variable overall_max_ssuid_shhadid was float now byte
+  (2,920,848 bytes saved)
+
+. 
+. reshape wide ssuid_shhadid max_ssuid_shhadid, i(`i_vars') j(`j_vars')
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                   486808   ->   42030
+Number of variables                   5   ->      32
+j variable (15 values)            swave   ->   (dropped)
+xij variables:
+                          ssuid_shhadid   ->   ssuid_shhadid1 ssuid_shhadid2 ... ssuid_shhadid15
+                      max_ssuid_shhadid   ->   max_ssuid_shhadid1 max_ssuid_shhadid2 ... max_ssuid_shhadid15
+-----------------------------------------------------------------------------
+
+. 
+. macro drop i_vars j_vars
+
+. 
+. save "$tempdir/ssuid_shhadid_wide", $replace
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_data/stata_tmp/ssuid_shhadid_wide.dta saved
+
+. 
+. //================================================================================//
+. //== Purpose: Create a dataset with education, immigration status, and age for merging 
+. //== Logic: Rename epppnum to later merge onto person number of mother (EPNMOM) 
+. //==        and father (EPNDAD) to get parents' educ and immigration status in the analysis dataset.
+. //================================================================================//
+. 
+. use "$tempdir/allwaves"
+
+. 
+. local i_vars "ssuid epppnum"
+
+. local j_vars "swave"
+
+. 
+. 
+. keep `i_vars' `j_vars' eeducate ebornus tage
+
+. sort `i_vars' `j_vars' eeducate ebornus tage
+
+. 
+. 
+. ** Label recoded education.
+. #delimit ;
+delimiter now ;
+. label define educ   1 "lths"
+>                     2 "hs"
+>                     3 "ltcol"
+>                     4 "coll";
+
+. #delimit cr
+delimiter now cr
+. 
+. recode eeducate (31/38 = 1)  (39 = 2)  (40/43 = 3)  (44/47 = 4), gen (educ)
+(1022346 differences between eeducate and educ)
+
+. label values educ educ
+
+. 
+. recode ebornus (1 = 0)  (2 = 1) , gen (immigrant)
+(1279471 differences between ebornus and immigrant)
+
+. 
+. drop eeducate ebornus
+
+. 
+. * demo_epppnum will be key to merge with epnmom and epndad to get parent education onto
+. * ego's record
+. destring epppnum, gen(pdemo_epppnum)
+epppnum: all characters numeric; pdemo_epppnum generated as int
+
+. drop epppnum
+
+. 
+. rename tage page /* page for "parent age" */
+
+. 
+. save "$tempdir/person_pdemo", $replace
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_data/stata_tmp/person_pdemo.dta saved
+
+. 
+. * create a dataset of household reference persons.
+. do "$childhh_base_code/SIPP2008/make_aux_refperson"
+
+. *** We also need a dataset of reference persons.
+. use "$tempdir/allwaves"
+
+. keep ssuid epppnum shhadid errp esex swave eeducate
+
+. keep if ((errp == 1) | (errp == 2))
+(772,593 observations deleted)
+
+. drop errp
+
+. 
+. recode eeducate (31/38 = 1)  (39 = 2)  (40/43 = 3)  (44/47 = 4), gen (educ)
+(506878 differences between eeducate and educ)
+
+. 
+. rename epppnum ref_person
+
+. rename esex ref_person_sex
+
+. rename educ ref_person_educ
+
+. 
+. label values ref_person_educ educ
+
+. 
+. drop eeducate
+
+. 
+. duplicates drop
+
+Duplicates in terms of all variables
+
+(0 observations are duplicates)
+
+. save "$tempdir/ref_person_long", $replace
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_data/stata_tmp/ref_person_long.dta saved
+
+. 
+. reshape wide ref_person ref_person_sex ref_person_educ, i(ssuid shhadid) j(swave)
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                   506878   ->   65761
+Number of variables                   6   ->      47
+j variable (15 values)            swave   ->   (dropped)
+xij variables:
+                             ref_person   ->   ref_person1 ref_person2 ... ref_person15
+                         ref_person_sex   ->   ref_person_sex1 ref_person_sex2 ... ref_person_sex15
+                        ref_person_educ   ->   ref_person_educ1 ref_person_educ2 ... ref_person_educ15
+-----------------------------------------------------------------------------
+
+. save "$tempdir/ref_person_wide", $replace
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_data/stata_tmp/ref_person_wide.dta saved
+
+. 
+end of do-file
+
+. 
+. 
+end of do-file
+
+. 
+. 
+. do "$childhh_base_code/childhh_epilog" "`logdir'" "`fname'"
+
+. * Boilerplate epilog for ChildHH project.
+. 
+. display "Ending random number generator state"
+Ending random number generator state
+
+. display "`c(rngstate)'"
+XAA0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 000000000000000000000000000000000000000000000000000000000000000000000001000001391839
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/childhh//stata_logs/make_auxiliary_datasets.log
+  log type:  text
+ closed on:   5 Dec 2019, 16:24:36
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

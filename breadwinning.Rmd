@@ -68,6 +68,13 @@ library(readstata13)
 library(haven)
 library(data.table)
 
+mainDir    <- "C:/Users/Joanna/Dropbox/Data" # Change this to your master data folder 
+SIPPDir    <- "SIPP" # Name of the folder where we keep all SIPP datafiles
+rawDir     <- "SIPP2008_raw" # Name of the sub-folder where we download the SIPP data
+sipp08Dir  <- "SIPP2008" # Name of the folder where we keep processed SIPP2008 data
+
+dataDir    <- file.path(mainDir, SIPPDir) # File path to the SIPP data files
+
 setwd(file.path(dataDir, sipp08Dir))
 
 fileNames <- list.files(pattern = "^sippl08puw.*\\.dta$") # create a list of all waves
@@ -115,5 +122,9 @@ This script relies on datafiles that are created using [10.1007/s13524-019-00806
 SIPP_Breadwinning
  |
  +-- childhh
- 
- rmarkdown::render('breadwinning.Rmd', output_file = 'results/breadwinning.html')
+
+``` {r, eval=F, echo=T}
+# Create the html markdown file
+## Eventually move this code to the end of the last project script.
+rmarkdown::render('breadwinning.Rmd', output_file = 'results/breadwinning.html')
+```

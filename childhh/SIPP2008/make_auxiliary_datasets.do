@@ -8,17 +8,17 @@
 
 //================================================================================//
 //== Purpose: Make the shhadid member database with a single string variable 
-//== containing a list of all EPPPNUMs in a household in a wave. This file will also 
+//== containing a list of all epppnums in a household in a wave. This file will also 
 //== be used for normalize ages and so it includes a string variable with list of 
-//== all ages of household members with EPPPNUM.
+//== all ages of household members with epppnum.
 //================================================================================//
 use "$tempdir/allwaves"
 
-local i_vars "SSUID SHHADID" 
-local j_vars "SWAVE"
+local i_vars "ssuid shhadid" 
+local j_vars "swave"
 
-keep `i_vars' `j_vars' EPPPNUM TAGE
-sort `i_vars' `j_vars' EPPPNUM TAGE
+keep `i_vars' `j_vars' epppnum tage
+sort `i_vars' `j_vars' epppnum tage
 
 by `i_vars' `j_vars':  gen hhmemnum = _n  /* Number the people in household in each wave. */
 
@@ -29,15 +29,15 @@ local maxpn = `=maxpnum' /* to use below in forvalues loop */
 ** Section: Generate a horizontal list of people in the household at each wave.
 *******************************************************************************
 
-* Create for_concat* variables equal to string value of pn's EPPPNUM for for_contact_*[pn] and missing otherwise
-* and for_concat_age_* variables equal to string value of TAGE-EPPPNUM
+* Create for_concat* variables equal to string value of pn's epppnum for for_contact_*[pn] and missing otherwise
+* and for_concat_age_* variables equal to string value of tage-epppnum
 forvalues pn = 1/`maxpn' {
-    gen for_concat_person`pn' = string(EPPPNUM) if (hhmemnum == `pn')
+    gen for_concat_person`pn' = epppnum if (hhmemnum == `pn')
 }
 
 drop hhmemnum
 
-* Collapse by address (SSUID SHHADID) to take the first non-missing value of the 
+* Collapse by address (ssuid shhadid) to take the first non-missing value of the 
 * variables we built above. Note that there is exactly one non-missing -- 
 * only the nth person in the household in this wave got a value set for variable #n.
 
@@ -60,9 +60,9 @@ replace shhadid_members = " " + shhadid_members + " "
 ********************************************************************
 ** Section: Compute number of household members by wave and overall.
 ********************************************************************
-sort SWAVE
+sort swave
 gen n_shhadid_members = wordcount(shhadid_members)
-by SWAVE:  egen max_shhadid_members = max(n_shhadid_members)
+by swave:  egen max_shhadid_members = max(n_shhadid_members)
 egen overall_max_shhadid_members = max(n_shhadid_members)
 drop n_shhadid_members
 
@@ -75,17 +75,17 @@ save "$tempdir/shhadid_members", $replace
 //================================================================================//
 //== Purpose: Make the ssuid member database
 //== The logic is similar for the shhadid database, but here we are going to collapse
-//== by sample unit (SSUID) instead of address (SSUID SHHADID) to create variables
+//== by sample unit (ssuid) instead of address (ssuid shhadid) to create variables
 //== describing number of sample unit members across all waves
 //================================================================================//
 
 use "$tempdir/allwaves"
 
-local i_vars "SSUID"
-local j_vars "SWAVE"
+local i_vars "ssuid"
+local j_vars "swave"
 
-keep `i_vars' `j_vars' EPPPNUM
-sort `i_vars' `j_vars' EPPPNUM
+keep `i_vars' `j_vars' epppnum
+sort `i_vars' `j_vars' epppnum
 
 by `i_vars' `j_vars':  gen hhmemnum = _n  /* Number the people in the sampling unit in each wave. */
 
@@ -93,12 +93,12 @@ egen maxpnum = max(hhmemnum) /* max n of people in sampling unit in any wave. */
 local maxpn = `=maxpnum' /* to use below in forvalues loop */
 
 *******************************************************************
-** Section: Generate a horizontal list of people in the SSUID (original sampling unit).
+** Section: Generate a horizontal list of people in the ssuid (original sampling unit).
 ********************************************************************
 
-* Create for_concat* variable equal to string value of pn's EPPPNUM for for_contact_*[pn] and missing otherwise
+* Create for_concat* variable equal to string value of pn's epppnum for for_contact_*[pn] and missing otherwise
 forvalues pn = 1/`maxpn' {
-    gen for_concat_person`pn' = string(EPPPNUM) if (hhmemnum == `pn')
+    gen for_concat_person`pn' = epppnum if (hhmemnum == `pn')
 }
 
 drop hhmemnum
@@ -121,9 +121,9 @@ replace ssuid_members = strtrim(ssuid_members)
 replace ssuid_members = " " + ssuid_members + " "
 
 * Compute max number of members by wave and overall.
-sort SWAVE
+sort swave
 gen n_ssuid_members = wordcount(ssuid_members)
-by SWAVE:  egen max_ssuid_members = max(n_ssuid_members)
+by swave:  egen max_ssuid_members = max(n_ssuid_members)
 egen overall_max_ssuid_members = max(n_ssuid_members)
 drop n_ssuid_members
 
@@ -136,17 +136,17 @@ macro drop i_vars j_vars
 save "$tempdir/ssuid_members_wide", $replace
 
 //================================================================================//
-//== Purpose: Make the ssuid SHHADID database with information on the number of addresses (SHHADID)
-//== in the sampling unit (SSUID) in each wave and overall.
+//== Purpose: Make the ssuid shhadid database with information on the number of addresses (shhadid)
+//== in the sampling unit (ssuid) in each wave and overall.
 //================================================================================//
 
 use "$tempdir/allwaves"
 
-local i_vars "SSUID"
-local j_vars "SWAVE"
+local i_vars "ssuid"
+local j_vars "swave"
 
-keep `i_vars' `j_vars' SHHADID
-sort `i_vars' `j_vars' SHHADID
+keep `i_vars' `j_vars' shhadid
+sort `i_vars' `j_vars' shhadid
 duplicates drop
 
 
@@ -157,12 +157,12 @@ egen maxanum = max(anum)
 local maxan = `=maxanum'
 
 *******************************************************************
-** Section: Generate a horizontal list of addresses in the SSUID (original sampling unit).
+** Section: Generate a horizontal list of addresses in the ssuid (original sampling unit).
 ********************************************************************
 
-* Create for_concat* variable equal to string value of address's SHHADID for for_contact_*[an] and missing otherwise
+* Create for_concat* variable equal to string value of address's shhadid for for_contact_*[an] and missing otherwise
 forvalues an = 1/`maxan' {
-    gen for_concat_address`an' = string(SHHADID) if (anum == `an')
+    gen for_concat_address`an' = string(shhadid) if (anum == `an')
 }
 
 drop anum
@@ -187,9 +187,9 @@ replace ssuid_shhadid = " " + ssuid_shhadid + " "
 
 * Compute max number of addresses by wave and overall.
 
-sort SWAVE
+sort swave
 gen n_ssuid_shhadid = wordcount(ssuid_shhadid)
-by SWAVE:  egen max_ssuid_shhadid = max(n_ssuid_shhadid)
+by swave:  egen max_ssuid_shhadid = max(n_ssuid_shhadid)
 egen overall_max_ssuid_shhadid = max(n_ssuid_shhadid)
 drop n_ssuid_shhadid
 
@@ -203,18 +203,18 @@ save "$tempdir/ssuid_shhadid_wide", $replace
 
 //================================================================================//
 //== Purpose: Create a dataset with education, immigration status, and age for merging 
-//== Logic: Rename EPPPNUM to later merge onto person number of mother (EPNMOM) 
+//== Logic: Rename epppnum to later merge onto person number of mother (EPNMOM) 
 //==        and father (EPNDAD) to get parents' educ and immigration status in the analysis dataset.
 //================================================================================//
 
 use "$tempdir/allwaves"
 
-local i_vars "SSUID EPPPNUM"
-local j_vars "SWAVE"
+local i_vars "ssuid epppnum"
+local j_vars "swave"
 
 
-keep `i_vars' `j_vars' EEDUCATE EBORNUS TAGE
-sort `i_vars' `j_vars' EEDUCATE EBORNUS TAGE
+keep `i_vars' `j_vars' eeducate ebornus tage
+sort `i_vars' `j_vars' eeducate ebornus tage
 
 
 ** Label recoded education.
@@ -225,17 +225,19 @@ label define educ   1 "lths"
                     4 "coll";
 #delimit cr
 
-recode EEDUCATE (31/38 = 1)  (39 = 2)  (40/43 = 3)  (44/47 = 4), gen (educ)
+recode eeducate (31/38 = 1)  (39 = 2)  (40/43 = 3)  (44/47 = 4), gen (educ)
 label values educ educ
 
-recode EBORNUS (1 = 0)  (2 = 1) , gen (immigrant)
+recode ebornus (1 = 0)  (2 = 1) , gen (immigrant)
 
-drop EEDUCATE EBORNUS
+drop eeducate ebornus
 
 * demo_epppnum will be key to merge with epnmom and epndad to get parent education onto
 * ego's record
-rename EPPPNUM pdemo_epppnum
-rename TAGE page /* page for "parent age" */
+destring epppnum, gen(pdemo_epppnum)
+drop epppnum
+
+rename tage page /* page for "parent age" */
 
 save "$tempdir/person_pdemo", $replace
 

@@ -4,7 +4,7 @@
 * You can look at the output of the "label list" in the log to see what number means what.
 local lnum = 1
 local llist ""
-foreach r in BIOCHILD BIOMOM BIODAD STEPCHILD STEPMOM STEPDAD ADOPTCHILD ADOPTMOM ADOPTDAD MOM DAD SPOUSE GRANDCHILD GRANDCHILD_P GRANDPARENT GRANDPARENT_P SIBLING PARTNER CHILDOFPARTNER F_CHILD CHILD F_PARENT PARENT AUNTUNCLE AUNTUNCLE_OR_PARENT PARENT_OR_RELATIVE GREATGRANDCHILD GREATGRANDPARENT NEPHEWNIECE CHILD_OR_NEPHEWNIECE CHILD_OR_RELATIVE COUSIN SIBLING_OR_COUSIN F_SIB OTHER_REL OTHER_REL_P NOREL  FOSTER CONFUSED DONTKNOW {
+foreach r in biochild biomom biodad stepchild stepmom stepdad adoptchild adoptmom adoptdad mom dad spouse grandchild grandchild_p grandparent grandparent_p sibling partner childofpartner f_child child f_parent parent auntuncle auntuncle_or_parent parent_or_relative greatgrandchild greatgrandparent nephewniece child_or_nephewniece child_or_relative cousin sibling_or_cousin f_sib other_rel other_rel_p norel  foster confused dontknow {
     local llist = `"`llist' `lnum' "`r'""'
     local lnum = `lnum' + 1
 }

@@ -3,7 +3,7 @@
 capture label drop ultra_simple_rel
 local lnum = 1
 local llist ""
-foreach r in CHILD SIBLING GRANDCHILD OTHER_ADULT OTHER_CHILD {
+foreach r in child sibling grandchild other_adult other_child {
     local llist = `"`llist' `lnum' "`r'""'
     local lnum = `lnum' + 1
 }

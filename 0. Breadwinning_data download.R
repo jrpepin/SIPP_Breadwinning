@@ -43,6 +43,7 @@ setwd(file.path(dataDir, sipp08Dir))
 
 fileNames <- list.files(pattern = "^sippl08puw.*\\.dta$") # create a list of all waves
 
+## Add something about ignoring/muting warnings. (See RMD output)
 sipp <- lapply(fileNames, function(x) {
         read.dta13(x, 
         select.cols = c("ssuid", "shhadid", "rfid", "epppnum", "swave", "srefmon",

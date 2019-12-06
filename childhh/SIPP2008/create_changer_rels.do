@@ -7,9 +7,9 @@
 
 use "$SIPP08keep/comp_change.dta", clear
 
-keep SSUID EPPPNUM SHHADID* arrivers* leavers* stayers* comp_change* comp_change_reason* adj_age* 
+keep ssuid epppnum shhadid* arrivers* leavers* stayers* comp_change* comp_change_reason* adj_age* 
 
-reshape long SHHADID adj_age arrivers leavers stayers comp_change comp_change_reason, i(SSUID EPPPNUM) j(SWAVE)
+reshape long shhadid adj_age arrivers leavers stayers comp_change comp_change_reason, i(ssuid epppnum) j(swave)
 
 gen have_arrivers = (indexnot(arrivers, " ") != 0)
 gen have_leavers = (indexnot(leavers, " ") != 0)
@@ -47,9 +47,9 @@ foreach changer in leaver arriver stayer {
     }
     drop `changer's max_`changer's
 
-    keep SSUID EPPPNUM SHHADID SWAVE adj_age comp_change_reason n_`changer's `changer'* 
+    keep ssuid epppnum shhadid swave adj_age comp_change_reason n_`changer's `changer'* 
 
-    reshape long `changer', i(SSUID EPPPNUM SWAVE) j(`changer'_num)
+    reshape long `changer', i(ssuid epppnum swave) j(`changer'_num)
 
     drop if missing(`changer')
 
@@ -62,9 +62,9 @@ foreach changer in leaver arriver stayer {
 
 use "$tempdir/hh_leavers", clear
 drop if missing(leaver)
-gen relfrom = EPPPNUM
+gen relfrom = real(epppnum)
 destring leaver, gen(relto)
-merge 1:1 SSUID relfrom relto SWAVE using "$tempdir/relationship_pairs_bywave", keepusing(relationship)
+merge 1:1 ssuid relfrom relto swave using "$tempdir/relationship_pairs_bywave", keepusing(relationship)
 	
 display "deleting relationships to self"
 drop if relfrom==relto
@@ -87,15 +87,15 @@ save "$tempdir/leaver_rels", $replace
 use "$tempdir/hh_arrivers", clear
 
 * We link to relationship in next wave, since they aren't together in this wave
-replace SWAVE=SWAVE+1
+replace swave=swave+1
 drop if missing(arriver)
-gen relfrom = EPPPNUM
+gen relfrom = real(epppnum)
 destring arriver, gen(relto)
-merge 1:1 SSUID relfrom relto SWAVE using "$tempdir/relationship_pairs_bywave", keepusing(relationship)
+merge 1:1 ssuid relfrom relto swave using "$tempdir/relationship_pairs_bywave", keepusing(relationship)
 
-* return SWAVE to its original value. (Yiwen, this is the silly error I made 
-* that broke the code. I forgot to put SWAVE back to its original value). 	
-replace SWAVE=SWAVE-1
+* return swave to its original value. (Yiwen, this is the silly error I made 
+* that broke the code. I forgot to put swave back to its original value). 	
+replace swave=swave-1
 
 display "deleting relationships to self"
 drop if relfrom==relto
@@ -120,20 +120,20 @@ foreach changer in leaver arriver {
 
     rename adj_age from_age
 
-	drop EPPPNUM
+	drop epppnum
 	
 	* get changer age *
-    gen EPPPNUM = relto
-    merge m:1 SSUID EPPPNUM SWAVE using "$tempdir/demo_long_all", keepusing(adj_age)
+    gen epppnum = string(relto)
+    merge m:1 ssuid epppnum swave using "$tempdir/demo_long_all", keepusing(adj_age)
     drop if (_merge == 2)
-    assert (_merge == 3)
+    assert (_merge == 3) /* ASSERTION IS FALSE! */
 	
     drop _merge
-    drop EPPPNUM
+    drop epppnum
     rename adj_age to_age
 	
 	* bring back ego's person number
-	rename relfrom EPPPNUM
+	rename relfrom epppnum
 	
 	save "$tempdir/`changer'_rels_withage", $replace
 }    

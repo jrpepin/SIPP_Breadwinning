@@ -7,33 +7,33 @@
 ****************************************************************************
 use "$tempdir/allwaves"
 
-keep SSUID SHHADID EPPPNUM SWAVE ERRP
+keep ssuid shhadid epppnum swave errp
 
-sort SSUID SHHADID SWAVE
+sort ssuid shhadid swave
 
-by SSUID SHHADID SWAVE:  gen HHmembers = _N  /* Number the people in the household in each wave. */
+by ssuid shhadid swave:  gen HHmembers = _N  /* Number the people in the household in each wave. */
 
 * merge in age of other person in the household to save as "to_age"
-merge 1:1 SSUID EPPPNUM SWAVE using "$tempdir/demo_long_interviews.dta", keepusing(adj_age)
+merge 1:1 ssuid epppnum swave using "$tempdir/demo_long_interviews.dta", keepusing(adj_age)
 
 assert _merge==3
 
 drop _merge
 
-rename EPPPNUM relto
-rename ERRP ERRPto
+rename epppnum relto
+rename errp errpto
 rename adj_age to_age
 
 save "$tempdir/to", $replace
 
 use "$tempdir/allwaves", clear
 
-keep SSUID SHHADID EPPPNUM SWAVE ERRP
+keep ssuid shhadid epppnum swave errp
 
-rename EPPPNUM relfrom
-rename ERRP ERRPfrom
+rename epppnum relfrom
+rename errp errpfrom
 
-joinby SSUID SHHADID SWAVE using "$tempdir/to"  
+joinby ssuid shhadid swave using "$tempdir/to"  
 
 * drop pairs of ego to self
 drop if relto==relfrom
@@ -46,9 +46,9 @@ save "$tempdir/pairwise_bywave", $replace
 * the unified relationships, create a pairwise database for all waves
 ********************************************************************************
 
-duplicates drop SSUID relfrom relto, force
+duplicates drop ssuid relfrom relto, force
 
-drop SWAVE
+drop swave
 
 save "$tempdir/pairwise", $replace
 
@@ -56,7 +56,7 @@ save "$tempdir/pairwise", $replace
 
 use "$tempdir/pairwise_bywave", clear
 
-merge m:1 SSUID relfrom relto SWAVE using "$tempdir/relationship_pairs_bywave"
+merge m:1 ssuid relfrom relto swave using "$tempdir/relationship_pairs_bywave"
 
 replace relationship = .a if (_merge == 1) & (missing(relationship))
 replace relationship = .m if (_merge == 3) & (missing(relationship))
@@ -66,10 +66,10 @@ drop _merge
 
 tab relationship, m
 
-rename relfrom EPPPNUM
+rename relfrom epppnum
 rename relto to_EPPNUM
 
-merge m:1 SSUID EPPPNUM SWAVE using "$tempdir/demo_long_interviews.dta"
+merge m:1 ssuid epppnum swave using "$tempdir/demo_long_interviews.dta"
 
 drop if _merge==2
 
