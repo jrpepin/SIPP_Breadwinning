@@ -6897,3 +6897,39 @@ end of do-file
 
 r(9);
 
+. do "C:\Users\Joanna\AppData\Local\Temp\STD3f6c_000000.tmp"
+
+. do "$childhh_base_code/do_and_log" "$sipp2008_code" "$sipp2008_logs" create_changer_rels 
+
+. * This file executes do files, but first executes
+. * standard startup boilerplate and last executes
+. * standard completion boilerplate.
+. 
+. * It takes three parameters, 
+. *  1. the directory where the project code lives.
+. *  2. the directory where log files should go.
+. *  3. the basename of the do file.  
+. *
+. * "Basename" just means the name without the .do or .log on the end.
+. * The basename is also used as the basename of the log file.
+. 
+. 
+. 
+. args codedir logdir fname
+
+. 
+. 
+. do "$childhh_base_code/childhh_prolog" "`logdir'" "`fname'"
+
+. * Boilerplate prolog for ChildHH project.
+. * This should be executed at least once at the
+. * beginning of running (sub)project code.
+. 
+. * It takes two parameters, the log directory and the basename of the log file.  
+. * "Basename" just means the name without the .log on the end.
+. 
+. 
+. args logdir fname
+
+. 
+. capture log close
