@@ -28,7 +28,7 @@ if (!dir.exists(file.path(dataDir, sipp08Dir))){
   print("SIPP2008 sub-folder already exists!")
 }
 #####################################################################################
-# Follow instructions in the markdown file (breadwinnin.Rmd) to download and prep the data for import.
+# Follow instructions in the markdown file (breadwinning.Rmd) to download and prep the data for import.
 ### This step takes place in Stata
 
 #####################################################################################

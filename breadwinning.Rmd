@@ -117,7 +117,7 @@ Use the 1. Breadwinning_refine monthly r script
 
 Use the 2. Breadwinning_create relearn R script
 
-This script relies on datafiles that are created using [10.1007/s13524-019-00806-1 Supplementary Materials](https://link.springer.com/article/10.1007/s13524-019-00806-1#SupplementaryMaterial). These syntax files have been updated and are available for download from this Github repository in sub-folder "childhh":
+This script relies on datafiles that are created using supplementary materials for the journal article [10.1007/s13524-019-00806-1](https://link.springer.com/article/10.1007/s13524-019-00806-1#SupplementaryMaterial). These syntax files have been updated and are available for download from the SocArxiv project [Estimating Children's Household Instability between Birth and Age 18 Using Longitudinal Household Roster Data (SIPP)](https://osf.io/zfv58/). Download and run the DemographySupplement.zip files. 
 
 SIPP_Breadwinning
  |

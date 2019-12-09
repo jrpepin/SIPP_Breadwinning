@@ -4,3 +4,5 @@
 *.Rhistory
 setup_joanna
 setup_kraley
+.Rproj.user
+.Rproj
