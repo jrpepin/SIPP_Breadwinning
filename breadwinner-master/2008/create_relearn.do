@@ -33,7 +33,7 @@ replace msbirth=9 if anybirth==0
 
 destring epppnum, replace
 
-save "$SIPP08keep/famhis.dta", $replace
+save "$tempdir/famhis.dta", $replace
 
 *******************************************************************************
 * Section: Create Household Composition variables
@@ -43,7 +43,7 @@ save "$SIPP08keep/famhis.dta", $replace
 * run do_childrens_household_core to create.
 * The file has one observation per person in ego's (EPPPNUM's) household. 
 * It does not include a record for self and thus does not include people living alone.
-use "$childhh/HHComp_asis.dta", clear
+use "$demodata/HHComp_asis.dta", clear
 
 * Create a dummy indicator for whether ego is a mother to anyone in the household
 * by collapsing all records for same person (ssuid epppnum swave)

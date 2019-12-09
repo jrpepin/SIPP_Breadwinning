@@ -15,3 +15,5 @@ global first_wave 1
 global final_wave 15
 global second_wave = ${first_wave} + 1
 global penultimate_wave = ${final_wave} - 1
+
+global demodata "C:\Users\Joanna\Dropbox\Repositories\SIPP_Breadwinning\DemographySupplement\stata_data\SIPP08_Processed"
