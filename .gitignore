@@ -2,7 +2,7 @@
 *.dat
 *.gz
 *.Rhistory
-setup_joanna
-setup_kraley
 .Rproj.user
 *.Rproj
+DemographySupplement/setup_joanna.do
+DemographySupplement/setup_kraley.do
