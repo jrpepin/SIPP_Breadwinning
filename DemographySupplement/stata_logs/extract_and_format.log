@@ -1,0 +1,402 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs/extract_and_format.log
+  log type:  text
+ opened on:   6 Dec 2019, 14:31:06
+
+. 
+. 
+. * I would love to turn off line wrap so the state is a single
+. * continuous string.  This seems not to be possible.  The best
+. * we can do is set the line length to 255.  That's about 20 times
+. * too short so why bother.
+. *
+. * Also, I considered saving the state as a note in the dataset
+. * but this generic do file can't assume there is a dataset at all.
+. display "Starting random number generator state"
+Starting random number generator state
+
+. display "`c(rngstate)'"
+XAA0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 000000000000000000000000000000000000000000000000000000000000000000000001000001391839
+
+. 
+. 
+. set varabbrev off
+
+. 
+. macro list
+max_tc:         1
+refmon:         4
+adult_age:      18
+penultimate_wave:
+                14
+second_wave:    2
+final_wave:     15
+first_wave:     1
+replace:        replace
+SIPP08keep:     C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/SIPP08_Processed
+tempdir:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp
+results:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//results
+sipp2008_logs:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs
+sipp2008_code:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//SIPP2008
+childhh_base_code:
+                C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement/
+SIPP2008:       C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008
+SIPP2008core:   C:\Users\Joanna\Dropbox\Data\SIPP\SIPP2008
+SIPP2008tm:     C:\Users\Joanna\Dropbox\Data\SIPP\SIPP2008
+S_FNDATE:        6 Dec 2019 14:29
+S_FN:           C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave15_extract.dta
+SIPP08:         C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008
+homedir:        C:\Users\Joanna
+S_level:        95
+F1:             help advice;
+F2:             describe;
+F7:             save
+F8:             use
+S_ADO:          BASE;SITE;.;PERSONAL;PLUS;OLDPLACE
+S_StataMP:      MP
+S_StataSE:      SE
+S_FLAVOR:       Intercooled
+S_OS:           Windows
+S_OSDTL:        64-bit
+S_MACH:         PC (64-bit x86-64)
+_fname:         extract_and_format
+_logdir:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs
+_2:             extract_and_format
+_1:             C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs
+_0:             "C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs" "extract_and_format"
+
+. 
+. pwd
+C:\Users\Joanna\Dropbox\Repositories\SIPP_Breadwinning\DemographySupplement
+
+. 
+end of do-file
+
+. 
+. 
+. do "`codedir'/`fname'"
+
+. * This file extracts the needed data from the NBER core data files and formats 
+. * them for this project, which originally used a data file extracted directly 
+. * from Census using data ferrett (with capitalized variable names, for example)
+. 
+. 
+. /* We first create an extract from the wave 2 topical module that will be merge 
+> later to the other waves. This TM contains information on migration for all the
+> individuals in the household ages 15 or older. 
+> */
+. 
+. clear 
+
+. use "$SIPP2008tm/sippp08putm2"
+
+. keep ssuid epppnum tmoveus tbrstate 
+
+. save "$SIPP2008/wave2_migration_extract", $replace
+file C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave2_migration_extract.dta saved
+
+. 
+. * Core questions:
+. forvalues wave=1/15{
+  2.         clear
+  3.         use "$SIPP2008core/sippl08puw`wave'"
+  4.         keep tftotinc thtotinc tfipsst ebornus ems eorigin epndad epnmom epnspous ///
+>         erace errp esex etypdad etypmom tage uentmain ulftmain ehhnumpp eoutcome ///
+>         rhchange rhnf thtotinc eentaid eppintvw epppnum lgtkey tmovrflg rhcalyr ///
+>         shhadid srefmon srotaton ssuseq swave wpfinwgt eeducate ssuid renroll ///
+>         eenrlm eenlevel
+  5.         
+.         merge m:1 ssuid epppnum using "$SIPP2008/wave2_migration_extract"
+  6.         drop if _merge==2
+  7.         drop _merge
+  8.         
+.         destring eentaid, replace
+  9.         destring epppnum, replace
+ 10.         destring lgtkey, replace
+ 11.         rename *, upper
+ 12. 
+.         save "$SIPP08/wave`wave'_extract", $replace
+ 13. }
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        41,610
+        from master                    38,994  (_merge==1)
+        from using                      2,616  (_merge==2)
+
+    matched                           382,917  (_merge==3)
+    -----------------------------------------
+(2,616 observations deleted)
+eentaid: all characters numeric; replaced as byte
+epppnum: all characters numeric; replaced as int
+lgtkey: all characters numeric; replaced as long
+file C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave1_extract.dta saved
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         1,930
+        from master                     1,930  (_merge==1)
+        from using                          0  (_merge==2)
+
+    matched                           390,772  (_merge==3)
+    -----------------------------------------
+(0 observations deleted)
+eentaid: all characters numeric; replaced as byte
+epppnum: all characters numeric; replaced as int
+lgtkey: all characters numeric; replaced as long
+file C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave2_extract.dta saved
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        28,914
+        from master                    20,718  (_merge==1)
+        from using                      8,196  (_merge==2)
+
+    matched                           359,482  (_merge==3)
+    -----------------------------------------
+(8,196 observations deleted)
+eentaid: all characters numeric; replaced as byte
+epppnum: all characters numeric; replaced as int
+lgtkey: all characters numeric; replaced as long
+file C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave3_extract.dta saved
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        43,197
+        from master                    28,960  (_merge==1)
+        from using                     14,237  (_merge==2)
+
+    matched                           335,325  (_merge==3)
+    -----------------------------------------
+(14,237 observations deleted)
+eentaid: all characters numeric; replaced as byte
+epppnum: all characters numeric; replaced as int
+lgtkey: all characters numeric; replaced as long
+file C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave4_extract.dta saved
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        52,086
+        from master                    35,450  (_merge==1)
+        from using                     16,636  (_merge==2)
+
+    matched                           326,109  (_merge==3)
+    -----------------------------------------
+(16,636 observations deleted)
+eentaid: all characters numeric; replaced as byte
+epppnum: all characters numeric; replaced as int
+lgtkey: all characters numeric; replaced as long
+file C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave5_extract.dta saved
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        59,685
+        from master                    39,682  (_merge==1)
+        from using                     20,003  (_merge==2)
+
+    matched                           312,787  (_merge==3)
+    -----------------------------------------
+(20,003 observations deleted)
+eentaid: all characters numeric; replaced as byte
+epppnum: all characters numeric; replaced as int
+lgtkey: all characters numeric; replaced as long
+file C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave6_extract.dta saved
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        64,535
+        from master                    41,374  (_merge==1)
+        from using                     23,161  (_merge==2)
+
+    matched                           300,194  (_merge==3)
+    -----------------------------------------
+(23,161 observations deleted)
+eentaid: all characters numeric; replaced as byte
+epppnum: all characters numeric; replaced as int
+lgtkey: all characters numeric; replaced as long
+file C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave7_extract.dta saved
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        68,430
+        from master                    43,698  (_merge==1)
+        from using                     24,732  (_merge==2)
+
+    matched                           294,068  (_merge==3)
+    -----------------------------------------
+(24,732 observations deleted)
+eentaid: all characters numeric; replaced as byte
+epppnum: all characters numeric; replaced as int
+lgtkey: all characters numeric; replaced as long
+file C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave8_extract.dta saved
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        72,264
+        from master                    45,036  (_merge==1)
+        from using                     27,228  (_merge==2)
+
+    matched                           284,088  (_merge==3)
+    -----------------------------------------
+(27,228 observations deleted)
+eentaid: all characters numeric; replaced as byte
+epppnum: all characters numeric; replaced as int
+lgtkey: all characters numeric; replaced as long
+file C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave9_extract.dta saved
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        75,844
+        from master                    45,569  (_merge==1)
+        from using                     30,275  (_merge==2)
+
+    matched                           271,941  (_merge==3)
+    -----------------------------------------
+(30,275 observations deleted)
+eentaid: all characters numeric; replaced as int
+epppnum: all characters numeric; replaced as int
+lgtkey: all characters numeric; replaced as long
+file C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave10_extract.dta saved
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        78,882
+        from master                    47,008  (_merge==1)
+        from using                     31,874  (_merge==2)
+
+    matched                           265,598  (_merge==3)
+    -----------------------------------------
+(31,874 observations deleted)
+eentaid: all characters numeric; replaced as int
+epppnum: all characters numeric; replaced as int
+lgtkey: all characters numeric; replaced as long
+file C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave11_extract.dta saved
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        81,262
+        from master                    48,261  (_merge==1)
+        from using                     33,001  (_merge==2)
+
+    matched                           261,158  (_merge==3)
+    -----------------------------------------
+(33,001 observations deleted)
+eentaid: all characters numeric; replaced as int
+epppnum: all characters numeric; replaced as int
+lgtkey: all characters numeric; replaced as long
+file C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave12_extract.dta saved
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        83,448
+        from master                    48,966  (_merge==1)
+        from using                     34,482  (_merge==2)
+
+    matched                           255,227  (_merge==3)
+    -----------------------------------------
+(34,482 observations deleted)
+eentaid: all characters numeric; replaced as int
+epppnum: all characters numeric; replaced as int
+lgtkey: all characters numeric; replaced as long
+file C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave13_extract.dta saved
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        85,704
+        from master                    49,933  (_merge==1)
+        from using                     35,771  (_merge==2)
+
+    matched                           250,134  (_merge==3)
+    -----------------------------------------
+(35,771 observations deleted)
+eentaid: all characters numeric; replaced as int
+epppnum: all characters numeric; replaced as int
+lgtkey: all characters numeric; replaced as long
+file C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave14_extract.dta saved
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                        87,101
+        from master                    49,053  (_merge==1)
+        from using                     38,048  (_merge==2)
+
+    matched                           241,213  (_merge==3)
+    -----------------------------------------
+(38,048 observations deleted)
+eentaid: all characters numeric; replaced as int
+epppnum: all characters numeric; replaced as int
+lgtkey: all characters numeric; replaced as long
+file C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave15_extract.dta saved
+
+. 
+end of do-file
+
+. 
+. 
+. do "$childhh_base_code/childhh_epilog" "`logdir'" "`fname'"
+
+. * Boilerplate epilog for ChildHH project.
+. 
+. display "Ending random number generator state"
+Ending random number generator state
+
+. display "`c(rngstate)'"
+XAA0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 000000000000000000000000000000000000000000000000000000000000000000000001000001391839
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs/extract_and_format.log
+  log type:  text
+ closed on:   6 Dec 2019, 14:32:27
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

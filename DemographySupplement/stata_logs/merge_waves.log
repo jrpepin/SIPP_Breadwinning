@@ -1,0 +1,557 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs/merge_waves.log
+  log type:  text
+ opened on:   6 Dec 2019, 14:32:27
+
+. 
+. 
+. * I would love to turn off line wrap so the state is a single
+. * continuous string.  This seems not to be possible.  The best
+. * we can do is set the line length to 255.  That's about 20 times
+. * too short so why bother.
+. *
+. * Also, I considered saving the state as a note in the dataset
+. * but this generic do file can't assume there is a dataset at all.
+. display "Starting random number generator state"
+Starting random number generator state
+
+. display "`c(rngstate)'"
+XAA0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 000000000000000000000000000000000000000000000000000000000000000000000001000001391839
+
+. 
+. 
+. set varabbrev off
+
+. 
+. macro list
+S_FNDATE:        6 Dec 2019 14:32
+S_FN:           C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008/wave15_extract.dta
+max_tc:         1
+refmon:         4
+adult_age:      18
+penultimate_wave:
+                14
+second_wave:    2
+final_wave:     15
+first_wave:     1
+replace:        replace
+SIPP08keep:     C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/SIPP08_Processed
+tempdir:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp
+results:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//results
+sipp2008_logs:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs
+sipp2008_code:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//SIPP2008
+childhh_base_code:
+                C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement/
+SIPP2008:       C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008
+SIPP2008core:   C:\Users\Joanna\Dropbox\Data\SIPP\SIPP2008
+SIPP2008tm:     C:\Users\Joanna\Dropbox\Data\SIPP\SIPP2008
+SIPP08:         C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008
+homedir:        C:\Users\Joanna
+S_level:        95
+F1:             help advice;
+F2:             describe;
+F7:             save
+F8:             use
+S_ADO:          BASE;SITE;.;PERSONAL;PLUS;OLDPLACE
+S_StataMP:      MP
+S_StataSE:      SE
+S_FLAVOR:       Intercooled
+S_OS:           Windows
+S_OSDTL:        64-bit
+S_MACH:         PC (64-bit x86-64)
+_fname:         merge_waves
+_logdir:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs
+_2:             merge_waves
+_1:             C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs
+_0:             "C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs" "merge_waves"
+
+. 
+. pwd
+C:\Users\Joanna\Dropbox\Repositories\SIPP_Breadwinning\DemographySupplement
+
+. 
+end of do-file
+
+. 
+. 
+. do "`codedir'/`fname'"
+
+. //====================================================================//
+. //===== Children's Household Instability Project                    
+. //===== Dataset: SIPP2008                                           
+. //===== Purpose: This code append all waves of SIPP2008 original data into a long form dataset. 
+. //               It keeps only observations in the reference month (4).  
+. //=====================================================================//
+. 
+. ** Import first wave. 
+. use "$SIPP2008/wave${first_wave}_extract", clear 
+
+. 
+. ** Keep only observations in the reference month. 
+. keep if SREFMON == ${refmon}
+(316,248 observations deleted)
+
+. 
+. ** Append the first wave with waves from the second to last, also keep only observations from the reference month. 
+. forvalues wave = $second_wave/$final_wave {
+  2.     append using "$SIPP2008/wave`wave'_extract"
+  3.     keep if SREFMON == ${refmon} 
+  4. }
+(label tbrstate already defined)
+(label tmoveus already defined)
+(label eeducate already defined)
+(label eenlevel already defined)
+(label eenrlm already defined)
+(label renroll already defined)
+(label uentmain already defined)
+(label ulftmain already defined)
+(label etypdad already defined)
+(label etypmom already defined)
+(label epndad already defined)
+(label epnmom already defined)
+(label epnspous already defined)
+(label ems already defined)
+(label errp already defined)
+(label tage already defined)
+(label ebornus already defined)
+(label eorigin already defined)
+(label erace already defined)
+(label esex already defined)
+(label eppintvw already defined)
+(label rhchange already defined)
+(label eoutcome already defined)
+(label tmovrflg already defined)
+(label tfipsst already defined)
+(label srefmon already defined)
+(294,198 observations deleted)
+(label tbrstate already defined)
+(label tmoveus already defined)
+(label eeducate already defined)
+(label eenlevel already defined)
+(label eenrlm already defined)
+(label renroll already defined)
+(label uentmain already defined)
+(label ulftmain already defined)
+(label etypdad already defined)
+(label etypmom already defined)
+(label epndad already defined)
+(label epnmom already defined)
+(label epnspous already defined)
+(label ems already defined)
+(label errp already defined)
+(label tage already defined)
+(label ebornus already defined)
+(label eorigin already defined)
+(label erace already defined)
+(label esex already defined)
+(label eppintvw already defined)
+(label rhchange already defined)
+(label eoutcome already defined)
+(label tmovrflg already defined)
+(label tfipsst already defined)
+(label srefmon already defined)
+(284,948 observations deleted)
+(label tbrstate already defined)
+(label tmoveus already defined)
+(label eeducate already defined)
+(label eenlevel already defined)
+(label eenrlm already defined)
+(label renroll already defined)
+(label uentmain already defined)
+(label ulftmain already defined)
+(label etypdad already defined)
+(label etypmom already defined)
+(label epndad already defined)
+(label epnmom already defined)
+(label epnspous already defined)
+(label ems already defined)
+(label errp already defined)
+(label tage already defined)
+(label ebornus already defined)
+(label eorigin already defined)
+(label erace already defined)
+(label esex already defined)
+(label eppintvw already defined)
+(label rhchange already defined)
+(label eoutcome already defined)
+(label tmovrflg already defined)
+(label tfipsst already defined)
+(label srefmon already defined)
+(273,066 observations deleted)
+(label tbrstate already defined)
+(label tmoveus already defined)
+(label eeducate already defined)
+(label eenlevel already defined)
+(label eenrlm already defined)
+(label renroll already defined)
+(label uentmain already defined)
+(label ulftmain already defined)
+(label etypdad already defined)
+(label etypmom already defined)
+(label epndad already defined)
+(label epnmom already defined)
+(label epnspous already defined)
+(label ems already defined)
+(label errp already defined)
+(label tage already defined)
+(label ebornus already defined)
+(label eorigin already defined)
+(label erace already defined)
+(label esex already defined)
+(label eppintvw already defined)
+(label rhchange already defined)
+(label eoutcome already defined)
+(label tmovrflg already defined)
+(label tfipsst already defined)
+(label srefmon already defined)
+(271,082 observations deleted)
+(label tbrstate already defined)
+(label tmoveus already defined)
+(label eeducate already defined)
+(label eenlevel already defined)
+(label eenrlm already defined)
+(label renroll already defined)
+(label uentmain already defined)
+(label ulftmain already defined)
+(label etypdad already defined)
+(label etypmom already defined)
+(label epndad already defined)
+(label epnmom already defined)
+(label epnspous already defined)
+(label ems already defined)
+(label errp already defined)
+(label tage already defined)
+(label ebornus already defined)
+(label eorigin already defined)
+(label erace already defined)
+(label esex already defined)
+(label eppintvw already defined)
+(label rhchange already defined)
+(label eoutcome already defined)
+(label tmovrflg already defined)
+(label tfipsst already defined)
+(label srefmon already defined)
+(264,305 observations deleted)
+(label tbrstate already defined)
+(label tmoveus already defined)
+(label eeducate already defined)
+(label eenlevel already defined)
+(label eenrlm already defined)
+(label renroll already defined)
+(label uentmain already defined)
+(label ulftmain already defined)
+(label etypdad already defined)
+(label etypmom already defined)
+(label epndad already defined)
+(label epnmom already defined)
+(label epnspous already defined)
+(label ems already defined)
+(label errp already defined)
+(label tage already defined)
+(label ebornus already defined)
+(label eorigin already defined)
+(label erace already defined)
+(label esex already defined)
+(label eppintvw already defined)
+(label rhchange already defined)
+(label eoutcome already defined)
+(label tmovrflg already defined)
+(label tfipsst already defined)
+(label srefmon already defined)
+(256,171 observations deleted)
+(label tbrstate already defined)
+(label tmoveus already defined)
+(label eeducate already defined)
+(label eenlevel already defined)
+(label eenrlm already defined)
+(label renroll already defined)
+(label uentmain already defined)
+(label ulftmain already defined)
+(label etypdad already defined)
+(label etypmom already defined)
+(label epndad already defined)
+(label epnmom already defined)
+(label epnspous already defined)
+(label ems already defined)
+(label errp already defined)
+(label tage already defined)
+(label ebornus already defined)
+(label eorigin already defined)
+(label erace already defined)
+(label esex already defined)
+(label eppintvw already defined)
+(label rhchange already defined)
+(label eoutcome already defined)
+(label tmovrflg already defined)
+(label tfipsst already defined)
+(label srefmon already defined)
+(253,366 observations deleted)
+(label tbrstate already defined)
+(label tmoveus already defined)
+(label eeducate already defined)
+(label eenlevel already defined)
+(label eenrlm already defined)
+(label renroll already defined)
+(label uentmain already defined)
+(label ulftmain already defined)
+(label etypdad already defined)
+(label etypmom already defined)
+(label epndad already defined)
+(label epnmom already defined)
+(label epnspous already defined)
+(label ems already defined)
+(label errp already defined)
+(label tage already defined)
+(label ebornus already defined)
+(label eorigin already defined)
+(label erace already defined)
+(label esex already defined)
+(label eppintvw already defined)
+(label rhchange already defined)
+(label eoutcome already defined)
+(label tmovrflg already defined)
+(label tfipsst already defined)
+(label srefmon already defined)
+(246,864 observations deleted)
+(note: variable EENTAID was byte, now int to accommodate using data's values)
+(label tbrstate already defined)
+(label tmoveus already defined)
+(label eeducate already defined)
+(label eenlevel already defined)
+(label eenrlm already defined)
+(label renroll already defined)
+(label uentmain already defined)
+(label ulftmain already defined)
+(label etypdad already defined)
+(label etypmom already defined)
+(label epndad already defined)
+(label epnmom already defined)
+(label epnspous already defined)
+(label ems already defined)
+(label errp already defined)
+(label tage already defined)
+(label ebornus already defined)
+(label eorigin already defined)
+(label erace already defined)
+(label esex already defined)
+(label eppintvw already defined)
+(label rhchange already defined)
+(label eoutcome already defined)
+(label tmovrflg already defined)
+(label tfipsst already defined)
+(label srefmon already defined)
+(238,189 observations deleted)
+(label tbrstate already defined)
+(label tmoveus already defined)
+(label eeducate already defined)
+(label eenlevel already defined)
+(label eenrlm already defined)
+(label renroll already defined)
+(label uentmain already defined)
+(label ulftmain already defined)
+(label etypdad already defined)
+(label etypmom already defined)
+(label epndad already defined)
+(label epnmom already defined)
+(label epnspous already defined)
+(label ems already defined)
+(label errp already defined)
+(label tage already defined)
+(label ebornus already defined)
+(label eorigin already defined)
+(label erace already defined)
+(label esex already defined)
+(label eppintvw already defined)
+(label rhchange already defined)
+(label eoutcome already defined)
+(label tmovrflg already defined)
+(label tfipsst already defined)
+(label srefmon already defined)
+(234,505 observations deleted)
+(label tbrstate already defined)
+(label tmoveus already defined)
+(label eeducate already defined)
+(label eenlevel already defined)
+(label eenrlm already defined)
+(label renroll already defined)
+(label uentmain already defined)
+(label ulftmain already defined)
+(label etypdad already defined)
+(label etypmom already defined)
+(label epndad already defined)
+(label epnmom already defined)
+(label epnspous already defined)
+(label ems already defined)
+(label errp already defined)
+(label tage already defined)
+(label ebornus already defined)
+(label eorigin already defined)
+(label erace already defined)
+(label esex already defined)
+(label eppintvw already defined)
+(label rhchange already defined)
+(label eoutcome already defined)
+(label tmovrflg already defined)
+(label tfipsst already defined)
+(label srefmon already defined)
+(232,132 observations deleted)
+(label tbrstate already defined)
+(label tmoveus already defined)
+(label eeducate already defined)
+(label eenlevel already defined)
+(label eenrlm already defined)
+(label renroll already defined)
+(label uentmain already defined)
+(label ulftmain already defined)
+(label etypdad already defined)
+(label etypmom already defined)
+(label epndad already defined)
+(label epnmom already defined)
+(label epnspous already defined)
+(label ems already defined)
+(label errp already defined)
+(label tage already defined)
+(label ebornus already defined)
+(label eorigin already defined)
+(label erace already defined)
+(label esex already defined)
+(label eppintvw already defined)
+(label rhchange already defined)
+(label eoutcome already defined)
+(label tmovrflg already defined)
+(label tfipsst already defined)
+(label srefmon already defined)
+(228,159 observations deleted)
+(label tbrstate already defined)
+(label tmoveus already defined)
+(label eeducate already defined)
+(label eenlevel already defined)
+(label eenrlm already defined)
+(label renroll already defined)
+(label uentmain already defined)
+(label ulftmain already defined)
+(label etypdad already defined)
+(label etypmom already defined)
+(label epndad already defined)
+(label epnmom already defined)
+(label epnspous already defined)
+(label ems already defined)
+(label errp already defined)
+(label tage already defined)
+(label ebornus already defined)
+(label eorigin already defined)
+(label erace already defined)
+(label esex already defined)
+(label eppintvw already defined)
+(label rhchange already defined)
+(label eoutcome already defined)
+(label tmovrflg already defined)
+(label tfipsst already defined)
+(label srefmon already defined)
+(225,149 observations deleted)
+(label tbrstate already defined)
+(label tmoveus already defined)
+(label eeducate already defined)
+(label eenlevel already defined)
+(label eenrlm already defined)
+(label renroll already defined)
+(label uentmain already defined)
+(label ulftmain already defined)
+(label etypdad already defined)
+(label etypmom already defined)
+(label epndad already defined)
+(label epnmom already defined)
+(label epnspous already defined)
+(label ems already defined)
+(label errp already defined)
+(label tage already defined)
+(label ebornus already defined)
+(label eorigin already defined)
+(label erace already defined)
+(label esex already defined)
+(label eppintvw already defined)
+(label rhchange already defined)
+(label eoutcome already defined)
+(label tmovrflg already defined)
+(label tfipsst already defined)
+(label srefmon already defined)
+(217,792 observations deleted)
+
+. 
+. ** allwaves.dta is a long-form datasets include all the waves from SIPP2008, month 4 data. 
+. save "$tempdir/allwaves", $replace
+(note: file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/allwaves.dta not found)
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/allwaves.dta saved
+
+. 
+end of do-file
+
+. 
+. 
+. do "$childhh_base_code/childhh_epilog" "`logdir'" "`fname'"
+
+. * Boilerplate epilog for ChildHH project.
+. 
+. display "Ending random number generator state"
+Ending random number generator state
+
+. display "`c(rngstate)'"
+XAA0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 000000000000000000000000000000000000000000000000000000000000000000000001000001391839
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs/merge_waves.log
+  log type:  text
+ closed on:   6 Dec 2019, 14:32:33
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

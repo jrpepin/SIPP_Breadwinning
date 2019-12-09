@@ -68,7 +68,7 @@ data$ualtpearn <- data$altpearn
 data$ualtpearn[data$anyallocate == 1] <- NA
 
 #####################################################################################
-# Account for business losses <- these aren't used in any other place????
+# Account for business losses <- THESE AREN'T USED IN ANY OTHER PLACE????
 data <- data %>%
   mutate(profit = select(., c("tprftb1", "tprftb2")) %>% 
            rowSums(na.rm = TRUE))

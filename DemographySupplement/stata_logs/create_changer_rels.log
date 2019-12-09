@@ -1,0 +1,702 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs/create_changer_rels.log
+  log type:  text
+ opened on:   6 Dec 2019, 14:49:59
+
+. 
+. 
+. * I would love to turn off line wrap so the state is a single
+. * continuous string.  This seems not to be possible.  The best
+. * we can do is set the line length to 255.  That's about 20 times
+. * too short so why bother.
+. *
+. * Also, I considered saving the state as a note in the dataset
+. * but this generic do file can't assume there is a dataset at all.
+. display "Starting random number generator state"
+Starting random number generator state
+
+. display "`c(rngstate)'"
+XAA0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 000000000000000000000000000000000000000000000000000000000000000000000001000001391839
+
+. 
+. 
+. set varabbrev off
+
+. 
+. macro list
+S_FNDATE:        6 Dec 2019 14:49
+S_FN:           C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/SIPP08_Processed/hh_change.dta
+ReS_Call:       version 15.1:
+max_tc:         1
+refmon:         4
+adult_age:      18
+penultimate_wave:
+                14
+second_wave:    2
+final_wave:     15
+first_wave:     1
+replace:        replace
+SIPP08keep:     C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/SIPP08_Processed
+tempdir:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp
+results:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//results
+sipp2008_logs:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs
+sipp2008_code:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//SIPP2008
+childhh_base_code:
+                C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement/
+SIPP2008:       C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008
+SIPP2008core:   C:\Users\Joanna\Dropbox\Data\SIPP\SIPP2008
+SIPP2008tm:     C:\Users\Joanna\Dropbox\Data\SIPP\SIPP2008
+SIPP08:         C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008
+homedir:        C:\Users\Joanna
+S_level:        95
+F1:             help advice;
+F2:             describe;
+F7:             save
+F8:             use
+S_ADO:          BASE;SITE;.;PERSONAL;PLUS;OLDPLACE
+S_StataMP:      MP
+S_StataSE:      SE
+S_FLAVOR:       Intercooled
+S_OS:           Windows
+S_OSDTL:        64-bit
+S_MACH:         PC (64-bit x86-64)
+_fname:         create_changer_rels
+_logdir:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs
+_2:             create_changer_rels
+_1:             C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs
+_0:             "C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs" "create_changer_rels"
+
+. 
+. pwd
+C:\Users\Joanna\Dropbox\Repositories\SIPP_Breadwinning\DemographySupplement
+
+. 
+end of do-file
+
+. 
+. 
+. do "`codedir'/`fname'"
+
+. //==============================================================================
+. //===== Children's Household Instability Project
+. //===== Dataset: SIPP2008
+. //===== Purpose:  Link individuals identified as entering, leaving, or staying in
+. //===== a person's (ego's) household to their relationship to ego.
+. //==============================================================================
+. 
+. use "$SIPP08keep/comp_change.dta", clear
+
+. 
+. keep SSUID EPPPNUM SHHADID* arrivers* leavers* stayers* comp_change* comp_change_reason* adj_age* 
+
+. 
+. reshape long SHHADID adj_age arrivers leavers stayers comp_change comp_change_reason, i(SSUID EPPPNUM) j(SWAVE)
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15)
+(note: arrivers15 not found)
+(note: leavers15 not found)
+(note: stayers15 not found)
+(note: comp_change15 not found)
+(note: comp_change_reason15 not found)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                   130851   -> 2.0e+06
+Number of variables                 102   ->      10
+j variable (15 values)                    ->   SWAVE
+xij variables:
+        SHHADID1 SHHADID2 ... SHHADID15   ->   SHHADID
+        adj_age1 adj_age2 ... adj_age15   ->   adj_age
+     arrivers1 arrivers2 ... arrivers15   ->   arrivers
+        leavers1 leavers2 ... leavers15   ->   leavers
+        stayers1 stayers2 ... stayers15   ->   stayers
+comp_change1 comp_change2 ... comp_change15->  comp_change
+comp_change_reason1 comp_change_reason2 ... comp_change_reason15->comp_change_reason
+-----------------------------------------------------------------------------
+
+. 
+. gen have_arrivers = (indexnot(arrivers, " ") != 0)
+
+. gen have_leavers = (indexnot(leavers, " ") != 0)
+
+. 
+. gen have_changers = (have_arrivers | have_leavers)
+
+. 
+. tab comp_change have_changers
+
+comp_chang |     have_changers
+         e |         0          1 |     Total
+-----------+----------------------+----------
+         0 | 1,060,888          0 | 1,060,888 
+         1 |         0    127,421 |   127,421 
+-----------+----------------------+----------
+     Total | 1,060,888    127,421 | 1,188,309 
+
+. 
+. assert (have_changers == 0) if (comp_change == 0)
+
+. assert (have_changers == 0) if missing(comp_change)
+
+. assert (have_changers == 1) if (comp_change == 1)
+
+. 
+. drop if missing(comp_change)
+(774,456 observations deleted)
+
+. 
+. drop if (comp_change == 0)
+(1,060,888 observations deleted)
+
+. 
+. save "$tempdir/comp_change_onlychangers", $replace
+(note: file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/comp_change_onlychangers.dta not found)
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/comp_change_onlychangers.dta saved
+
+. 
+. ********************************************************************************
+. * Section: create long file where each record is a person who started or stopped
+. *          living with ego (and stayed living with ego).
+. ********************************************************************************
+. 
+. foreach changer in leaver arriver stayer {
+  2.     clear
+  3. 
+.     use "$tempdir/comp_change_onlychangers"
+  4. 
+.     * Compute max number of leavers/arrivers.
+.     gen n_`changer's = wordcount(`changer's)
+  5.     egen max_`changer's = max(n_`changer's)
+  6. 
+.     forvalues my_`changer'_num = 1/`=max_`changer's' {
+  7.         gen `changer'`my_`changer'_num' = word(`changer's, `my_`changer'_num')
+  8.     }
+  9.     drop `changer's max_`changer's
+ 10. 
+.     keep SSUID EPPPNUM SHHADID SWAVE adj_age comp_change_reason n_`changer's `changer'* 
+ 11. 
+.     reshape long `changer', i(SSUID EPPPNUM SWAVE) j(`changer'_num)
+ 12. 
+.     drop if missing(`changer')
+ 13. 
+.     save "$tempdir/hh_`changer's", $replace
+ 14. }
+(62,346 missing values generated)
+(102,220 missing values generated)
+(114,567 missing values generated)
+(120,941 missing values generated)
+(124,527 missing values generated)
+(126,176 missing values generated)
+(126,897 missing values generated)
+(127,202 missing values generated)
+(127,320 missing values generated)
+(127,382 missing values generated)
+(127,397 missing values generated)
+(127,407 missing values generated)
+(127,410 missing values generated)
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12 13)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                   127421   -> 1.7e+06
+Number of variables                  20   ->       9
+j variable (13 values)                    ->   leaver_num
+xij variables:
+           leaver1 leaver2 ... leaver13   ->   leaver
+-----------------------------------------------------------------------------
+(1,541,792 observations deleted)
+(note: file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/hh_leavers.dta not found)
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/hh_leavers.dta saved
+(57,911 missing values generated)
+(104,759 missing values generated)
+(116,871 missing values generated)
+(122,224 missing values generated)
+(125,114 missing values generated)
+(126,436 missing values generated)
+(127,049 missing values generated)
+(127,257 missing values generated)
+(127,351 missing values generated)
+(127,406 missing values generated)
+(127,415 missing values generated)
+(127,420 missing values generated)
+(127,420 missing values generated)
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12 13)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                   127421   -> 1.7e+06
+Number of variables                  20   ->       9
+j variable (13 values)                    ->   arriver_num
+xij variables:
+        arriver1 arriver2 ... arriver13   ->   arriver
+-----------------------------------------------------------------------------
+(1,544,633 observations deleted)
+(note: file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/hh_arrivers.dta not found)
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/hh_arrivers.dta saved
+(43,180 missing values generated)
+(57,331 missing values generated)
+(75,849 missing values generated)
+(94,659 missing values generated)
+(109,427 missing values generated)
+(118,412 missing values generated)
+(123,056 missing values generated)
+(125,233 missing values generated)
+(126,313 missing values generated)
+(126,943 missing values generated)
+(127,143 missing values generated)
+(127,297 missing values generated)
+(127,369 missing values generated)
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12 13)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                   127421   -> 1.7e+06
+Number of variables                  20   ->       9
+j variable (13 values)                    ->   stayer_num
+xij variables:
+           stayer1 stayer2 ... stayer13   ->   stayer
+-----------------------------------------------------------------------------
+(1,382,212 observations deleted)
+(note: file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/hh_stayers.dta not found)
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/hh_stayers.dta saved
+
+. 
+. ********************************************************************************
+. * Section: Linking those who leave to relationships in that wave
+. ********************************************************************************
+. 
+. use "$tempdir/hh_leavers", clear
+
+. drop if missing(leaver)
+(0 observations deleted)
+
+. gen relfrom = EPPPNUM
+
+. destring leaver, gen(relto)
+leaver: all characters numeric; relto generated as int
+
+. merge 1:1 SSUID relfrom relto SWAVE using "$tempdir/relationship_pairs_bywave", keepusing(relationship)
+(note: variable relto was int, now float to accommodate using data's values)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                     2,968,011
+        from master                       119  (_merge==1)
+        from using                  2,967,892  (_merge==2)
+
+    matched                           114,562  (_merge==3)
+    -----------------------------------------
+
+.         
+. display "deleting relationships to self"
+deleting relationships to self
+
+. drop if relfrom==relto
+(0 observations deleted)
+
+. 
+. replace relationship=40 if _merge==1
+(119 real changes made)
+
+. 
+. drop if _merge == 2
+(2,967,892 observations deleted)
+
+. drop _merge
+
+. 
+. display "Relationships for leavers"
+Relationships for leavers
+
+. tab relationship, m sort
+
+        relationship |      Freq.     Percent        Cum.
+---------------------+-----------------------------------
+           OTHER_REL |     18,754       16.35       16.35
+               NOREL |     16,463       14.36       30.71
+             SIBLING |     15,067       13.14       43.85
+            BIOCHILD |     13,211       11.52       55.37
+              BIOMOM |      7,286        6.35       61.72
+              SPOUSE |      6,375        5.56       67.28
+              BIODAD |      5,935        5.18       72.45
+         GRANDPARENT |      5,198        4.53       76.99
+          GRANDCHILD |      5,189        4.52       81.51
+           STEPCHILD |      2,974        2.59       84.10
+            DONTKNOW |      2,643        2.30       86.41
+             PARTNER |      2,541        2.22       88.62
+CHILD_OR_NEPHEWNIECE |      1,915        1.67       90.29
+ AUNTUNCLE_OR_PARENT |      1,907        1.66       91.96
+             STEPDAD |      1,844        1.61       93.57
+   SIBLING_OR_COUSIN |      1,148        1.00       94.57
+             STEPMOM |      1,134        0.99       95.56
+           AUNTUNCLE |        830        0.72       96.28
+         NEPHEWNIECE |        825        0.72       97.00
+              PARENT |        615        0.54       97.53
+               CHILD |        613        0.53       98.07
+         OTHER_REL_P |        467        0.41       98.48
+          ADOPTCHILD |        315        0.27       98.75
+               F_SIB |        277        0.24       98.99
+            F_PARENT |        222        0.19       99.19
+             F_CHILD |        200        0.17       99.36
+            ADOPTDAD |        169        0.15       99.51
+            ADOPTMOM |        147        0.13       99.64
+       GRANDPARENT_P |         99        0.09       99.72
+        GRANDCHILD_P |         98        0.09       99.81
+                   . |         84        0.07       99.88
+    GREATGRANDPARENT |         68        0.06       99.94
+     GREATGRANDCHILD |         67        0.06      100.00
+                 MOM |          1        0.00      100.00
+---------------------+-----------------------------------
+               Total |    114,681      100.00
+
+. save "$tempdir/leaver_rels", $replace
+(note: file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/leaver_rels.dta not found)
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/leaver_rels.dta saved
+
+. 
+. ********************************************************************************
+. * Section: Linking those who arrive to relationships
+. *          We have to link in wave+n because they aren't with ego in the current 
+. *          wave else they wouldn't be arrivers 
+. ********************************************************************************
+. 
+. use "$tempdir/hh_arrivers", clear
+
+. 
+. * We link to relationship in next wave, since they aren't together in this wave
+. replace SWAVE=SWAVE+1
+(111,840 real changes made)
+
+. drop if missing(arriver)
+(0 observations deleted)
+
+. gen relfrom = EPPPNUM
+
+. destring arriver, gen(relto)
+arriver: all characters numeric; relto generated as int
+
+. merge 1:1 SSUID relfrom relto SWAVE using "$tempdir/relationship_pairs_bywave", keepusing(relationship)
+(note: variable relto was int, now float to accommodate using data's values)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                     2,986,000
+        from master                     7,693  (_merge==1)
+        from using                  2,978,307  (_merge==2)
+
+    matched                           104,147  (_merge==3)
+    -----------------------------------------
+
+. 
+. * return SWAVE to its original value. (Yiwen, this is the silly error I made 
+. * that broke the code. I forgot to put SWAVE back to its original value).       
+. replace SWAVE=SWAVE-1
+(3,090,147 real changes made)
+
+. 
+. display "deleting relationships to self"
+deleting relationships to self
+
+. drop if relfrom==relto
+(0 observations deleted)
+
+. 
+. replace relationship=40 if _merge==1
+(7,693 real changes made)
+
+. 
+. drop if _merge == 2
+(2,978,307 observations deleted)
+
+. drop _merge
+
+. 
+. display "Relationships for arrivers"
+Relationships for arrivers
+
+. tab relationship, m sort
+
+        relationship |      Freq.     Percent        Cum.
+---------------------+-----------------------------------
+           OTHER_REL |     15,714       14.05       14.05
+               NOREL |     15,584       13.93       27.98
+             SIBLING |     13,281       11.88       39.86
+            DONTKNOW |      9,896        8.85       48.71
+            BIOCHILD |      9,381        8.39       57.10
+              BIOMOM |      8,642        7.73       64.82
+              BIODAD |      6,610        5.91       70.73
+         GRANDPARENT |      5,571        4.98       75.71
+          GRANDCHILD |      4,488        4.01       79.73
+              SPOUSE |      3,999        3.58       83.30
+             PARTNER |      3,553        3.18       86.48
+           STEPCHILD |      2,678        2.39       88.87
+ AUNTUNCLE_OR_PARENT |      2,064        1.85       90.72
+             STEPDAD |      1,742        1.56       92.28
+CHILD_OR_NEPHEWNIECE |      1,407        1.26       93.54
+             STEPMOM |      1,142        1.02       94.56
+   SIBLING_OR_COUSIN |        941        0.84       95.40
+              PARENT |        862        0.77       96.17
+           AUNTUNCLE |        857        0.77       96.93
+               CHILD |        769        0.69       97.62
+         NEPHEWNIECE |        742        0.66       98.29
+         OTHER_REL_P |        432        0.39       98.67
+               F_SIB |        270        0.24       98.91
+            F_PARENT |        228        0.20       99.12
+          ADOPTCHILD |        205        0.18       99.30
+             F_CHILD |        192        0.17       99.47
+            ADOPTDAD |        110        0.10       99.57
+            ADOPTMOM |        102        0.09       99.66
+       GRANDPARENT_P |         97        0.09       99.75
+    GREATGRANDPARENT |         82        0.07       99.82
+        GRANDCHILD_P |         78        0.07       99.89
+                   . |         62        0.06       99.95
+     GREATGRANDCHILD |         55        0.05      100.00
+                 MOM |          3        0.00      100.00
+                 DAD |          1        0.00      100.00
+---------------------+-----------------------------------
+               Total |    111,840      100.00
+
+. save "$tempdir/arriver_rels", $replace
+(note: file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/arriver_rels.dta not found)
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/arriver_rels.dta saved
+
+. 
+. ********************************************************************************
+. * Section: getting the age of each person so that we can calculate an age difference
+. ********************************************************************************
+. foreach changer in leaver arriver {
+  2.         clear
+  3.     display "Processing `changer's"
+  4.         
+.         use "$tempdir/`changer'_rels"
+  5. 
+.     rename adj_age from_age
+  6. 
+.         drop EPPPNUM
+  7.         
+.         * get changer age *
+.     gen EPPPNUM = relto
+  8.     merge m:1 SSUID EPPPNUM SWAVE using "$tempdir/demo_long_all", keepusing(adj_age)
+  9.     drop if (_merge == 2)
+ 10.     assert (_merge == 3)
+ 11.         
+.     drop _merge
+ 12.     drop EPPPNUM
+ 13.     rename adj_age to_age
+ 14.         
+.         * bring back ego's person number
+.         rename relfrom EPPPNUM
+ 15.         
+.         save "$tempdir/`changer'_rels_withage", $replace
+ 16. }    
+Processing leavers
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                     1,897,711
+        from master                         0  (_merge==1)
+        from using                  1,897,711  (_merge==2)
+
+    matched                           114,681  (_merge==3)
+    -----------------------------------------
+(1,897,711 observations deleted)
+(note: file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/leaver_rels_withage.dta not found)
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/leaver_rels_withage.dta saved
+Processing arrivers
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                     1,901,662
+        from master                         0  (_merge==1)
+        from using                  1,901,662  (_merge==2)
+
+    matched                           111,840  (_merge==3)
+    -----------------------------------------
+(1,901,662 observations deleted)
+(note: file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/arriver_rels_withage.dta not found)
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/arriver_rels_withage.dta saved
+
+. 
+. gen change_type=1
+
+. 
+. append using "$tempdir/leaver_rels_withage"
+(label relationship already defined)
+
+. replace change_type=2 if missing(change_type)
+(114,681 real changes made)
+
+. 
+. label variable change_type "Indicator for whether this person arrive in or left from ego's household"
+
+. label define change_type 1 "arriver" 2 "leaver" 
+
+. 
+. label values change_type change_type 
+
+. 
+. * Label relationships. 
+. do "$sipp2008_code/simple_rel_label"
+
+. 
+. *** Define the label for our compact representation of relationships.
+. capture label drop ultra_simple_rel
+
+. local lnum = 1
+
+. local llist ""
+
+. foreach r in CHILD SIBLING GRANDCHILD OTHER_ADULT OTHER_CHILD {
+  2.     local llist = `"`llist' `lnum' "`r'""'
+  3.     local lnum = `lnum' + 1
+  4. }
+
+. label define ultra_simple_rel `llist'
+
+. 
+. 
+end of do-file
+
+. 
+. ***********************************************************************
+. * Note that we compared our relationships to the relationships identified 
+. * in the relationship matrix available in Wave 2 (see relationship_matrix.do) 
+. * and found thatthe cases coded child_or_relative (31) or child_or_ 
+. * nephewniece (30) were never children and always an other relatives. 
+. * Likewise for auntuncle_or_parent (25). Thus, we code these as other relatives
+. *
+. * In addition, we found that nearly all (85%) the missing relationships (40) were
+. * nonrelatives.
+. **********************************************************************
+. 
+. 
+. gen bioparent=1 if relationship==1
+(203,929 missing values generated)
+
+. gen parent=1 if inlist(relationship,1,4,7,19,21)
+(196,375 missing values generated)
+
+. gen sibling=1 if inlist(relationship,17)
+(198,173 missing values generated)
+
+. gen child=1 if inlist(relationship,2,3,5,6,8,9,10,11,23)
+(190,176 missing values generated)
+
+. gen spartner=1 if inlist(relationship,12,18)
+(210,053 missing values generated)
+
+. gen nonrel=1 if inlist(relationship,20,22,34,37,38,40)
+(180,546 missing values generated)
+
+. gen foster=1 if inlist(relationship,20,22,34,38)
+(225,132 missing values generated)
+
+. gen grandparent=1 if inlist(relationship,13,14,27)
+(216,546 missing values generated)
+
+. gen other_rel=1 if inlist(relationship, 15,16,24,25,26,28,29,30,31,33,32,35,36) //not parents, siblings, children, spouses, or grandparents
+(167,403 missing values generated)
+
+. gen unknown=1 if relationship==40 | missing(relationship)
+(213,836 missing values generated)
+
+. gen nonnuke=1 if nonrel==1 | grandparent==1 | other_rel==1 | unknown==1
+(111,307 missing values generated)
+
+. gen allelse=1 if inlist(relationship,2,3,5,6,8,9,10,11,23,12,18) // children, spouses
+(173,708 missing values generated)
+
+. 
+. gen adult_arrive=1 if change_type==1 & to_age >= $adult_age
+(151,841 missing values generated)
+
+. gen adult_leave=1 if change_type==2 & to_age >= $adult_age
+(140,359 missing values generated)
+
+. 
+. *create variables for parent_arrive and parent_leave
+. gen parent_arrive=1 if change_type==1 & parent==1
+(213,488 missing values generated)
+
+. gen parent_leave=1 if change_type==2 & parent==1
+(209,408 missing values generated)
+
+. 
+. save "$tempdir/changer_rels", $replace
+(note: file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/changer_rels.dta not found)
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/changer_rels.dta saved
+
+. 
+. 
+. 
+. 
+end of do-file
+
+. 
+. 
+. do "$childhh_base_code/childhh_epilog" "`logdir'" "`fname'"
+
+. * Boilerplate epilog for ChildHH project.
+. 
+. display "Ending random number generator state"
+Ending random number generator state
+
+. display "`c(rngstate)'"
+XAA0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 000000000000000000000000000000000000000000000000000000000000000000000001000001391839
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs/create_changer_rels.log
+  log type:  text
+ closed on:   6 Dec 2019, 14:51:02
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

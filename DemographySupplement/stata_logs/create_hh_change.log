@@ -1,0 +1,859 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs/create_hh_change.log
+  log type:  text
+ opened on:   6 Dec 2019, 14:49:23
+
+. 
+. 
+. * I would love to turn off line wrap so the state is a single
+. * continuous string.  This seems not to be possible.  The best
+. * we can do is set the line length to 255.  That's about 20 times
+. * too short so why bother.
+. *
+. * Also, I considered saving the state as a note in the dataset
+. * but this generic do file can't assume there is a dataset at all.
+. display "Starting random number generator state"
+Starting random number generator state
+
+. display "`c(rngstate)'"
+XAA0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 000000000000000000000000000000000000000000000000000000000000000000000001000001391839
+
+. 
+. 
+. set varabbrev off
+
+. 
+. macro list
+S_FNDATE:        6 Dec 2019 14:49
+S_FN:           C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/SIPP08_Processed/comp_change.dta
+ReS_jv2:        1 2 3
+ReS_Call:       version 15.1:
+max_tc:         1
+refmon:         4
+adult_age:      18
+penultimate_wave:
+                14
+second_wave:    2
+final_wave:     15
+first_wave:     1
+replace:        replace
+SIPP08keep:     C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/SIPP08_Processed
+tempdir:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp
+results:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//results
+sipp2008_logs:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs
+sipp2008_code:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//SIPP2008
+childhh_base_code:
+                C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement/
+SIPP2008:       C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008
+SIPP2008core:   C:\Users\Joanna\Dropbox\Data\SIPP\SIPP2008
+SIPP2008tm:     C:\Users\Joanna\Dropbox\Data\SIPP\SIPP2008
+SIPP08:         C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008
+homedir:        C:\Users\Joanna
+S_level:        95
+F1:             help advice;
+F2:             describe;
+F7:             save
+F8:             use
+S_ADO:          BASE;SITE;.;PERSONAL;PLUS;OLDPLACE
+S_StataMP:      MP
+S_StataSE:      SE
+S_FLAVOR:       Intercooled
+S_OS:           Windows
+S_OSDTL:        64-bit
+S_MACH:         PC (64-bit x86-64)
+_fname:         create_hh_change
+_logdir:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs
+_2:             create_hh_change
+_1:             C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs
+_0:             "C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs" "create_hh_change"
+
+. 
+. pwd
+C:\Users\Joanna\Dropbox\Repositories\SIPP_Breadwinning\DemographySupplement
+
+. 
+end of do-file
+
+. 
+. 
+. do "`codedir'/`fname'"
+
+. //==============================================================================
+. //===== Children's Household Instability Project                                                    
+. //===== Dataset: SIPP2008                                                                               
+. //===== Purpose: Create a database with comp_change, addr_change, and sociodemographic characteristics
+. //===== One record per person per wave.
+. //===== create_comp_change generates the variable comp_change. This file adds addr_change
+. //===== and reshapes the data to long form.
+. //===== Note: this code depends on macros set in project_macros and create_comp_change
+. //==============================================================================
+. 
+. use "$SIPP08keep/comp_change.dta", clear
+
+. 
+. #delimit ; 
+delimiter now ;
+. label define addr_change          0 "No move"
+>                                   1 "Move";
+
+.          #delimit cr
+delimiter now cr
+. 
+. ********************************************************************************
+. * Function Propagate shhadid_members forard into prev_SHHADID for missing waves.
+. ********************************************************************************
+. 
+. gen prev_SHHADID$first_wave = .
+(130,851 missing values generated)
+
+. forvalues wave = $second_wave/$final_wave {
+  2.     local prev_wave = `wave' - 1
+  3.     gen prev_SHHADID`wave' = SHHADID`prev_wave' if (missing(SHHADID`wave') & missing(prev_SHHADID`prev_wave'))
+  4.     replace prev_SHHADID`wave' = prev_SHHADID`prev_wave' if (missing(SHHADID`wave') & (!missing(prev_SHHADID`prev_wave')))
+  5. }
+(121,076 missing values generated)
+(0 real changes made)
+(121,734 missing values generated)
+(6,452 real changes made)
+(120,593 missing values generated)
+(11,849 real changes made)
+(122,296 missing values generated)
+(16,558 real changes made)
+(121,736 missing values generated)
+(20,424 real changes made)
+(121,402 missing values generated)
+(24,735 real changes made)
+(122,789 missing values generated)
+(28,779 real changes made)
+(122,485 missing values generated)
+(32,288 real changes made)
+(121,949 missing values generated)
+(36,288 real changes made)
+(123,409 missing values generated)
+(40,336 real changes made)
+(123,479 missing values generated)
+(42,570 real changes made)
+(122,899 missing values generated)
+(44,775 real changes made)
+(123,748 missing values generated)
+(47,901 real changes made)
+(124,971 missing values generated)
+(52,497 real changes made)
+
+. 
+. ********************************************************************************
+. ** Function:  Propagate shhadid_members backward into future_hh_members for missing waves.  
+. ********************************************************************************
+. 
+. gen future_SHHADID$final_wave = .
+(130,851 missing values generated)
+
+. forvalues wave = $penultimate_wave (-1) $first_wave {
+  2.     local next_wave = `wave' + 1
+  3.     gen future_SHHADID`wave' = SHHADID`next_wave' if (missing(SHHADID`wave') & missing(future_SHHADID`next_wave'))
+  4.     replace future_SHHADID`wave' = future_SHHADID`next_wave' if (missing(SHHADID`wave') & (!missing(future_SHHADID`next_wave')))
+  5. }
+(127,415 missing values generated)
+(0 real changes made)
+(124,864 missing values generated)
+(1,076 real changes made)
+(124,152 missing values generated)
+(4,486 real changes made)
+(124,293 missing values generated)
+(7,994 real changes made)
+(124,629 missing values generated)
+(11,047 real changes made)
+(124,888 missing values generated)
+(12,530 real changes made)
+(124,625 missing values generated)
+(14,061 real changes made)
+(123,786 missing values generated)
+(16,111 real changes made)
+(124,169 missing values generated)
+(17,691 real changes made)
+(124,049 missing values generated)
+(19,074 real changes made)
+(123,038 missing values generated)
+(20,783 real changes made)
+(124,626 missing values generated)
+(22,046 real changes made)
+(124,986 missing values generated)
+(22,726 real changes made)
+(128,235 missing values generated)
+(22,572 real changes made)
+
+. 
+. ********************************************************************************
+. ** Function: walk backward through the waves and for each wave in which ego is missing  compare prev_SHHAIDD to see if we find anyone
+. ********************************************************************************
+. 
+. gen found_prev_SHHADID$first_wave = .
+(130,851 missing values generated)
+
+. forvalues wave = $final_wave (-1) $second_wave {
+  2.         gen found_prev_SHHADID`wave'= 0 if (missing(SHHADID`wave'))
+  3.         gen found_prev_SHHADID_in_gap`wave'=0 if (missing(SHHADID`wave'))
+  4.         replace found_prev_SHHADID`wave' = 1 if ((missing(SHHADID`wave')) & (strpos(ssuid_shhadid`wave', " " + string(prev_SHHADID`wave') + " ") != 0))
+  5.         replace found_prev_SHHADID_in_gap`wave' = 1 if ((missing(SHHADID`wave')) & (strpos(ssuid_shhadid`wave', " " + string(prev_SHHADID`wave') + " ") !=0))
+  6.         if (`wave' < $final_wave) {
+  7.                 local next_wave = `wave' + 1
+  8.                 replace found_prev_SHHADID_in_gap`wave' = 1 if ((missing(SHHADID`wave')) & (found_prev_SHHADID_in_gap`next_wave' == 1))
+  9.         }
+ 10. }
+(72,474 missing values generated)
+(72,474 missing values generated)
+(6,815 real changes made)
+(6,815 real changes made)
+(74,918 missing values generated)
+(74,918 missing values generated)
+(6,630 real changes made)
+(6,630 real changes made)
+(249 real changes made)
+(76,034 missing values generated)
+(76,034 missing values generated)
+(6,400 real changes made)
+(6,400 real changes made)
+(375 real changes made)
+(77,287 missing values generated)
+(77,287 missing values generated)
+(6,097 real changes made)
+(6,097 real changes made)
+(612 real changes made)
+(78,101 missing values generated)
+(78,101 missing values generated)
+(5,800 real changes made)
+(5,800 real changes made)
+(684 real changes made)
+(79,321 missing values generated)
+(79,321 missing values generated)
+(5,466 real changes made)
+(5,466 real changes made)
+(696 real changes made)
+(82,260 missing values generated)
+(82,260 missing values generated)
+(5,097 real changes made)
+(5,097 real changes made)
+(649 real changes made)
+(84,400 missing values generated)
+(84,400 missing values generated)
+(4,648 real changes made)
+(4,648 real changes made)
+(645 real changes made)
+(85,397 missing values generated)
+(85,397 missing values generated)
+(4,207 real changes made)
+(4,207 real changes made)
+(587 real changes made)
+(88,164 missing values generated)
+(88,164 missing values generated)
+(3,720 real changes made)
+(3,720 real changes made)
+(467 real changes made)
+(90,477 missing values generated)
+(90,477 missing values generated)
+(3,153 real changes made)
+(3,153 real changes made)
+(412 real changes made)
+(91,219 missing values generated)
+(91,219 missing values generated)
+(2,560 real changes made)
+(2,560 real changes made)
+(388 real changes made)
+(95,252 missing values generated)
+(95,252 missing values generated)
+(1,876 real changes made)
+(1,876 real changes made)
+(264 real changes made)
+(98,504 missing values generated)
+(98,504 missing values generated)
+(1,082 real changes made)
+(1,082 real changes made)
+(152 real changes made)
+
+. 
+. ********************************************************************************
+. ** Function: walk forward through the waves 
+. ********************************************************************************
+. 
+. gen found_future_SHHADID$final_wave = .
+(130,851 missing values generated)
+
+. forvalues wave = $first_wave/$penultimate_wave {
+  2.         gen found_future_SHHADID`wave'= 0 if (missing(SHHADID`wave'))
+  3.         gen found_future_SHHADID_in_gap`wave'=0 if (missing(SHHADID`wave'))
+  4.         replace found_future_SHHADID`wave' = 1 if ((missing(SHHADID`wave')) & (strpos(ssuid_shhadid`wave', " " + string(prev_SHHADID`wave') + " ") != 0))
+  5.         replace found_future_SHHADID_in_gap`wave' = 1 if ((missing(SHHADID`wave')) & (strpos(ssuid_shhadid`wave', " " + string(prev_SHHADID`wave') + " ") !=0))
+  6.         if (`wave' > $final_wave) {
+  7.                 local prev_wave = `wave' - 1
+  8.                 replace found_future_SHHADID_in_gap`wave' = 1 if ((missing(SHHADID`wave')) & (found_future_SHHADID_in_gap`prev_wave' == 1))
+  9.         }
+ 10. }
+(105,663 missing values generated)
+(105,663 missing values generated)
+(0 real changes made)
+(0 real changes made)
+(98,504 missing values generated)
+(98,504 missing values generated)
+(1,082 real changes made)
+(1,082 real changes made)
+(95,252 missing values generated)
+(95,252 missing values generated)
+(1,876 real changes made)
+(1,876 real changes made)
+(91,219 missing values generated)
+(91,219 missing values generated)
+(2,560 real changes made)
+(2,560 real changes made)
+(90,477 missing values generated)
+(90,477 missing values generated)
+(3,153 real changes made)
+(3,153 real changes made)
+(88,164 missing values generated)
+(88,164 missing values generated)
+(3,720 real changes made)
+(3,720 real changes made)
+(85,397 missing values generated)
+(85,397 missing values generated)
+(4,207 real changes made)
+(4,207 real changes made)
+(84,400 missing values generated)
+(84,400 missing values generated)
+(4,648 real changes made)
+(4,648 real changes made)
+(82,260 missing values generated)
+(82,260 missing values generated)
+(5,097 real changes made)
+(5,097 real changes made)
+(79,321 missing values generated)
+(79,321 missing values generated)
+(5,466 real changes made)
+(5,466 real changes made)
+(78,101 missing values generated)
+(78,101 missing values generated)
+(5,800 real changes made)
+(5,800 real changes made)
+(77,287 missing values generated)
+(77,287 missing values generated)
+(6,097 real changes made)
+(6,097 real changes made)
+(76,034 missing values generated)
+(76,034 missing values generated)
+(6,400 real changes made)
+(6,400 real changes made)
+(74,918 missing values generated)
+(74,918 missing values generated)
+(6,630 real changes made)
+(6,630 real changes made)
+
+. 
+. *******************************************************************************
+. ** Function: Compute address change.
+. *******************************************************************************
+. 
+. forvalues wave = $first_wave/$penultimate_wave {
+  2.     local next_wave = `wave' + 1
+  3. 
+.     * Start by assuming this wave is not interesting.
+.     gen addr_change`wave' = .
+  4. 
+.     * If we have data in both waves, just compare HH members.
+.     replace addr_change`wave' = (SHHADID`wave' != SHHADID`next_wave') if ((!missing(SHHADID`wave')) & (!missing(SHHADID`next_wave')))
+  5. 
+.     * If we are moving from a wave in which ego is missing to one in which ego is present
+.     * there is an address change if we have seen the future SHHADID in the gap during which ego was missing
+.     * UNLESS this is ego's birth.
+.     * We also need to populate age and weight from the next wave since ego has no data in this wave.
+.     replace addr_change`wave' = 1 if ((missing(SHHADID`wave')) & (!missing(SHHADID`next_wave')) & (found_future_SHHADID_in_gap`wave' == 1))
+  6.     replace adj_age`wave' = adj_age`next_wave' if ((missing(SHHADID`wave')) & (!missing(SHHADID`next_wave')) & (found_future_SHHADID_in_gap`wave' == 1))
+  7.     replace WPFINWGT`wave' = WPFINWGT`next_wave' if ((missing(SHHADID`wave')) & (!missing(SHHADID`next_wave')) & (found_future_SHHADID_in_gap`wave' == 1))
+  8.     * Undo those changes if this is birth.
+.     replace addr_change`wave' = . if ((`next_wave' == my_first_wave) & (adj_age`next_wave' == 0))
+  9.     replace adj_age`wave' = . if ((`next_wave' == my_first_wave) & (adj_age`next_wave' == 0))
+ 10.     replace WPFINWGT`wave' = . if ((`next_wave' == my_first_wave) & (adj_age`next_wave' == 0))
+ 11. 
+.     * If we are moving from a wave in which ego is present to one in which ego is missing
+.     * there is an address change if we have seen the current SHHADID in the gap 
+.     * during which ego is missing as we look forward.
+.     replace addr_change`wave' = 1 if ((!missing(SHHADID`wave')) & (missing(SHHADID`next_wave')) & (found_prev_SHHADID_in_gap`next_wave' == 1))
+ 12. 
+.     * If we are moving from a wave in which ego is present to one in which ego is missing
+.     * and we do not see the current SHHADID in the gap looking forward,
+.     * we compare the current SHHADID to the future SHHADID as if we move into the
+.     * future household in the first missing wave, unless there is no future SHHADID
+.     * (ego's last appearance).
+.     replace addr_change`wave' = (SHHADID`wave' != future_SHHADID`next_wave') if ((!missing(SHHADID`wave')) & (missing(SHHADID`next_wave')) & (!missing(future_SHHADID`next_wave')) & (found_prev_SHHA
+> DID_in_gap`next_wave' != 1))
+ 13. 
+. 
+.     * Tab "original" addr_change and comp_change variables.
+.     tab addr_change`wave' comp_change`wave', m
+ 14. 
+.     * We once forced them up to have the same denominator by setting to zero if missing and the other variable is not missing.
+.         * but this is not appropriate. Sometimes we can know if there was an address change even if we don't know household composition
+.         * Keeping this here to document.
+. *    replace addr_change`wave' = 0 if (missing(addr_change`wave') & (!missing(comp_change`wave')))
+. *    replace comp_change`wave' = 0 if (missing(comp_change`wave') & (!missing(addr_change`wave')))
+. 
+. *    tab addr_change`wave' comp_change`wave', m
+. }
+(130,851 missing values generated)
+(95,888 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1,234 real changes made)
+(5,690 real changes made)
+
+           |     Indicator for whether a
+           |  composition change is observed
+addr_chang |           or inferred
+        e1 | No change  Compositi          . |     Total
+-----------+---------------------------------+----------
+         0 |    90,236      6,890          0 |    97,126 
+         1 |     2,776      2,910          0 |     5,686 
+         . |         0      2,422     25,617 |    28,039 
+-----------+---------------------------------+----------
+     Total |    93,012     12,222     25,617 |   130,851 
+(130,851 missing values generated)
+(89,387 real changes made)
+(109 real changes made)
+(32 real changes made)
+(65 real changes made)
+(0 real changes made)
+(406 real changes made, 406 to missing)
+(0 real changes made)
+(1,166 real changes made)
+(5,223 real changes made)
+
+           |     Indicator for whether a
+           |  composition change is observed
+addr_chang |           or inferred
+        e2 | No change  Compositi          . |     Total
+-----------+---------------------------------+----------
+         0 |    83,757      5,964          0 |    89,721 
+         1 |     2,870      3,229         65 |     6,164 
+         . |         0      2,532     32,434 |    34,966 
+-----------+---------------------------------+----------
+     Total |    86,627     11,725     32,499 |   130,851 
+(130,851 missing values generated)
+(84,994 real changes made)
+(172 real changes made)
+(100 real changes made)
+(102 real changes made)
+(0 real changes made)
+(406 real changes made, 406 to missing)
+(0 real changes made)
+(1,210 real changes made)
+(6,203 real changes made)
+
+           |     Indicator for whether a
+           |  composition change is observed
+addr_chang |           or inferred
+        e3 | No change  Compositi          . |     Total
+-----------+---------------------------------+----------
+         0 |    79,784      6,051          0 |    85,835 
+         1 |     3,196      3,444        104 |     6,744 
+         . |         0      2,604     35,668 |    38,272 
+-----------+---------------------------------+----------
+     Total |    82,980     12,099     35,772 |   130,851 
+(130,851 missing values generated)
+(82,664 real changes made)
+(212 real changes made)
+(45 real changes made)
+(138 real changes made)
+(0 real changes made)
+(415 real changes made, 415 to missing)
+(0 real changes made)
+(1,099 real changes made)
+(4,848 real changes made)
+
+           |     Indicator for whether a
+           |  composition change is observed
+addr_chang |           or inferred
+        e4 | No change  Compositi          . |     Total
+-----------+---------------------------------+----------
+         0 |    77,925      5,523          0 |    83,448 
+         1 |     2,439      2,798        138 |     5,375 
+         . |         0      2,375     39,653 |    42,028 
+-----------+---------------------------------+----------
+     Total |    80,364     10,696     39,791 |   130,851 
+(130,851 missing values generated)
+(81,362 real changes made)
+(162 real changes made)
+(55 real changes made)
+(86 real changes made)
+(0 real changes made)
+(357 real changes made, 357 to missing)
+(0 real changes made)
+(1,091 real changes made)
+(5,084 real changes made)
+
+           |     Indicator for whether a
+           |  composition change is observed
+addr_chang |           or inferred
+        e5 | No change  Compositi          . |     Total
+-----------+---------------------------------+----------
+         0 |    76,851      5,246          0 |    82,097 
+         1 |     2,750      2,765         87 |     5,602 
+         . |         0      2,321     40,831 |    43,152 
+-----------+---------------------------------+----------
+     Total |    79,601     10,332     40,918 |   130,851 
+(130,851 missing values generated)
+(78,715 real changes made)
+(184 real changes made)
+(87 real changes made)
+(87 real changes made)
+(0 real changes made)
+(330 real changes made, 330 to missing)
+(0 real changes made)
+(1,155 real changes made)
+(5,218 real changes made)
+
+           |     Indicator for whether a
+           |  composition change is observed
+addr_chang |           or inferred
+        e6 | No change  Compositi          . |     Total
+-----------+---------------------------------+----------
+         0 |    74,707      4,978          0 |    79,685 
+         1 |     2,621      2,878         88 |     5,587 
+         . |         0      2,092     43,487 |    45,579 
+-----------+---------------------------------+----------
+     Total |    77,328      9,948     43,575 |   130,851 
+(130,851 missing values generated)
+(77,335 real changes made)
+(217 real changes made)
+(39 real changes made)
+(103 real changes made)
+(0 real changes made)
+(298 real changes made, 298 to missing)
+(0 real changes made)
+(1,047 real changes made)
+(4,011 real changes made)
+
+           |     Indicator for whether a
+           |  composition change is observed
+addr_chang |           or inferred
+        e7 | No change  Compositi          . |     Total
+-----------+---------------------------------+----------
+         0 |    73,515      4,591          0 |    78,106 
+         1 |     2,008      2,392        104 |     4,504 
+         . |         0      1,871     46,370 |    48,241 
+-----------+---------------------------------+----------
+     Total |    75,523      8,854     46,474 |   130,851 
+(130,851 missing values generated)
+(76,034 real changes made)
+(144 real changes made)
+(43 real changes made)
+(58 real changes made)
+(0 real changes made)
+(314 real changes made, 314 to missing)
+(0 real changes made)
+(1,001 real changes made)
+(4,261 real changes made)
+
+           |     Indicator for whether a
+           |  composition change is observed
+addr_chang |           or inferred
+        e8 | No change  Compositi          . |     Total
+-----------+---------------------------------+----------
+         0 |    72,325      4,531          0 |    76,856 
+         1 |     2,212      2,314         58 |     4,584 
+         . |         0      1,940     47,471 |    49,411 
+-----------+---------------------------------+----------
+     Total |    74,537      8,785     47,529 |   130,851 
+(130,851 missing values generated)
+(73,358 real changes made)
+(166 real changes made)
+(69 real changes made)
+(72 real changes made)
+(0 real changes made)
+(309 real changes made, 309 to missing)
+(0 real changes made)
+(1,031 real changes made)
+(4,588 real changes made)
+
+           |     Indicator for whether a
+           |  composition change is observed
+addr_chang |           or inferred
+        e9 | No change  Compositi          . |     Total
+-----------+---------------------------------+----------
+         0 |    69,661      4,525          0 |    74,186 
+         1 |     2,401      2,483         73 |     4,957 
+         . |         0      1,845     49,863 |    51,708 
+-----------+---------------------------------+----------
+     Total |    72,062      8,853     49,936 |   130,851 
+(130,851 missing values generated)
+(71,879 real changes made)
+(159 real changes made)
+(19 real changes made)
+(59 real changes made)
+(0 real changes made)
+(298 real changes made, 298 to missing)
+(0 real changes made)
+(911 real changes made)
+(3,367 real changes made)
+
+           |     Indicator for whether a
+           |  composition change is observed
+addr_chang |           or inferred
+       e10 | No change  Compositi          . |     Total
+-----------+---------------------------------+----------
+         0 |    68,589      3,931          0 |    72,520 
+         1 |     1,711      2,026         59 |     3,796 
+         . |         0      1,556     52,979 |    54,535 
+-----------+---------------------------------+----------
+     Total |    70,300      7,513     53,038 |   130,851 
+(130,851 missing values generated)
+(70,729 real changes made)
+(187 real changes made)
+(41 real changes made)
+(72 real changes made)
+(0 real changes made)
+(298 real changes made, 298 to missing)
+(0 real changes made)
+(882 real changes made)
+(3,086 real changes made)
+
+           |     Indicator for whether a
+           |  composition change is observed
+addr_chang |           or inferred
+       e11 | No change  Compositi          . |     Total
+-----------+---------------------------------+----------
+         0 |    67,100      3,842          0 |    70,942 
+         1 |     1,930      1,939         73 |     3,942 
+         . |         0      1,464     54,503 |    55,967 
+-----------+---------------------------------+----------
+     Total |    69,030      7,245     54,576 |   130,851 
+(130,851 missing values generated)
+(69,335 real changes made)
+(192 real changes made)
+(84 real changes made)
+(85 real changes made)
+(0 real changes made)
+(314 real changes made, 314 to missing)
+(0 real changes made)
+(797 real changes made)
+(2,504 real changes made)
+
+           |     Indicator for whether a
+           |  composition change is observed
+addr_chang |           or inferred
+       e12 | No change  Compositi          . |     Total
+-----------+---------------------------------+----------
+         0 |    65,060      3,734          0 |    68,794 
+         1 |     2,087      1,862         85 |     4,034 
+         . |         0      1,682     56,341 |    58,023 
+-----------+---------------------------------+----------
+     Total |    67,147      7,278     56,426 |   130,851 
+(130,851 missing values generated)
+(68,931 real changes made)
+(176 real changes made)
+(28 real changes made)
+(76 real changes made)
+(0 real changes made)
+(273 real changes made, 273 to missing)
+(0 real changes made)
+(770 real changes made)
+(2,309 real changes made)
+
+           |     Indicator for whether a
+           |  composition change is observed
+addr_chang |           or inferred
+       e13 | No change  Compositi          . |     Total
+-----------+---------------------------------+----------
+         0 |    65,580      3,499          0 |    69,079 
+         1 |     1,416      1,615         76 |     3,107 
+         . |         0      1,309     57,356 |    58,665 
+-----------+---------------------------------+----------
+     Total |    66,996      6,423     57,432 |   130,851 
+(130,851 missing values generated)
+(69,038 real changes made)
+(113 real changes made)
+(13 real changes made)
+(19 real changes made)
+(0 real changes made)
+(262 real changes made, 262 to missing)
+(0 real changes made)
+(701 real changes made)
+(0 real changes made)
+
+           |     Indicator for whether a
+           |  composition change is observed
+addr_chang |           or inferred
+       e14 | No change  Compositi          . |     Total
+-----------+---------------------------------+----------
+         0 |    63,914      2,993          0 |    66,907 
+         1 |     1,467      1,459         19 |     2,945 
+         . |         0        996     60,003 |    60,999 
+-----------+---------------------------------+----------
+     Total |    65,381      5,448     60,022 |   130,851 
+
+. 
+. gen original=1 if !missing(SHHADID1)
+(25,188 missing values generated)
+
+. gen agewave1=adj_age1 if original==1
+(25,188 missing values generated)
+
+. 
+. keep SSUID EPPPNUM SHHADID* adj_age* comp_change* addr_change* comp_change_reason* original agewave1
+
+. 
+. reshape long SHHADID adj_age comp_change addr_change comp_change_reason, i(SSUID EPPPNUM) j(SWAVE)
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15)
+(note: comp_change15 not found)
+(note: addr_change15 not found)
+(note: comp_change_reason15 not found)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                   130851   -> 2.0e+06
+Number of variables                  76   ->      10
+j variable (15 values)                    ->   SWAVE
+xij variables:
+        SHHADID1 SHHADID2 ... SHHADID15   ->   SHHADID
+        adj_age1 adj_age2 ... adj_age15   ->   adj_age
+comp_change1 comp_change2 ... comp_change15->  comp_change
+addr_change1 addr_change2 ... addr_change15->  addr_change
+comp_change_reason1 comp_change_reason2 ... comp_change_reason15->comp_change_reason
+-----------------------------------------------------------------------------
+
+. 
+. merge 1:1 SSUID EPPPNUM SWAVE using "$tempdir/demo_long_all.dta"
+(label esex already defined)
+(label eorigin already defined)
+(label educ already defined)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                         1,962,765  (_merge==3)
+    -----------------------------------------
+
+. 
+. assert _merge==3
+
+. 
+. drop _merge
+
+. 
+. gen hh_change=comp_change
+(774,456 missing values generated)
+
+. replace hh_change=1 if addr_change==1
+(32,913 real changes made)
+
+. 
+. gen inwave = !missing(ERRP)
+
+. 
+. gen insample=0
+
+. * Keep if in this wave and next
+. replace insample=1 if inwave==1 & innext==1
+(1,089,649 real changes made)
+
+. * also keep if hh_change is not missing. This would be (for example) if not in current wave, 
+. * but in next one and people you live with in next wave appear while ego is missing.
+. * hh_change also ==1 if in current wave and not in next, but some of the people 
+. * you are living with now appear in "next" wave while ego is missing.
+. * hh_change can =0 if not in next wave but in a subsequent one and everyone ego 
+. * is with in this wave is in the household in the next appearence
+. replace insample=2 if insample==0 & !missing(hh_change)
+(99,689 real changes made)
+
+. 
+.         label var comp_change_reason "Codes for whether comp_change is observed in adjascent waves or inferred"
+
+.     label values comp_change_reason comp_change_reason
+
+.         
+.         label var comp_change "Indicator for whether a composition change is observed or inferred"
+
+.         label values comp_change comp_change
+
+.         
+.         label var addr_change "Indicator for whether individual moved"
+
+.         label values addr_change addr_change
+
+. 
+. save "$SIPP08keep/hh_change.dta", $replace
+(note: file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/SIPP08_Processed/hh_change.dta not found)
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/SIPP08_Processed/hh_change.dta saved
+
+. 
+end of do-file
+
+. 
+. 
+. do "$childhh_base_code/childhh_epilog" "`logdir'" "`fname'"
+
+. * Boilerplate epilog for ChildHH project.
+. 
+. display "Ending random number generator state"
+Ending random number generator state
+
+. display "`c(rngstate)'"
+XAA0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 000000000000000000000000000000000000000000000000000000000000000000000001000001391839
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs/create_hh_change.log
+  log type:  text
+ closed on:   6 Dec 2019, 14:49:59
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

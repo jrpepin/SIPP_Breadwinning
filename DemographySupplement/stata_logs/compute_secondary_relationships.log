@@ -1,0 +1,2039 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs/compute_secondary_relationships.log
+  log type:  text
+ opened on:   6 Dec 2019, 14:38:59
+
+. 
+. 
+. * I would love to turn off line wrap so the state is a single
+. * continuous string.  This seems not to be possible.  The best
+. * we can do is set the line length to 255.  That's about 20 times
+. * too short so why bother.
+. *
+. * Also, I considered saving the state as a note in the dataset
+. * but this generic do file can't assume there is a dataset at all.
+. display "Starting random number generator state"
+Starting random number generator state
+
+. display "`c(rngstate)'"
+XAA0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 000000000000000000000000000000000000000000000000000000000000000000000001000001391839
+
+. 
+. 
+. set varabbrev off
+
+. 
+. macro list
+S_FNDATE:        6 Dec 2019 14:38
+S_FN:           C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/relationships_tc0_wide.dta
+ReS_jv2:        1 2
+ReS_Call:       version 15.1:
+max_tc:         1
+refmon:         4
+adult_age:      18
+penultimate_wave:
+                14
+second_wave:    2
+final_wave:     15
+first_wave:     1
+replace:        replace
+SIPP08keep:     C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/SIPP08_Processed
+tempdir:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp
+results:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//results
+sipp2008_logs:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs
+sipp2008_code:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//SIPP2008
+childhh_base_code:
+                C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement/
+SIPP2008:       C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008
+SIPP2008core:   C:\Users\Joanna\Dropbox\Data\SIPP\SIPP2008
+SIPP2008tm:     C:\Users\Joanna\Dropbox\Data\SIPP\SIPP2008
+SIPP08:         C:\Users\Joanna/Dropbox/Data/SIPP/SIPP2008
+homedir:        C:\Users\Joanna
+S_level:        95
+F1:             help advice;
+F2:             describe;
+F7:             save
+F8:             use
+S_ADO:          BASE;SITE;.;PERSONAL;PLUS;OLDPLACE
+S_StataMP:      MP
+S_StataSE:      SE
+S_FLAVOR:       Intercooled
+S_OS:           Windows
+S_OSDTL:        64-bit
+S_MACH:         PC (64-bit x86-64)
+_fname:         compute_secondary_relationships
+_logdir:        C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs
+_2:             compute_secondary_relationships
+_1:             C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs
+_0:             "C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs" "compute_secondary_relationships"
+
+. 
+. pwd
+C:\Users\Joanna\Dropbox\Repositories\SIPP_Breadwinning\DemographySupplement
+
+. 
+end of do-file
+
+. 
+. 
+. do "`codedir'/`fname'"
+
+. //==============================================================================
+. //=========== Children's Household Instability Project                                  
+. //=========== Dataset: SIPP2008                                                 
+. //=========== Purpose: Uses programs to compute relationships not 
+. //=========== directly identifiable with parent pointers, spouse pointer, or ERRP  
+. //================================================================================
+. 
+. ********************************************************************************
+. **  Section: programs to process data to identify relationships transitively
+. ********************************************************************************
+. 
+. * Program generates relationship from relationship1 and relatiosnhip2, 
+. * where A is [relationship1] of person B.
+. * Person B is [relationship2] of person C.
+. * Therefore ego is [relationship] or [result_rel] of person C.
+. capture program drop generate_relationship
+
+. program define generate_relationship
+  1.     args result_rel rel1 rel2 /* local macros: result_rel rel1 rels */
+  2.     display "Generating `result_rel' from `rel1' `rel2'"
+  3.     replace relationship = "`result_rel'":relationship if ((relationship1 == "`rel1'":relationship) & (relationship2 == "`rel2'":relationship))
+  4.         *if any relationship is missing:
+.     if (("`result_rel'":relationship == .) | ("`rel1'":relationship == .) | ("`rel2'":relationship == .)) {
+  5.         display as error "relationship not found in one of:  `result_rel' `rel1' `rel2'"
+  6.         exit 111
+  7.     }
+  8. end
+
+. 
+. * Program to make lists of values associated with each relationship type
+. * For example, moms can be biomoms, stepmoms, adoptive moms, or moms.  
+. capture program drop make_relationship_list
+
+. program define make_relationship_list, rclass /* results are in r() vector */
+  1.     * display `"make_relationship_list args:  `0'"'
+.     local max_rel = "`1'":relationship
+  2.     local my_rel_list "`max_rel'"
+  3.     * display "first rel:  `my_rel_list'"
+.     if (`max_rel' == .) {
+  4.         display as error "relationship not found:  `my_rel_list' `max_rel' `1'"
+  5.         exit 111
+  6.     }
+  7.     local i = 2
+  8.     while ("``i''" != "") {
+  9.         * display "next rel:  ``i''"
+.         local rel_num = "``i''":relationship
+ 10.         if (`rel_num' == .) {
+ 11.             display as error "relationship not found:  `my_rel_list' `max_rel' ``i''"
+ 12.             exit 111
+ 13.         }
+ 14.         * display "next rel:  ``i''  `rel_num'"
+.         if (`rel_num' < `max_rel') {
+ 15.             display as error "relationships out of order in make_relationship_list:  `my_rel_list' `max_rel' `rel_num'"
+ 16.             exit 111
+ 17.         }
+ 18.         local max_rel = `rel_num'
+ 19.         local my_rel_list "`my_rel_list',`rel_num'"
+ 20.         * display "new rel list:  `my_rel_list'  max: `max_rel'"
+.         local ++i
+ 21.     }
+ 22.     return local rel_list `"`my_rel_list'"'
+ 23. end
+
+. 
+. ********************************************************************************
+. **  Section: apply programs to data to identify relationships bewteen ego and
+. **  every other person in ego's household in the wave.
+. ********************************************************************************
+. 
+.     use "$tempdir/relationships_tc0_wide"
+
+. 
+.     * We're going to create a dataset that has all the transitive relationships we can find.  So, if we have A --> B and B --> C
+.     * we generate a dataset that tells us A --> B --> C by joining on B.
+.     rename relfrom intermediate_person
+
+.     rename relationship relationship2
+
+.     rename reason reason2
+
+.     label variable relationship2 "rel2"
+
+.     label variable reason2 "reason2"
+
+.     tempfile relmerge
+
+.     save `relmerge'
+file C:\Users\Joanna\AppData\Local\Temp\ST_744c_000001.tmp saved
+
+. 
+. 
+.     use "$tempdir/relationships_tc0_wide"
+
+.     rename relto intermediate_person
+
+.     rename relationship relationship1
+
+.     rename reason reason1
+
+.     label variable relationship1 "rel1"
+
+.     label variable reason1 "reason1"
+
+.         
+.         tab relationship1, m
+
+                rel1 |      Freq.     Percent        Cum.
+---------------------+-----------------------------------
+            BIOCHILD |    661,315       30.11       30.11
+              BIOMOM |    387,136       17.63       47.74
+              BIODAD |    274,179       12.48       60.22
+           STEPCHILD |     47,022        2.14       62.36
+             STEPMOM |     16,676        0.76       63.12
+             STEPDAD |     30,346        1.38       64.50
+          ADOPTCHILD |     12,988        0.59       65.10
+            ADOPTMOM |      6,740        0.31       65.40
+            ADOPTDAD |      6,248        0.28       65.69
+                 MOM |          6        0.00       65.69
+                 DAD |          6        0.00       65.69
+              SPOUSE |    516,182       23.50       89.19
+          GRANDCHILD |     31,181        1.42       90.61
+         GRANDPARENT |     31,181        1.42       92.03
+             SIBLING |     21,962        1.00       93.03
+             PARTNER |     47,196        2.15       95.18
+             F_CHILD |      1,523        0.07       95.25
+               CHILD |         12        0.00       95.25
+            F_PARENT |      1,523        0.07       95.32
+           OTHER_REL |     50,006        2.28       97.60
+               NOREL |     52,382        2.39       99.98
+                   . |        414        0.02      100.00
+---------------------+-----------------------------------
+               Total |  2,196,224      100.00
+
+.         
+.     * Joinby creates a record for every combination of records matching 
+.         * SSUID SHHADID SWAVE and intermediate_person in the two files.
+.     joinby SSUID SHHADID SWAVE intermediate_person using `relmerge'
+
+. 
+.         tab relationship1, m
+
+                rel1 |      Freq.     Percent        Cum.
+---------------------+-----------------------------------
+            BIOCHILD |  2,267,867       40.74       40.74
+              BIOMOM |    716,329       12.87       53.61
+              BIODAD |    551,166        9.90       63.51
+           STEPCHILD |    148,102        2.66       66.17
+             STEPMOM |     37,052        0.67       66.84
+             STEPDAD |     66,921        1.20       68.04
+          ADOPTCHILD |     45,087        0.81       68.85
+            ADOPTMOM |     12,271        0.22       69.07
+            ADOPTDAD |     12,608        0.23       69.30
+                 MOM |         32        0.00       69.30
+                 DAD |         32        0.00       69.30
+              SPOUSE |  1,122,184       20.16       89.46
+          GRANDCHILD |    128,965        2.32       91.77
+         GRANDPARENT |     55,723        1.00       92.78
+             SIBLING |     50,561        0.91       93.68
+             PARTNER |     84,413        1.52       95.20
+             F_CHILD |      7,005        0.13       95.33
+               CHILD |         15        0.00       95.33
+            F_PARENT |      1,523        0.03       95.35
+           OTHER_REL |    149,297        2.68       98.04
+               NOREL |    107,890        1.94       99.97
+                   . |      1,423        0.03      100.00
+---------------------+-----------------------------------
+               Total |  5,566,466      100.00
+
+.         tab relationship2, m
+
+                rel2 |      Freq.     Percent        Cum.
+---------------------+-----------------------------------
+            BIOCHILD |  1,267,495       22.77       22.77
+              BIOMOM |  1,299,572       23.35       46.12
+              BIODAD |    968,295       17.40       63.51
+           STEPCHILD |    103,973        1.87       65.38
+             STEPMOM |     43,851        0.79       66.17
+             STEPDAD |    104,251        1.87       68.04
+          ADOPTCHILD |     24,879        0.45       68.49
+            ADOPTMOM |     22,793        0.41       68.90
+            ADOPTDAD |     22,294        0.40       69.30
+                 MOM |          6        0.00       69.30
+                 DAD |          9        0.00       69.30
+              SPOUSE |  1,122,184       20.16       89.46
+          GRANDCHILD |     55,723        1.00       90.46
+         GRANDPARENT |    128,965        2.32       92.78
+             SIBLING |     50,561        0.91       93.68
+             PARTNER |     84,413        1.52       95.20
+             F_CHILD |      1,523        0.03       95.23
+               CHILD |         64        0.00       95.23
+            F_PARENT |      7,005        0.13       95.35
+           OTHER_REL |    149,297        2.68       98.04
+               NOREL |    107,890        1.94       99.97
+                   . |      1,423        0.03      100.00
+---------------------+-----------------------------------
+               Total |  5,566,466      100.00
+
+.         
+.         * Flag records where we already know relationship of A to C.
+.         * Using data is pairs for which we already know the relationship
+.         merge m:1 SSUID SHHADID SWAVE relfrom relto using "$tempdir/relationships_tc0_wide"
+(label relationship already defined)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                     4,164,656
+        from master                 3,573,770  (_merge==1)
+        from using                    590,886  (_merge==2)
+
+    matched                         1,992,696  (_merge==3)
+    -----------------------------------------
+
+. 
+.         *drop  cases in base_relationships not matched in joinby data because they are in two-person households 
+.         * and thus can never have an intermediated relationship
+.         drop if _merge==2
+(590,886 observations deleted)
+
+. 
+.     * We don't keep (or validate correctness of) relationship of self to self.
+.         * Note that this effectively restricts the joinby data to households with 3 or more people.
+.     display "Dropping self-relationships"
+Dropping self-relationships
+
+.     drop if (relfrom == relto)
+(2,196,224 observations deleted)
+
+.         
+.         gen already_known=0 
+
+.         replace already_known=1 if _merge==3
+(1,992,696 real changes made)
+
+.         drop _merge
+
+.         
+.         display "Is the relationship already known?"
+Is the relationship already known?
+
+.         tab already_known
+
+already_kno |
+         wn |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |  1,377,546       40.87       40.87
+          1 |  1,992,696       59.13      100.00
+------------+-----------------------------------
+      Total |  3,370,242      100.00
+
+.         
+.         *drop if we already have a relationship type for the pair
+.         keep if already_known==0
+(1,992,696 observations deleted)
+
+.         drop relationship reason numrels_tc0
+
+.         
+.     display "Tab of A -- > B and B --> C relationships, where we are trying to find A --> C, rowsort"
+Tab of A -- > B and B --> C relationships, where we are trying to find A --> C, rowsort
+
+.     tab relationship1 relationship2, rowsort m
+
+                     |                                                                                 rel2
+                rel1 |  BIOCHILD     BIOMOM     BIODAD  STEPCHILD    STEPMOM    STEPDAD  ADOPTCHIL   ADOPTMOM   ADOPTDAD     SPOUSE  GRANDPARE    SIBLING    PARTNER      CHILD   F_PARENT |     Total
+---------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------
+            BIOCHILD |    13,605    527,420    370,836      9,306      8,786     19,290        141      3,449      3,717         40     16,463      5,913      6,767         23      1,384 | 1,020,021 
+          GRANDCHILD |        10     11,147      5,316        414        328        517          0        324        192     14,507     33,792        464        699          3         55 |    73,242 
+           STEPCHILD |       527      8,786     19,290        335      5,926     20,316          1        170        429         10        845        261        328          0        123 |    60,044 
+           OTHER_REL |       404     11,747      9,868      1,424        620      1,286          0        145        180      9,307      3,671      2,417        696          4         97 |    56,521 
+               NOREL |        51      6,428      4,705        328        231        542          0        242        105      4,105      1,791      1,050      1,356          1        185 |    39,452 
+              SPOUSE |     2,608         19         21      3,582          0         10         41          0          0          0     14,507      2,296          0          6      1,098 |    37,610 
+          ADOPTCHILD |        51      3,449      3,717        103        170        429          0      5,600      4,924          0        516         60        129          0        572 |    20,392 
+             SIBLING |         0      4,267      1,646          0        110        151          0         60          0      2,296        464      4,692        496          0          2 |    17,671 
+              BIOMOM |     1,129      6,680      2,453         87        243         86          1         19         24      1,826         10          0         38          0          1 |    13,052 
+             PARTNER |        38      5,390      1,377        288        188        140          0         96         33          0        699        496          0          0        114 |    10,911 
+             STEPMOM |         7      4,359      1,408          4        124        140          0         12         73      2,419        351          0        185          6          6 |    10,086 
+              BIODAD |     1,129      3,547        925          7         49        149          0          2          6        782          0          0          0          0          0 |     6,597 
+             STEPDAD |        87      2,196      1,343          4         39         32          0         12          6      1,163         63          0        103          6          3 |     5,829 
+             F_CHILD |         1        702        682          9         67         56          0        452        120      1,098         55          2        114          0      1,842 |     5,482 
+                   . |         1         30        103         12          3         15          0          0          0         10         12         20          0          0          0 |       403 
+            ADOPTDAD |         1         91          4          0          0          0          0          0          0         27          0          0          0          0          0 |       123 
+            ADOPTMOM |         0         29         17          0          1          0          0          0          0         14          0          0          0          0          0 |        61 
+                 MOM |         0          8          3          6          0          0          0          0          0          3          3          0          0          0          0 |        26 
+                 DAD |         0          0         12          6          0          0          0          0          0          3          0          0          0          0          0 |        23 
+---------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------
+               Total |    19,649    596,295    423,726     15,915     16,885     43,159        184     10,583      9,809     37,610     73,242     17,671     10,911         49      5,482 | 1,377,546 
+
+
+                     |               rel2
+                rel1 | OTHER_REL      NOREL          . |     Total
+---------------------+---------------------------------+----------
+            BIOCHILD |    21,615     11,133        133 | 1,020,021 
+          GRANDCHILD |     3,671      1,791         12 |    73,242 
+           STEPCHILD |     1,906        773         18 |    60,044 
+           OTHER_REL |    12,292      2,288         75 |    56,521 
+               NOREL |     2,288     16,024         20 |    39,452 
+              SPOUSE |     9,307      4,105         10 |    37,610 
+          ADOPTCHILD |       325        347          0 |    20,392 
+             SIBLING |     2,417      1,050         20 |    17,671 
+              BIOMOM |       403         51          1 |    13,052 
+             PARTNER |       696      1,356          0 |    10,911 
+             STEPMOM |       780        201         11 |    10,086 
+              BIODAD |         1          0          0 |     6,597 
+             STEPDAD |       644        127          1 |     5,829 
+             F_CHILD |        97        185          0 |     5,482 
+                   . |        75         20        102 |       403 
+            ADOPTDAD |         0          0          0 |       123 
+            ADOPTMOM |         0          0          0 |        61 
+                 MOM |         2          1          0 |        26 
+                 DAD |         2          0          0 |        23 
+---------------------+---------------------------------+----------
+               Total |    56,521     39,452        403 | 1,377,546 
+
+. 
+.     * Now given the A --> B --> C relationships, what can we figure out for A --> C?
+.     gen relationship = .
+(1,377,546 missing values generated)
+
+.     label values relationship relationship
+
+. 
+.     local all_child_types CHILD BIOCHILD STEPCHILD ADOPTCHILD
+
+.     local all_parent_types MOM BIOMOM STEPMOM ADOPTMOM DAD BIODAD STEPDAD ADOPTDAD PARENT
+
+. 
+. foreach rel1 in `all_child_types' {
+  2.   *read as set generate_relationship equal to CHILD if rel1 is any of the child types and rel2 is SPOUSE
+.   generate_relationship "CHILD"                                 "`rel1'"        "SPOUSE"
+  3.   generate_relationship "CHILD"                                 "`rel1'"        "PARTNER"
+  4.   generate_relationship "GREATGRANDCHILD"               "`rel1'"        "GRANDCHILD"
+  5.   generate_relationship "AUNTUNCLE_OR_PARENT"   "`rel1'"        "GRANDPARENT"
+  6.   generate_relationship "NEPHEWNIECE"                   "`rel1'"        "SIBLING"
+  7.   generate_relationship "COUSIN"                                "`rel1'"        "AUNTUNCLE"
+  8.   generate_relationship "OTHER_REL"                     "SPOUSE"        "`rel1'" 
+  9.   generate_relationship "OTHER_REL_P"                   "PARTNER"       "`rel1'" 
+ 10.   
+.   foreach rel2 in `all_child_types' {
+ 11.      generate_relationship "GRANDCHILD"                 "`rel1'"        "`rel2'"
+ 12.   }
+ 13.   
+.   foreach rel2 in `all_parent_types' {
+ 14.      generate_relationship "SIBLING"                    "`rel1'"        "`rel2'"
+ 15.   }
+ 16. 
+.   generate_relationship "OTHER_REL"                     "`rel1'"        "OTHER_REL"
+ 17.   generate_relationship "OTHER_REL"                     "OTHER_REL" "`rel1'" 
+ 18.   generate_relationship "NOREL"                                 "`rel1'"        "NOREL"
+ 19.   generate_relationship "NOREL"                                 "NOREL"         "`rel1'" 
+ 20.   generate_relationship "F_SIB"                                 "`rel1'"        "F_CHILD"
+ 21.   generate_relationship "F_SIB"                                 "F_CHILD"       "`rel1'"
+ 22.   generate_relationship "F_SIB"                                 "`rel1'"        "F_PARENT"
+ 23. }
+Generating CHILD from CHILD SPOUSE
+(0 real changes made)
+Generating CHILD from CHILD PARTNER
+(0 real changes made)
+Generating GREATGRANDCHILD from CHILD GRANDCHILD
+(0 real changes made)
+Generating AUNTUNCLE_OR_PARENT from CHILD GRANDPARENT
+(0 real changes made)
+Generating NEPHEWNIECE from CHILD SIBLING
+(0 real changes made)
+Generating COUSIN from CHILD AUNTUNCLE
+(0 real changes made)
+Generating OTHER_REL from SPOUSE CHILD
+(6 real changes made)
+Generating OTHER_REL_P from PARTNER CHILD
+(0 real changes made)
+Generating GRANDCHILD from CHILD CHILD
+(0 real changes made)
+Generating GRANDCHILD from CHILD BIOCHILD
+(0 real changes made)
+Generating GRANDCHILD from CHILD STEPCHILD
+(0 real changes made)
+Generating GRANDCHILD from CHILD ADOPTCHILD
+(0 real changes made)
+Generating SIBLING from CHILD MOM
+(0 real changes made)
+Generating SIBLING from CHILD BIOMOM
+(0 real changes made)
+Generating SIBLING from CHILD STEPMOM
+(0 real changes made)
+Generating SIBLING from CHILD ADOPTMOM
+(0 real changes made)
+Generating SIBLING from CHILD DAD
+(0 real changes made)
+Generating SIBLING from CHILD BIODAD
+(0 real changes made)
+Generating SIBLING from CHILD STEPDAD
+(0 real changes made)
+Generating SIBLING from CHILD ADOPTDAD
+(0 real changes made)
+Generating SIBLING from CHILD PARENT
+(0 real changes made)
+Generating OTHER_REL from CHILD OTHER_REL
+(0 real changes made)
+Generating OTHER_REL from OTHER_REL CHILD
+(4 real changes made)
+Generating NOREL from CHILD NOREL
+(0 real changes made)
+Generating NOREL from NOREL CHILD
+(1 real change made)
+Generating F_SIB from CHILD F_CHILD
+(0 real changes made)
+Generating F_SIB from F_CHILD CHILD
+(0 real changes made)
+Generating F_SIB from CHILD F_PARENT
+(0 real changes made)
+Generating CHILD from BIOCHILD SPOUSE
+(40 real changes made)
+Generating CHILD from BIOCHILD PARTNER
+(6,767 real changes made)
+Generating GREATGRANDCHILD from BIOCHILD GRANDCHILD
+(0 real changes made)
+Generating AUNTUNCLE_OR_PARENT from BIOCHILD GRANDPARENT
+(16,463 real changes made)
+Generating NEPHEWNIECE from BIOCHILD SIBLING
+(5,913 real changes made)
+Generating COUSIN from BIOCHILD AUNTUNCLE
+(0 real changes made)
+Generating OTHER_REL from SPOUSE BIOCHILD
+(2,608 real changes made)
+Generating OTHER_REL_P from PARTNER BIOCHILD
+(38 real changes made)
+Generating GRANDCHILD from BIOCHILD CHILD
+(23 real changes made)
+Generating GRANDCHILD from BIOCHILD BIOCHILD
+(13,605 real changes made)
+Generating GRANDCHILD from BIOCHILD STEPCHILD
+(9,306 real changes made)
+Generating GRANDCHILD from BIOCHILD ADOPTCHILD
+(141 real changes made)
+Generating SIBLING from BIOCHILD MOM
+(0 real changes made)
+Generating SIBLING from BIOCHILD BIOMOM
+(527,420 real changes made)
+Generating SIBLING from BIOCHILD STEPMOM
+(8,786 real changes made)
+Generating SIBLING from BIOCHILD ADOPTMOM
+(3,449 real changes made)
+Generating SIBLING from BIOCHILD DAD
+(0 real changes made)
+Generating SIBLING from BIOCHILD BIODAD
+(370,836 real changes made)
+Generating SIBLING from BIOCHILD STEPDAD
+(19,290 real changes made)
+Generating SIBLING from BIOCHILD ADOPTDAD
+(3,717 real changes made)
+Generating SIBLING from BIOCHILD PARENT
+(0 real changes made)
+Generating OTHER_REL from BIOCHILD OTHER_REL
+(21,615 real changes made)
+Generating OTHER_REL from OTHER_REL BIOCHILD
+(404 real changes made)
+Generating NOREL from BIOCHILD NOREL
+(11,133 real changes made)
+Generating NOREL from NOREL BIOCHILD
+(51 real changes made)
+Generating F_SIB from BIOCHILD F_CHILD
+(0 real changes made)
+Generating F_SIB from F_CHILD BIOCHILD
+(1 real change made)
+Generating F_SIB from BIOCHILD F_PARENT
+(1,384 real changes made)
+Generating CHILD from STEPCHILD SPOUSE
+(10 real changes made)
+Generating CHILD from STEPCHILD PARTNER
+(328 real changes made)
+Generating GREATGRANDCHILD from STEPCHILD GRANDCHILD
+(0 real changes made)
+Generating AUNTUNCLE_OR_PARENT from STEPCHILD GRANDPARENT
+(845 real changes made)
+Generating NEPHEWNIECE from STEPCHILD SIBLING
+(261 real changes made)
+Generating COUSIN from STEPCHILD AUNTUNCLE
+(0 real changes made)
+Generating OTHER_REL from SPOUSE STEPCHILD
+(3,582 real changes made)
+Generating OTHER_REL_P from PARTNER STEPCHILD
+(288 real changes made)
+Generating GRANDCHILD from STEPCHILD CHILD
+(0 real changes made)
+Generating GRANDCHILD from STEPCHILD BIOCHILD
+(527 real changes made)
+Generating GRANDCHILD from STEPCHILD STEPCHILD
+(335 real changes made)
+Generating GRANDCHILD from STEPCHILD ADOPTCHILD
+(1 real change made)
+Generating SIBLING from STEPCHILD MOM
+(0 real changes made)
+Generating SIBLING from STEPCHILD BIOMOM
+(8,786 real changes made)
+Generating SIBLING from STEPCHILD STEPMOM
+(5,926 real changes made)
+Generating SIBLING from STEPCHILD ADOPTMOM
+(170 real changes made)
+Generating SIBLING from STEPCHILD DAD
+(0 real changes made)
+Generating SIBLING from STEPCHILD BIODAD
+(19,290 real changes made)
+Generating SIBLING from STEPCHILD STEPDAD
+(20,316 real changes made)
+Generating SIBLING from STEPCHILD ADOPTDAD
+(429 real changes made)
+Generating SIBLING from STEPCHILD PARENT
+(0 real changes made)
+Generating OTHER_REL from STEPCHILD OTHER_REL
+(1,906 real changes made)
+Generating OTHER_REL from OTHER_REL STEPCHILD
+(1,424 real changes made)
+Generating NOREL from STEPCHILD NOREL
+(773 real changes made)
+Generating NOREL from NOREL STEPCHILD
+(328 real changes made)
+Generating F_SIB from STEPCHILD F_CHILD
+(0 real changes made)
+Generating F_SIB from F_CHILD STEPCHILD
+(9 real changes made)
+Generating F_SIB from STEPCHILD F_PARENT
+(123 real changes made)
+Generating CHILD from ADOPTCHILD SPOUSE
+(0 real changes made)
+Generating CHILD from ADOPTCHILD PARTNER
+(129 real changes made)
+Generating GREATGRANDCHILD from ADOPTCHILD GRANDCHILD
+(0 real changes made)
+Generating AUNTUNCLE_OR_PARENT from ADOPTCHILD GRANDPARENT
+(516 real changes made)
+Generating NEPHEWNIECE from ADOPTCHILD SIBLING
+(60 real changes made)
+Generating COUSIN from ADOPTCHILD AUNTUNCLE
+(0 real changes made)
+Generating OTHER_REL from SPOUSE ADOPTCHILD
+(41 real changes made)
+Generating OTHER_REL_P from PARTNER ADOPTCHILD
+(0 real changes made)
+Generating GRANDCHILD from ADOPTCHILD CHILD
+(0 real changes made)
+Generating GRANDCHILD from ADOPTCHILD BIOCHILD
+(51 real changes made)
+Generating GRANDCHILD from ADOPTCHILD STEPCHILD
+(103 real changes made)
+Generating GRANDCHILD from ADOPTCHILD ADOPTCHILD
+(0 real changes made)
+Generating SIBLING from ADOPTCHILD MOM
+(0 real changes made)
+Generating SIBLING from ADOPTCHILD BIOMOM
+(3,449 real changes made)
+Generating SIBLING from ADOPTCHILD STEPMOM
+(170 real changes made)
+Generating SIBLING from ADOPTCHILD ADOPTMOM
+(5,600 real changes made)
+Generating SIBLING from ADOPTCHILD DAD
+(0 real changes made)
+Generating SIBLING from ADOPTCHILD BIODAD
+(3,717 real changes made)
+Generating SIBLING from ADOPTCHILD STEPDAD
+(429 real changes made)
+Generating SIBLING from ADOPTCHILD ADOPTDAD
+(4,924 real changes made)
+Generating SIBLING from ADOPTCHILD PARENT
+(0 real changes made)
+Generating OTHER_REL from ADOPTCHILD OTHER_REL
+(325 real changes made)
+Generating OTHER_REL from OTHER_REL ADOPTCHILD
+(0 real changes made)
+Generating NOREL from ADOPTCHILD NOREL
+(347 real changes made)
+Generating NOREL from NOREL ADOPTCHILD
+(0 real changes made)
+Generating F_SIB from ADOPTCHILD F_CHILD
+(0 real changes made)
+Generating F_SIB from F_CHILD ADOPTCHILD
+(0 real changes made)
+Generating F_SIB from ADOPTCHILD F_PARENT
+(572 real changes made)
+
+. 
+. foreach rel2 in `all_child_types' {
+  2.   generate_relationship "GREATGRANDCHILD"               "GRANDCHILD" "`rel2'"
+  3.   generate_relationship "PARENT" "SIBLING"              "`rel2'"
+  4.   generate_relationship "PARENT_OR_RELATIVE"    "GRANDPARENT" "`rel2'"
+  5.   generate_relationship "F_SIB" "F_CHILD"               "`rel2'"
+  6. }
+Generating GREATGRANDCHILD from GRANDCHILD CHILD
+(3 real changes made)
+Generating PARENT from SIBLING CHILD
+(0 real changes made)
+Generating PARENT_OR_RELATIVE from GRANDPARENT CHILD
+(0 real changes made)
+Generating F_SIB from F_CHILD CHILD
+(0 real changes made)
+Generating GREATGRANDCHILD from GRANDCHILD BIOCHILD
+(10 real changes made)
+Generating PARENT from SIBLING BIOCHILD
+(0 real changes made)
+Generating PARENT_OR_RELATIVE from GRANDPARENT BIOCHILD
+(0 real changes made)
+Generating F_SIB from F_CHILD BIOCHILD
+(0 real changes made)
+Generating GREATGRANDCHILD from GRANDCHILD STEPCHILD
+(414 real changes made)
+Generating PARENT from SIBLING STEPCHILD
+(0 real changes made)
+Generating PARENT_OR_RELATIVE from GRANDPARENT STEPCHILD
+(0 real changes made)
+Generating F_SIB from F_CHILD STEPCHILD
+(0 real changes made)
+Generating GREATGRANDCHILD from GRANDCHILD ADOPTCHILD
+(0 real changes made)
+Generating PARENT from SIBLING ADOPTCHILD
+(0 real changes made)
+Generating PARENT_OR_RELATIVE from GRANDPARENT ADOPTCHILD
+(0 real changes made)
+Generating F_SIB from F_CHILD ADOPTCHILD
+(0 real changes made)
+
+. 
+. foreach rel1 in `all_parent_types' {
+  2.    foreach rel2 in `all_parent_types' {
+  3.       generate_relationship "GRANDPARENT"               "`rel1'"        "`rel2'"
+  4.    }
+  5.    
+.    * Should we call these PARTNERS?  Or something less certain?
+.    foreach rel2 in `all_child_types' {
+  6.       generate_relationship "PARTNER"                   "`rel1'"        "`rel2'"
+  7.    }
+  8. 
+.    generate_relationship "GREATGRANDPARENT"     "`rel1'"        "GRANDPARENT"
+  9.    generate_relationship "PARENT"                               "`rel1'"        "SIBLING"
+ 10.    generate_relationship "CHILD_OR_RELATIVE"    "`rel1'"        "GRANDCHILD"
+ 11.    generate_relationship "OTHER_REL"                    "`rel1'"        "SPOUSE"
+ 12.    generate_relationship "OTHER_REL_P"                  "`rel1'"        "PARTNER"
+ 13.    generate_relationship "OTHER_REL"                    "`rel1'"        "OTHER_REL"
+ 14.    generate_relationship "OTHER_REL"                    "OTHER_REL" "`rel1'" 
+ 15. 
+.    generate_relationship "NOREL"                                "`rel1'"        "NOREL"
+ 16.    generate_relationship "NOREL"                                "NOREL"         "`rel1'" 
+ 17. }
+Generating GRANDPARENT from MOM MOM
+(0 real changes made)
+Generating GRANDPARENT from MOM BIOMOM
+(8 real changes made)
+Generating GRANDPARENT from MOM STEPMOM
+(0 real changes made)
+Generating GRANDPARENT from MOM ADOPTMOM
+(0 real changes made)
+Generating GRANDPARENT from MOM DAD
+(0 real changes made)
+Generating GRANDPARENT from MOM BIODAD
+(3 real changes made)
+Generating GRANDPARENT from MOM STEPDAD
+(0 real changes made)
+Generating GRANDPARENT from MOM ADOPTDAD
+(0 real changes made)
+Generating GRANDPARENT from MOM PARENT
+(0 real changes made)
+Generating PARTNER from MOM CHILD
+(0 real changes made)
+Generating PARTNER from MOM BIOCHILD
+(0 real changes made)
+Generating PARTNER from MOM STEPCHILD
+(6 real changes made)
+Generating PARTNER from MOM ADOPTCHILD
+(0 real changes made)
+Generating GREATGRANDPARENT from MOM GRANDPARENT
+(3 real changes made)
+Generating PARENT from MOM SIBLING
+(0 real changes made)
+Generating CHILD_OR_RELATIVE from MOM GRANDCHILD
+(0 real changes made)
+Generating OTHER_REL from MOM SPOUSE
+(3 real changes made)
+Generating OTHER_REL_P from MOM PARTNER
+(0 real changes made)
+Generating OTHER_REL from MOM OTHER_REL
+(2 real changes made)
+Generating OTHER_REL from OTHER_REL MOM
+(0 real changes made)
+Generating NOREL from MOM NOREL
+(1 real change made)
+Generating NOREL from NOREL MOM
+(0 real changes made)
+Generating GRANDPARENT from BIOMOM MOM
+(0 real changes made)
+Generating GRANDPARENT from BIOMOM BIOMOM
+(6,680 real changes made)
+Generating GRANDPARENT from BIOMOM STEPMOM
+(243 real changes made)
+Generating GRANDPARENT from BIOMOM ADOPTMOM
+(19 real changes made)
+Generating GRANDPARENT from BIOMOM DAD
+(0 real changes made)
+Generating GRANDPARENT from BIOMOM BIODAD
+(2,453 real changes made)
+Generating GRANDPARENT from BIOMOM STEPDAD
+(86 real changes made)
+Generating GRANDPARENT from BIOMOM ADOPTDAD
+(24 real changes made)
+Generating GRANDPARENT from BIOMOM PARENT
+(0 real changes made)
+Generating PARTNER from BIOMOM CHILD
+(0 real changes made)
+Generating PARTNER from BIOMOM BIOCHILD
+(1,129 real changes made)
+Generating PARTNER from BIOMOM STEPCHILD
+(87 real changes made)
+Generating PARTNER from BIOMOM ADOPTCHILD
+(1 real change made)
+Generating GREATGRANDPARENT from BIOMOM GRANDPARENT
+(10 real changes made)
+Generating PARENT from BIOMOM SIBLING
+(0 real changes made)
+Generating CHILD_OR_RELATIVE from BIOMOM GRANDCHILD
+(0 real changes made)
+Generating OTHER_REL from BIOMOM SPOUSE
+(1,826 real changes made)
+Generating OTHER_REL_P from BIOMOM PARTNER
+(38 real changes made)
+Generating OTHER_REL from BIOMOM OTHER_REL
+(403 real changes made)
+Generating OTHER_REL from OTHER_REL BIOMOM
+(11,747 real changes made)
+Generating NOREL from BIOMOM NOREL
+(51 real changes made)
+Generating NOREL from NOREL BIOMOM
+(6,428 real changes made)
+Generating GRANDPARENT from STEPMOM MOM
+(0 real changes made)
+Generating GRANDPARENT from STEPMOM BIOMOM
+(4,359 real changes made)
+Generating GRANDPARENT from STEPMOM STEPMOM
+(124 real changes made)
+Generating GRANDPARENT from STEPMOM ADOPTMOM
+(12 real changes made)
+Generating GRANDPARENT from STEPMOM DAD
+(0 real changes made)
+Generating GRANDPARENT from STEPMOM BIODAD
+(1,408 real changes made)
+Generating GRANDPARENT from STEPMOM STEPDAD
+(140 real changes made)
+Generating GRANDPARENT from STEPMOM ADOPTDAD
+(73 real changes made)
+Generating GRANDPARENT from STEPMOM PARENT
+(0 real changes made)
+Generating PARTNER from STEPMOM CHILD
+(6 real changes made)
+Generating PARTNER from STEPMOM BIOCHILD
+(7 real changes made)
+Generating PARTNER from STEPMOM STEPCHILD
+(4 real changes made)
+Generating PARTNER from STEPMOM ADOPTCHILD
+(0 real changes made)
+Generating GREATGRANDPARENT from STEPMOM GRANDPARENT
+(351 real changes made)
+Generating PARENT from STEPMOM SIBLING
+(0 real changes made)
+Generating CHILD_OR_RELATIVE from STEPMOM GRANDCHILD
+(0 real changes made)
+Generating OTHER_REL from STEPMOM SPOUSE
+(2,419 real changes made)
+Generating OTHER_REL_P from STEPMOM PARTNER
+(185 real changes made)
+Generating OTHER_REL from STEPMOM OTHER_REL
+(780 real changes made)
+Generating OTHER_REL from OTHER_REL STEPMOM
+(620 real changes made)
+Generating NOREL from STEPMOM NOREL
+(201 real changes made)
+Generating NOREL from NOREL STEPMOM
+(231 real changes made)
+Generating GRANDPARENT from ADOPTMOM MOM
+(0 real changes made)
+Generating GRANDPARENT from ADOPTMOM BIOMOM
+(29 real changes made)
+Generating GRANDPARENT from ADOPTMOM STEPMOM
+(1 real change made)
+Generating GRANDPARENT from ADOPTMOM ADOPTMOM
+(0 real changes made)
+Generating GRANDPARENT from ADOPTMOM DAD
+(0 real changes made)
+Generating GRANDPARENT from ADOPTMOM BIODAD
+(17 real changes made)
+Generating GRANDPARENT from ADOPTMOM STEPDAD
+(0 real changes made)
+Generating GRANDPARENT from ADOPTMOM ADOPTDAD
+(0 real changes made)
+Generating GRANDPARENT from ADOPTMOM PARENT
+(0 real changes made)
+Generating PARTNER from ADOPTMOM CHILD
+(0 real changes made)
+Generating PARTNER from ADOPTMOM BIOCHILD
+(0 real changes made)
+Generating PARTNER from ADOPTMOM STEPCHILD
+(0 real changes made)
+Generating PARTNER from ADOPTMOM ADOPTCHILD
+(0 real changes made)
+Generating GREATGRANDPARENT from ADOPTMOM GRANDPARENT
+(0 real changes made)
+Generating PARENT from ADOPTMOM SIBLING
+(0 real changes made)
+Generating CHILD_OR_RELATIVE from ADOPTMOM GRANDCHILD
+(0 real changes made)
+Generating OTHER_REL from ADOPTMOM SPOUSE
+(14 real changes made)
+Generating OTHER_REL_P from ADOPTMOM PARTNER
+(0 real changes made)
+Generating OTHER_REL from ADOPTMOM OTHER_REL
+(0 real changes made)
+Generating OTHER_REL from OTHER_REL ADOPTMOM
+(145 real changes made)
+Generating NOREL from ADOPTMOM NOREL
+(0 real changes made)
+Generating NOREL from NOREL ADOPTMOM
+(242 real changes made)
+Generating GRANDPARENT from DAD MOM
+(0 real changes made)
+Generating GRANDPARENT from DAD BIOMOM
+(0 real changes made)
+Generating GRANDPARENT from DAD STEPMOM
+(0 real changes made)
+Generating GRANDPARENT from DAD ADOPTMOM
+(0 real changes made)
+Generating GRANDPARENT from DAD DAD
+(0 real changes made)
+Generating GRANDPARENT from DAD BIODAD
+(12 real changes made)
+Generating GRANDPARENT from DAD STEPDAD
+(0 real changes made)
+Generating GRANDPARENT from DAD ADOPTDAD
+(0 real changes made)
+Generating GRANDPARENT from DAD PARENT
+(0 real changes made)
+Generating PARTNER from DAD CHILD
+(0 real changes made)
+Generating PARTNER from DAD BIOCHILD
+(0 real changes made)
+Generating PARTNER from DAD STEPCHILD
+(6 real changes made)
+Generating PARTNER from DAD ADOPTCHILD
+(0 real changes made)
+Generating GREATGRANDPARENT from DAD GRANDPARENT
+(0 real changes made)
+Generating PARENT from DAD SIBLING
+(0 real changes made)
+Generating CHILD_OR_RELATIVE from DAD GRANDCHILD
+(0 real changes made)
+Generating OTHER_REL from DAD SPOUSE
+(3 real changes made)
+Generating OTHER_REL_P from DAD PARTNER
+(0 real changes made)
+Generating OTHER_REL from DAD OTHER_REL
+(2 real changes made)
+Generating OTHER_REL from OTHER_REL DAD
+(0 real changes made)
+Generating NOREL from DAD NOREL
+(0 real changes made)
+Generating NOREL from NOREL DAD
+(0 real changes made)
+Generating GRANDPARENT from BIODAD MOM
+(0 real changes made)
+Generating GRANDPARENT from BIODAD BIOMOM
+(3,547 real changes made)
+Generating GRANDPARENT from BIODAD STEPMOM
+(49 real changes made)
+Generating GRANDPARENT from BIODAD ADOPTMOM
+(2 real changes made)
+Generating GRANDPARENT from BIODAD DAD
+(0 real changes made)
+Generating GRANDPARENT from BIODAD BIODAD
+(925 real changes made)
+Generating GRANDPARENT from BIODAD STEPDAD
+(149 real changes made)
+Generating GRANDPARENT from BIODAD ADOPTDAD
+(6 real changes made)
+Generating GRANDPARENT from BIODAD PARENT
+(0 real changes made)
+Generating PARTNER from BIODAD CHILD
+(0 real changes made)
+Generating PARTNER from BIODAD BIOCHILD
+(1,129 real changes made)
+Generating PARTNER from BIODAD STEPCHILD
+(7 real changes made)
+Generating PARTNER from BIODAD ADOPTCHILD
+(0 real changes made)
+Generating GREATGRANDPARENT from BIODAD GRANDPARENT
+(0 real changes made)
+Generating PARENT from BIODAD SIBLING
+(0 real changes made)
+Generating CHILD_OR_RELATIVE from BIODAD GRANDCHILD
+(0 real changes made)
+Generating OTHER_REL from BIODAD SPOUSE
+(782 real changes made)
+Generating OTHER_REL_P from BIODAD PARTNER
+(0 real changes made)
+Generating OTHER_REL from BIODAD OTHER_REL
+(1 real change made)
+Generating OTHER_REL from OTHER_REL BIODAD
+(9,868 real changes made)
+Generating NOREL from BIODAD NOREL
+(0 real changes made)
+Generating NOREL from NOREL BIODAD
+(4,705 real changes made)
+Generating GRANDPARENT from STEPDAD MOM
+(0 real changes made)
+Generating GRANDPARENT from STEPDAD BIOMOM
+(2,196 real changes made)
+Generating GRANDPARENT from STEPDAD STEPMOM
+(39 real changes made)
+Generating GRANDPARENT from STEPDAD ADOPTMOM
+(12 real changes made)
+Generating GRANDPARENT from STEPDAD DAD
+(0 real changes made)
+Generating GRANDPARENT from STEPDAD BIODAD
+(1,343 real changes made)
+Generating GRANDPARENT from STEPDAD STEPDAD
+(32 real changes made)
+Generating GRANDPARENT from STEPDAD ADOPTDAD
+(6 real changes made)
+Generating GRANDPARENT from STEPDAD PARENT
+(0 real changes made)
+Generating PARTNER from STEPDAD CHILD
+(6 real changes made)
+Generating PARTNER from STEPDAD BIOCHILD
+(87 real changes made)
+Generating PARTNER from STEPDAD STEPCHILD
+(4 real changes made)
+Generating PARTNER from STEPDAD ADOPTCHILD
+(0 real changes made)
+Generating GREATGRANDPARENT from STEPDAD GRANDPARENT
+(63 real changes made)
+Generating PARENT from STEPDAD SIBLING
+(0 real changes made)
+Generating CHILD_OR_RELATIVE from STEPDAD GRANDCHILD
+(0 real changes made)
+Generating OTHER_REL from STEPDAD SPOUSE
+(1,163 real changes made)
+Generating OTHER_REL_P from STEPDAD PARTNER
+(103 real changes made)
+Generating OTHER_REL from STEPDAD OTHER_REL
+(644 real changes made)
+Generating OTHER_REL from OTHER_REL STEPDAD
+(1,286 real changes made)
+Generating NOREL from STEPDAD NOREL
+(127 real changes made)
+Generating NOREL from NOREL STEPDAD
+(542 real changes made)
+Generating GRANDPARENT from ADOPTDAD MOM
+(0 real changes made)
+Generating GRANDPARENT from ADOPTDAD BIOMOM
+(91 real changes made)
+Generating GRANDPARENT from ADOPTDAD STEPMOM
+(0 real changes made)
+Generating GRANDPARENT from ADOPTDAD ADOPTMOM
+(0 real changes made)
+Generating GRANDPARENT from ADOPTDAD DAD
+(0 real changes made)
+Generating GRANDPARENT from ADOPTDAD BIODAD
+(4 real changes made)
+Generating GRANDPARENT from ADOPTDAD STEPDAD
+(0 real changes made)
+Generating GRANDPARENT from ADOPTDAD ADOPTDAD
+(0 real changes made)
+Generating GRANDPARENT from ADOPTDAD PARENT
+(0 real changes made)
+Generating PARTNER from ADOPTDAD CHILD
+(0 real changes made)
+Generating PARTNER from ADOPTDAD BIOCHILD
+(1 real change made)
+Generating PARTNER from ADOPTDAD STEPCHILD
+(0 real changes made)
+Generating PARTNER from ADOPTDAD ADOPTCHILD
+(0 real changes made)
+Generating GREATGRANDPARENT from ADOPTDAD GRANDPARENT
+(0 real changes made)
+Generating PARENT from ADOPTDAD SIBLING
+(0 real changes made)
+Generating CHILD_OR_RELATIVE from ADOPTDAD GRANDCHILD
+(0 real changes made)
+Generating OTHER_REL from ADOPTDAD SPOUSE
+(27 real changes made)
+Generating OTHER_REL_P from ADOPTDAD PARTNER
+(0 real changes made)
+Generating OTHER_REL from ADOPTDAD OTHER_REL
+(0 real changes made)
+Generating OTHER_REL from OTHER_REL ADOPTDAD
+(180 real changes made)
+Generating NOREL from ADOPTDAD NOREL
+(0 real changes made)
+Generating NOREL from NOREL ADOPTDAD
+(105 real changes made)
+Generating GRANDPARENT from PARENT MOM
+(0 real changes made)
+Generating GRANDPARENT from PARENT BIOMOM
+(0 real changes made)
+Generating GRANDPARENT from PARENT STEPMOM
+(0 real changes made)
+Generating GRANDPARENT from PARENT ADOPTMOM
+(0 real changes made)
+Generating GRANDPARENT from PARENT DAD
+(0 real changes made)
+Generating GRANDPARENT from PARENT BIODAD
+(0 real changes made)
+Generating GRANDPARENT from PARENT STEPDAD
+(0 real changes made)
+Generating GRANDPARENT from PARENT ADOPTDAD
+(0 real changes made)
+Generating GRANDPARENT from PARENT PARENT
+(0 real changes made)
+Generating PARTNER from PARENT CHILD
+(0 real changes made)
+Generating PARTNER from PARENT BIOCHILD
+(0 real changes made)
+Generating PARTNER from PARENT STEPCHILD
+(0 real changes made)
+Generating PARTNER from PARENT ADOPTCHILD
+(0 real changes made)
+Generating GREATGRANDPARENT from PARENT GRANDPARENT
+(0 real changes made)
+Generating PARENT from PARENT SIBLING
+(0 real changes made)
+Generating CHILD_OR_RELATIVE from PARENT GRANDCHILD
+(0 real changes made)
+Generating OTHER_REL from PARENT SPOUSE
+(0 real changes made)
+Generating OTHER_REL_P from PARENT PARTNER
+(0 real changes made)
+Generating OTHER_REL from PARENT OTHER_REL
+(0 real changes made)
+Generating OTHER_REL from OTHER_REL PARENT
+(0 real changes made)
+Generating NOREL from PARENT NOREL
+(0 real changes made)
+Generating NOREL from NOREL PARENT
+(0 real changes made)
+
+. 
+.     foreach rel2 in `all_parent_types' {
+  2.         generate_relationship "PARENT"                  "SPOUSE" "`rel2'"
+  3.         generate_relationship "PARENT"                  "PARTNER" "`rel2'"
+  4. 
+.         generate_relationship "AUNTUNCLE"               "SIBLING" "`rel2'"
+  5. 
+.         generate_relationship "CHILD_OR_NEPHEWNIECE" "GRANDCHILD" "`rel2'"
+  6. 
+.         generate_relationship "GREATGRANDPARENT" "GRANDPARENT" "`rel2'"
+  7. 
+.         generate_relationship "NOREL"                   "F_CHILD" "`rel2'"
+  8.     }
+Generating PARENT from SPOUSE MOM
+(0 real changes made)
+Generating PARENT from PARTNER MOM
+(0 real changes made)
+Generating AUNTUNCLE from SIBLING MOM
+(0 real changes made)
+Generating CHILD_OR_NEPHEWNIECE from GRANDCHILD MOM
+(0 real changes made)
+Generating GREATGRANDPARENT from GRANDPARENT MOM
+(0 real changes made)
+Generating NOREL from F_CHILD MOM
+(0 real changes made)
+Generating PARENT from SPOUSE BIOMOM
+(19 real changes made)
+Generating PARENT from PARTNER BIOMOM
+(5,390 real changes made)
+Generating AUNTUNCLE from SIBLING BIOMOM
+(4,267 real changes made)
+Generating CHILD_OR_NEPHEWNIECE from GRANDCHILD BIOMOM
+(11,147 real changes made)
+Generating GREATGRANDPARENT from GRANDPARENT BIOMOM
+(0 real changes made)
+Generating NOREL from F_CHILD BIOMOM
+(702 real changes made)
+Generating PARENT from SPOUSE STEPMOM
+(0 real changes made)
+Generating PARENT from PARTNER STEPMOM
+(188 real changes made)
+Generating AUNTUNCLE from SIBLING STEPMOM
+(110 real changes made)
+Generating CHILD_OR_NEPHEWNIECE from GRANDCHILD STEPMOM
+(328 real changes made)
+Generating GREATGRANDPARENT from GRANDPARENT STEPMOM
+(0 real changes made)
+Generating NOREL from F_CHILD STEPMOM
+(67 real changes made)
+Generating PARENT from SPOUSE ADOPTMOM
+(0 real changes made)
+Generating PARENT from PARTNER ADOPTMOM
+(96 real changes made)
+Generating AUNTUNCLE from SIBLING ADOPTMOM
+(60 real changes made)
+Generating CHILD_OR_NEPHEWNIECE from GRANDCHILD ADOPTMOM
+(324 real changes made)
+Generating GREATGRANDPARENT from GRANDPARENT ADOPTMOM
+(0 real changes made)
+Generating NOREL from F_CHILD ADOPTMOM
+(452 real changes made)
+Generating PARENT from SPOUSE DAD
+(0 real changes made)
+Generating PARENT from PARTNER DAD
+(0 real changes made)
+Generating AUNTUNCLE from SIBLING DAD
+(0 real changes made)
+Generating CHILD_OR_NEPHEWNIECE from GRANDCHILD DAD
+(0 real changes made)
+Generating GREATGRANDPARENT from GRANDPARENT DAD
+(0 real changes made)
+Generating NOREL from F_CHILD DAD
+(0 real changes made)
+Generating PARENT from SPOUSE BIODAD
+(21 real changes made)
+Generating PARENT from PARTNER BIODAD
+(1,377 real changes made)
+Generating AUNTUNCLE from SIBLING BIODAD
+(1,646 real changes made)
+Generating CHILD_OR_NEPHEWNIECE from GRANDCHILD BIODAD
+(5,316 real changes made)
+Generating GREATGRANDPARENT from GRANDPARENT BIODAD
+(0 real changes made)
+Generating NOREL from F_CHILD BIODAD
+(682 real changes made)
+Generating PARENT from SPOUSE STEPDAD
+(10 real changes made)
+Generating PARENT from PARTNER STEPDAD
+(140 real changes made)
+Generating AUNTUNCLE from SIBLING STEPDAD
+(151 real changes made)
+Generating CHILD_OR_NEPHEWNIECE from GRANDCHILD STEPDAD
+(517 real changes made)
+Generating GREATGRANDPARENT from GRANDPARENT STEPDAD
+(0 real changes made)
+Generating NOREL from F_CHILD STEPDAD
+(56 real changes made)
+Generating PARENT from SPOUSE ADOPTDAD
+(0 real changes made)
+Generating PARENT from PARTNER ADOPTDAD
+(33 real changes made)
+Generating AUNTUNCLE from SIBLING ADOPTDAD
+(0 real changes made)
+Generating CHILD_OR_NEPHEWNIECE from GRANDCHILD ADOPTDAD
+(192 real changes made)
+Generating GREATGRANDPARENT from GRANDPARENT ADOPTDAD
+(0 real changes made)
+Generating NOREL from F_CHILD ADOPTDAD
+(120 real changes made)
+Generating PARENT from SPOUSE PARENT
+(0 real changes made)
+Generating PARENT from PARTNER PARENT
+(0 real changes made)
+Generating AUNTUNCLE from SIBLING PARENT
+(0 real changes made)
+Generating CHILD_OR_NEPHEWNIECE from GRANDCHILD PARENT
+(0 real changes made)
+Generating GREATGRANDPARENT from GRANDPARENT PARENT
+(0 real changes made)
+Generating NOREL from F_CHILD PARENT
+(0 real changes made)
+
+. 
+. *** rel1 == GRANDCHILD
+. generate_relationship "GRANDCHILD"                              "GRANDCHILD" "SPOUSE"
+Generating GRANDCHILD from GRANDCHILD SPOUSE
+(14,507 real changes made)
+
+. generate_relationship "GRANDCHILD_P"                    "GRANDCHILD" "PARTNER"
+Generating GRANDCHILD_P from GRANDCHILD PARTNER
+(699 real changes made)
+
+. generate_relationship "OTHER_REL"                               "GRANDCHILD" "SIBLING"
+Generating OTHER_REL from GRANDCHILD SIBLING
+(464 real changes made)
+
+. generate_relationship "SIBLING_OR_COUSIN"               "GRANDCHILD" "GRANDPARENT"
+Generating SIBLING_OR_COUSIN from GRANDCHILD GRANDPARENT
+(33,792 real changes made)
+
+. generate_relationship "NOREL"                                   "GRANDCHILD" "NOREL"
+Generating NOREL from GRANDCHILD NOREL
+(1,791 real changes made)
+
+. generate_relationship "OTHER_REL"                               "GRANDCHILD" "OTHER_REL"
+Generating OTHER_REL from GRANDCHILD OTHER_REL
+(3,671 real changes made)
+
+. 
+. *** rel2 == GRANDCHILD
+. generate_relationship "NOREL"                                   "NOREL" "GRANDCHILD" 
+Generating NOREL from NOREL GRANDCHILD
+(0 real changes made)
+
+. 
+. 
+. *** rel1 == GRANDPARENT
+. generate_relationship "OTHER_REL"                               "GRANDPARENT" "SPOUSE"
+Generating OTHER_REL from GRANDPARENT SPOUSE
+(0 real changes made)
+
+. generate_relationship "OTHER_REL_P"                     "GRANDPARENT" "PARTNER"
+Generating OTHER_REL_P from GRANDPARENT PARTNER
+(0 real changes made)
+
+. generate_relationship "NOREL"                                   "GRANDPARENT" "NOREL"
+Generating NOREL from GRANDPARENT NOREL
+(0 real changes made)
+
+. 
+. *** rel2 == GRANDPARENT
+. generate_relationship "OTHER_REL"                               "OTHER_REL" "GRANDPARENT" 
+Generating OTHER_REL from OTHER_REL GRANDPARENT
+(3,671 real changes made)
+
+. generate_relationship "NOREL"                                   "NOREL" "GRANDPARENT" 
+Generating NOREL from NOREL GRANDPARENT
+(1,791 real changes made)
+
+. 
+. 
+. *** rel1 == SIBLING
+. generate_relationship "SIBLING"                                 "SIBLING" "SIBLING"
+Generating SIBLING from SIBLING SIBLING
+(4,692 real changes made)
+
+. generate_relationship "OTHER_REL"                               "SIBLING" "SPOUSE"
+Generating OTHER_REL from SIBLING SPOUSE
+(2,296 real changes made)
+
+. generate_relationship "OTHER_REL_P"                     "SIBLING" "PARTNER"
+Generating OTHER_REL_P from SIBLING PARTNER
+(496 real changes made)
+
+. generate_relationship "OTHER_REL"                               "SIBLING" "GRANDPARENT"
+Generating OTHER_REL from SIBLING GRANDPARENT
+(464 real changes made)
+
+. generate_relationship "OTHER_REL"                               "SIBLING" "OTHER_REL"
+Generating OTHER_REL from SIBLING OTHER_REL
+(2,417 real changes made)
+
+. generate_relationship "NOREL"                                   "SIBLING" "NOREL"
+Generating NOREL from SIBLING NOREL
+(1,050 real changes made)
+
+. 
+. *** rel2 == SIBLING
+. generate_relationship "OTHER_REL"                               "OTHER_REL" "SIBLING" 
+Generating OTHER_REL from OTHER_REL SIBLING
+(2,417 real changes made)
+
+. generate_relationship "NOREL"                                   "NOREL" "SIBLING" 
+Generating NOREL from NOREL SIBLING
+(1,050 real changes made)
+
+. 
+. *** rel1 == SPOUSE / PARTNER
+. generate_relationship "GRANDPARENT"                     "SPOUSE" "GRANDPARENT"
+Generating GRANDPARENT from SPOUSE GRANDPARENT
+(14,507 real changes made)
+
+. generate_relationship "GRANDPARENT_P"                   "PARTNER" "GRANDPARENT"
+Generating GRANDPARENT_P from PARTNER GRANDPARENT
+(699 real changes made)
+
+. generate_relationship "OTHER_REL"                               "SPOUSE" "GRANDCHILD"
+Generating OTHER_REL from SPOUSE GRANDCHILD
+(0 real changes made)
+
+. generate_relationship "OTHER_REL_P"                     "PARTNER" "GRANDCHILD"
+Generating OTHER_REL_P from PARTNER GRANDCHILD
+(0 real changes made)
+
+. generate_relationship "OTHER_REL"                               "SPOUSE" "SIBLING"
+Generating OTHER_REL from SPOUSE SIBLING
+(2,296 real changes made)
+
+. generate_relationship "OTHER_REL_P"                     "PARTNER" "SIBLING"
+Generating OTHER_REL_P from PARTNER SIBLING
+(496 real changes made)
+
+. generate_relationship "OTHER_REL"                               "SPOUSE" "OTHER_REL"
+Generating OTHER_REL from SPOUSE OTHER_REL
+(9,307 real changes made)
+
+. generate_relationship "OTHER_REL_P"                     "PARTNER" "OTHER_REL"
+Generating OTHER_REL_P from PARTNER OTHER_REL
+(696 real changes made)
+
+. generate_relationship "NOREL"                                   "SPOUSE" "NOREL"
+Generating NOREL from SPOUSE NOREL
+(4,105 real changes made)
+
+. generate_relationship "DONTKNOW"                                "PARTNER" "NOREL"
+Generating DONTKNOW from PARTNER NOREL
+(1,356 real changes made)
+
+. 
+. *** rel2 == SPOUSE / PARTNER
+. generate_relationship "OTHER_REL_P"                     "OTHER_REL" "PARTNER" 
+Generating OTHER_REL_P from OTHER_REL PARTNER
+(696 real changes made)
+
+. generate_relationship "OTHER_REL"                               "OTHER_REL" "SPOUSE" 
+Generating OTHER_REL from OTHER_REL SPOUSE
+(9,307 real changes made)
+
+. generate_relationship "NOREL"                                   "NOREL" "SPOUSE" 
+Generating NOREL from NOREL SPOUSE
+(4,105 real changes made)
+
+. generate_relationship "DONTKNOW"                                "NOREL" "PARTNER" 
+Generating DONTKNOW from NOREL PARTNER
+(1,356 real changes made)
+
+. 
+. *** rel1 == F_CHILD
+. generate_relationship "F_CHILD"                                 "F_CHILD" "SPOUSE" 
+Generating F_CHILD from F_CHILD SPOUSE
+(1,098 real changes made)
+
+. generate_relationship "F_PARENT"                                "SPOUSE" "F_CHILD"
+Generating F_PARENT from SPOUSE F_CHILD
+(0 real changes made)
+
+. generate_relationship "F_PARENT"                                "F_CHILD" "PARTNER"
+Generating F_PARENT from F_CHILD PARTNER
+(114 real changes made)
+
+. 
+. *** rel2 == F_PARENT
+. generate_relationship "F_SIB"                                   "F_CHILD" "F_PARENT"
+Generating F_SIB from F_CHILD F_PARENT
+(1,842 real changes made)
+
+. generate_relationship "F_PARENT"                                "SPOUSE" "F_PARENT"
+Generating F_PARENT from SPOUSE F_PARENT
+(1,098 real changes made)
+
+. generate_relationship "F_PARENT"                                "PARTNER" "F_PARENT"
+Generating F_PARENT from PARTNER F_PARENT
+(114 real changes made)
+
+.         
+. *** Other
+. generate_relationship "OTHER_REL"                               "OTHER_REL" "OTHER_REL" 
+Generating OTHER_REL from OTHER_REL OTHER_REL
+(12,292 real changes made)
+
+. 
+. generate_relationship "NOREL"                                   "OTHER_REL" "NOREL"
+Generating NOREL from OTHER_REL NOREL
+(2,288 real changes made)
+
+. generate_relationship "NOREL"                                   "NOREL" "OTHER_REL" 
+Generating NOREL from NOREL OTHER_REL
+(2,288 real changes made)
+
+. 
+. generate_relationship "DONTKNOW"                                "NOREL" "NOREL"
+Generating DONTKNOW from NOREL NOREL
+(16,024 real changes made)
+
+. 
+. display "How are we doing at finding relationships?"
+How are we doing at finding relationships?
+
+. mdesc relationship 
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+   relationship |       1,392      1,377,546           0.10
+----------------+-----------------------------------------------
+
+. 
+. * Report relationship pairs we're not handling yet.
+.  preserve
+
+.         display "Keeping just missing relationships so we can show the pairs"
+Keeping just missing relationships so we can show the pairs
+
+.         keep if (missing(relationship))
+(1,376,154 observations deleted)
+
+.         display "Relationship pairs we do not currently handle, rowsort"
+Relationship pairs we do not currently handle, rowsort
+
+.         tab relationship1 relationship2, rowsort m
+
+                     |                                                                      rel2
+                rel1 |  BIOCHILD     BIOMOM     BIODAD  STEPCHILD    STEPMOM    STEPDAD     SPOUSE  GRANDPARE    SIBLING   F_PARENT  OTHER_REL      NOREL          . |     Total
+---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+----------
+                   . |         1         30        103         12          3         15         10         12         20          0         75         20        102 |       403 
+             F_CHILD |         0          0          0          0          0          0          0         55          2          0         97        185          0 |       339 
+               NOREL |         0          0          0          0          0          0          0          0          0        185          0          0         20 |       205 
+           OTHER_REL |         0          0          0          0          0          0          0          0          0         97          0          0         75 |       172 
+            BIOCHILD |         0          0          0          0          0          0          0          0          0          0          0          0        133 |       133 
+          GRANDCHILD |         0          0          0          0          0          0          0          0          0         55          0          0         12 |        67 
+             SIBLING |         0          0          0          0          0          0          0          0          0          2          0          0         20 |        22 
+           STEPCHILD |         0          0          0          0          0          0          0          0          0          0          0          0         18 |        18 
+             STEPMOM |         0          0          0          0          0          0          0          0          0          6          0          0         11 |        17 
+              SPOUSE |         0          0          0          0          0          0          0          0          0          0          0          0         10 |        10 
+             STEPDAD |         0          0          0          0          0          0          0          0          0          3          0          0          1 |         4 
+              BIOMOM |         0          0          0          0          0          0          0          0          0          1          0          0          1 |         2 
+---------------------+-----------------------------------------------------------------------------------------------------------------------------------------------+----------
+               Total |         1         30        103         12          3         15         10         67         22        349        172        205        403 |     1,392 
+
+.  restore
+
+. 
+.  * Save just records for which we understand A --> C.
+.  display "Keeping only those pairs for which we understand relationships"
+Keeping only those pairs for which we understand relationships
+
+.  keep if (!missing(relationship))
+(1,392 observations deleted)
+
+. 
+.  * We force the drop because we don't care about the details if the end result is the same.
+.  duplicates drop SSUID SHHADID SWAVE relfrom relto relationship, force
+
+Duplicates in terms of SSUID SHHADID SWAVE relfrom relto relationship
+
+(451,210 observations deleted)
+
+. 
+.  gen reason = string(relationship1) + " " + string(relationship2) + " via " + string(intermediate_person)
+
+.  drop intermediate_person relationship1 relationship2 reason1 reason2
+
+. 
+. ********************************************************************************
+. * Section: Checking records with more than one relationship in a wave
+. *          and select "best" relationship when more than one relationship type.
+. ********************************************************************************
+. 
+. sort SSUID SHHADID SWAVE relfrom relto
+
+. by SSUID SHHADID SWAVE relfrom relto:  gen numrels_tc1 = _N
+
+. by SSUID SHHADID SWAVE relfrom relto:  gen relnum_tc1 = _n
+
+. 
+. display "How many relationships have we generated per person-wave?"
+How many relationships have we generated per person-wave?
+
+. tab numrels_tc1
+
+numrels_tc1 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          1 |    847,528       91.63       91.63
+          2 |     77,380        8.37      100.00
+          3 |         36        0.00      100.00
+------------+-----------------------------------
+      Total |    924,944      100.00
+
+. 
+. *reshape so that we can compare relationships for pairs (within wave) with more than one relationship type      
+. reshape wide relationship reason, i(SSUID SHHADID SWAVE relfrom relto) j(relnum_tc1)
+(note: j = 1 2 3)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                   924944   ->  886230
+Number of variables                  10   ->      13
+j variable (3 values)        relnum_tc1   ->   (dropped)
+xij variables:
+                           relationship   ->   relationship1 relationship2 relationship3
+                                 reason   ->   reason1 reason2 reason3
+-----------------------------------------------------------------------------
+
+. 
+. save "$tempdir/relationships_tc1_wide", $replace
+(note: file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/relationships_tc1_wide.dta not found)
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/relationships_tc1_wide.dta saved
+
+. 
+. *Make the easy decision that if there is only one piece of information we will take it.
+. gen relationship:relationship=relationship1 if missing(relationship2)
+(38,702 missing values generated)
+
+. 
+. display "Relationships for which there is only one candidate"
+Relationships for which there is only one candidate
+
+. tab relationship
+
+        relationship |      Freq.     Percent        Cum.
+---------------------+-----------------------------------
+          GRANDCHILD |     24,470        2.89        2.89
+        GRANDCHILD_P |        599        0.07        2.96
+         GRANDPARENT |     24,470        2.89        5.85
+       GRANDPARENT_P |        599        0.07        5.92
+             SIBLING |    556,750       65.69       71.61
+             PARTNER |        152        0.02       71.62
+             F_CHILD |      1,098        0.13       71.75
+               CHILD |      7,218        0.85       72.61
+            F_PARENT |      1,326        0.16       72.76
+              PARENT |      7,218        0.85       73.61
+           AUNTUNCLE |      6,234        0.74       74.35
+ AUNTUNCLE_OR_PARENT |     17,793        2.10       76.45
+     GREATGRANDCHILD |        427        0.05       76.50
+    GREATGRANDPARENT |        427        0.05       76.55
+         NEPHEWNIECE |      6,234        0.74       77.29
+CHILD_OR_NEPHEWNIECE |     17,793        2.10       79.38
+   SIBLING_OR_COUSIN |     15,468        1.83       81.21
+               F_SIB |      3,931        0.46       81.67
+           OTHER_REL |     94,150       11.11       92.78
+         OTHER_REL_P |      2,990        0.35       93.14
+               NOREL |     42,777        5.05       98.18
+            DONTKNOW |     15,404        1.82      100.00
+---------------------+-----------------------------------
+               Total |    847,528      100.00
+
+.         
+. * These are lists of relationships. The preferred description of the relationship is the earlier one
+. * So, for example, if the same relationship is coded as biodad stepdad and auntuncle_or_parent, we'll choose biodad (below)
+. local dad_relations " BIODAD STEPDAD ADOPTDAD DAD F_PARENT PARENT AUNTUNCLE_OR_PARENT OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
+
+. local mom_relations " BIOMOM STEPMOM ADOPTMOM MOM F_PARENT PARENT AUNTUNCLE_OR_PARENT OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
+
+. local child_relations " BIOCHILD STEPCHILD ADOPTCHILD CHILDOFPARTNER F_CHILD CHILD CHILD_OR_NEPHEWNIECE CHILD_OR_RELATIVE OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
+
+. local spouse_relations " SPOUSE PARTNER OTHER_REL OTHER_REL_P NOREL CONFUSED DONTKNOW "
+
+. local sibling_relations " SIBLING SIBLING_OR_COUSIN  F_SIB OTHER_REL OTHER_REL_P NOREL CONFUSED DONTKNOW "
+
+. local cousin_relations " COUSIN SIBLING_OR_COUSIN OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
+
+. local grandparent_relations " GRANDPARENT GRANDPARENT_P OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
+
+. local grandchild_relations " GRANDCHILD GRANDCHILD_P OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
+
+. local greatgrandchild_relations " GREATGRANDCHILD OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
+
+. local nephewniece_relations " NEPHEWNIECE OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
+
+. local norel_relations " NOREL CONFUSED DONTKNOW "
+
+. local otherrel_relations " OTHER_REL OTHER_REL_P CONFUSED DONTKNOW "
+
+. 
+. foreach r in dad mom child spouse sibling cousin grandparent grandchild greatgrandchild nephewniece norel otherrel {
+  2.    make_relationship_list ``r'_relations'
+  3.    * The error statement does nothing if no error was returned.  If there was, it passes the error back to the caller.
+.    error _rc
+  4.    
+.    local `r'_rel_list = "`r(rel_list)'"
+  5.    display "`r'_rel_list = ``r'_rel_list'"
+  6. }
+dad_rel_list = 3,6,9,11,22,23,25,35,36,39,40
+mom_rel_list = 2,5,8,10,22,23,25,35,36,39,40
+child_rel_list = 1,4,7,19,20,21,30,31,35,36,39,40
+spouse_rel_list = 12,18,35,36,37,39,40
+sibling_rel_list = 17,33,34,35,36,37,39,40
+cousin_rel_list = 32,33,35,36,39,40
+grandparent_rel_list = 15,16,35,36,39,40
+grandchild_rel_list = 13,14,35,36,39,40
+greatgrandchild_rel_list = 27,35,36,39,40
+nephewniece_rel_list = 29,35,36,39,40
+norel_rel_list = 37,39,40
+otherrel_rel_list = 35,36,39,40
+
+. 
+. display "Relationship 1 and 2 where there is more than one relationship"
+Relationship 1 and 2 where there is more than one relationship
+
+. tab relationship1 relationship2 if missing(relationship)
+
+                     |                                                                            2 relationship
+      1 relationship | GRANDCHIL  GRANDCHIL  GRANDPARE  GRANDPARE    SIBLING    PARTNER      CHILD     PARENT  AUNTUNCLE  CHILD_OR_  SIBLING_O  OTHER_REL  OTHER_REL      NOREL   DONTKNOW |     Total
+---------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------
+          GRANDCHILD |         0         44          0          0          3          1          0          0          0          3          0      2,224          1         70         81 |     2,427 
+        GRANDCHILD_P |        55          0          0          0          0          0          0          0          0          0          0          0          0          0          0 |        55 
+         GRANDPARENT |         0          0          0         54          3          0          0          0          4          0          0      2,241          3         69         82 |     2,456 
+       GRANDPARENT_P |         0          0         45          0          0          0          0          0          0          0          0          0          0          0          0 |        45 
+             SIBLING |         5          0          5          0          0          0          1          3          7          7     10,290      2,209          0        858      1,461 |    14,846 
+             PARTNER |         0          1          1          1          3          0          4          4          0          0          0        330          5        522         36 |       907 
+               CHILD |         0          0          0          0          3          1          0          0          0          5          0          9          0          2          8 |        28 
+              PARENT |         0          0          0          0          1          1          0          0          8          0          0          6          0          1          6 |        23 
+ AUNTUNCLE_OR_PARENT |         0          0          1          0          7          0          0          4          0          0          0          0          0          0          0 |        12 
+CHILD_OR_NEPHEWNIECE |         2          0          0          0          7          0          7          0          0          0          0          0          0          0          0 |        16 
+   SIBLING_OR_COUSIN |         0          0          0          0      8,034          0          0          0          0          0          0          0          0          0          0 |     8,034 
+           OTHER_REL |     2,381          0      2,366          0      1,673        208          8         11          0          0          0          0         14          2         40 |     6,703 
+         OTHER_REL_P |         6          0          4          0          0          3          0          0          0          0          0         10          0          0          0 |        23 
+               NOREL |        54          0         55          0        919        478          1          2          0          0          0          0          0          0          0 |     1,509 
+            DONTKNOW |        73          0         72          0      1,387         34          7          9          0          0          0         36          0          0          0 |     1,618 
+---------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------
+               Total |     2,576         45      2,549         55     12,040        726         28         33         19         15     10,290      7,065         23      1,524      1,714 |    38,702 
+
+. 
+. display "Now working on resolving relationships"
+Now working on resolving relationships
+
+.  foreach r in dad mom child spouse sibling grandparent grandchild greatgrandchild nephewniece norel otherrel {
+  2.    display "Looking for `r'"
+  3.    gen best_rel = .
+  4.    
+.    * Going through each identified relationship, starting with relationship1
+.    * set bestrel to equal that relationship if it is not missing and it has a lower value
+.    * in the set of relations in this set of `r' relationship types.
+.    * For example, if the relationship is biodad and stepdad, set to biodad.
+.    foreach v of varlist relationship* {
+  5.      display "Processing `v'"
+  6.      replace best_rel = `v' if ((!missing(`v')) & (`v' < best_rel) & inlist(`v', ``r'_rel_list'))
+  7.      replace best_rel = 0 if ((!missing(`v')) & (!inlist(`v', ``r'_rel_list')))
+  8.    }
+  9.    replace relationship = best_rel if (missing(relationship) & (best_rel > 0))
+ 10.    drop best_rel
+ 11. }
+Looking for dad
+(886,230 missing values generated)
+Processing relationship1
+(147,260 real changes made)
+(738,970 real changes made)
+Processing relationship2
+(70 real changes made)
+(8,235 real changes made)
+Processing relationship3
+(0 real changes made)
+(0 real changes made)
+Processing relationship
+(0 real changes made)
+(0 real changes made)
+(144 real changes made)
+Looking for mom
+(886,230 missing values generated)
+Processing relationship1
+(147,260 real changes made)
+(738,970 real changes made)
+Processing relationship2
+(70 real changes made)
+(8,235 real changes made)
+Processing relationship3
+(0 real changes made)
+(0 real changes made)
+Processing relationship
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+Looking for child
+(886,230 missing values generated)
+Processing relationship1
+(147,041 real changes made)
+(739,189 real changes made)
+Processing relationship2
+(68 real changes made)
+(8,244 real changes made)
+Processing relationship3
+(0 real changes made)
+(0 real changes made)
+Processing relationship
+(0 real changes made)
+(0 real changes made)
+(44 real changes made)
+Looking for spouse
+(886,230 missing values generated)
+Processing relationship1
+(166,233 real changes made)
+(719,997 real changes made)
+Processing relationship2
+(769 real changes made)
+(9,042 real changes made)
+Processing relationship3
+(0 real changes made)
+(4 real changes made)
+Processing relationship
+(0 real changes made)
+(0 real changes made)
+(1,614 real changes made)
+Looking for sibling
+(886,230 missing values generated)
+Processing relationship1
+(764,203 real changes made)
+(122,027 real changes made)
+Processing relationship2
+(12,059 real changes made)
+(5,800 real changes made)
+Processing relationship3
+(0 real changes made)
+(1 real change made)
+Processing relationship
+(0 real changes made)
+(0 real changes made)
+(26,830 real changes made)
+Looking for grandparent
+(886,230 missing values generated)
+Processing relationship1
+(148,458 real changes made)
+(737,772 real changes made)
+Processing relationship2
+(2,533 real changes made)
+(5,878 real changes made)
+Processing relationship3
+(0 real changes made)
+(2 real changes made)
+Processing relationship
+(0 real changes made)
+(0 real changes made)
+(4,865 real changes made)
+Looking for grandchild
+(886,230 missing values generated)
+Processing relationship1
+(148,439 real changes made)
+(737,791 real changes made)
+Processing relationship2
+(2,561 real changes made)
+(5,861 real changes made)
+Processing relationship3
+(0 real changes made)
+(0 real changes made)
+Processing relationship
+(0 real changes made)
+(0 real changes made)
+(4,865 real changes made)
+Looking for greatgrandchild
+(886,230 missing values generated)
+Processing relationship1
+(121,315 real changes made)
+(764,915 real changes made)
+Processing relationship2
+(46 real changes made)
+(8,244 real changes made)
+Processing relationship3
+(0 real changes made)
+(0 real changes made)
+Processing relationship
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+Looking for nephewniece
+(886,230 missing values generated)
+Processing relationship1
+(127,122 real changes made)
+(759,108 real changes made)
+Processing relationship2
+(46 real changes made)
+(8,244 real changes made)
+Processing relationship3
+(0 real changes made)
+(0 real changes made)
+Processing relationship
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+Looking for norel
+(886,230 missing values generated)
+Processing relationship1
+(61,308 real changes made)
+(824,922 real changes made)
+Processing relationship2
+(0 real changes made)
+(3,127 real changes made)
+Processing relationship3
+(0 real changes made)
+(0 real changes made)
+Processing relationship
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+Looking for otherrel
+(886,230 missing values generated)
+Processing relationship1
+(120,888 real changes made)
+(765,342 real changes made)
+Processing relationship2
+(46 real changes made)
+(8,244 real changes made)
+Processing relationship3
+(0 real changes made)
+(0 real changes made)
+Processing relationship
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+
+. 
+. display "Where do we stand with relationships?"
+Where do we stand with relationships?
+
+. tab relationship, m
+
+        relationship |      Freq.     Percent        Cum.
+---------------------+-----------------------------------
+          GRANDCHILD |     29,335        3.31        3.31
+        GRANDCHILD_P |        599        0.07        3.38
+         GRANDPARENT |     29,335        3.31        6.69
+       GRANDPARENT_P |        599        0.07        6.76
+             SIBLING |    583,580       65.85       72.61
+             PARTNER |      1,764        0.20       72.80
+             F_CHILD |      1,098        0.12       72.93
+               CHILD |      7,262        0.82       73.75
+            F_PARENT |      1,326        0.15       73.90
+              PARENT |      7,262        0.82       74.72
+           AUNTUNCLE |      6,234        0.70       75.42
+ AUNTUNCLE_OR_PARENT |     17,793        2.01       77.43
+     GREATGRANDCHILD |        427        0.05       77.48
+    GREATGRANDPARENT |        427        0.05       77.52
+         NEPHEWNIECE |      6,234        0.70       78.23
+CHILD_OR_NEPHEWNIECE |     17,793        2.01       80.24
+   SIBLING_OR_COUSIN |     15,468        1.75       81.98
+               F_SIB |      3,931        0.44       82.42
+           OTHER_REL |     94,252       10.64       93.06
+         OTHER_REL_P |      2,990        0.34       93.40
+               NOREL |     42,777        4.83       98.22
+            DONTKNOW |     15,404        1.74       99.96
+                   . |        340        0.04      100.00
+---------------------+-----------------------------------
+               Total |    886,230      100.00
+
+. 
+. tab relationship1 relationship2 if missing(relationship)
+
+                     |                                                           2 relationship
+      1 relationship | GRANDCHIL  GRANDCHIL  GRANDPARE  GRANDPARE    SIBLING    PARTNER      CHILD     PARENT  AUNTUNCLE  CHILD_OR_  OTHER_REL      NOREL |     Total
+---------------------+------------------------------------------------------------------------------------------------------------------------------------+----------
+          GRANDCHILD |         0          0          0          0          3          1          0          0          0          3          0         70 |        77 
+         GRANDPARENT |         0          0          0          0          3          0          0          0          4          0          2         69 |        78 
+             SIBLING |         5          0          5          0          0          0          1          3          7          7          0          1 |        29 
+             PARTNER |         0          1          1          1          3          0          4          4          0          0          1          0 |        15 
+               CHILD |         0          0          0          0          3          1          0          0          0          0          0          2 |         6 
+              PARENT |         0          0          0          0          1          1          0          0          0          0          0          1 |         3 
+ AUNTUNCLE_OR_PARENT |         0          0          1          0          7          0          0          0          0          0          0          0 |         8 
+CHILD_OR_NEPHEWNIECE |         2          0          0          0          7          0          0          0          0          0          0          0 |         9 
+           OTHER_REL |         0          0          0          0          0          3          0          0          0          0          0          0 |         3 
+               NOREL |        54          0         55          0          0          0          1          2          0          0          0          0 |       112 
+---------------------+------------------------------------------------------------------------------------------------------------------------------------+----------
+               Total |        61          1         62          1         27          6          6          9         11         10          3        143 |       340 
+
+. 
+. drop relationship1 relationship2 relationship3 numrels_tc1
+
+. 
+. *Append base relationships file (iteration 0). No overlap because dropped matched cases earlier.
+. append using "$tempdir/relationships_tc0_wide"
+(label relationship already defined)
+
+. 
+. tab relationship, m
+
+        relationship |      Freq.     Percent        Cum.
+---------------------+-----------------------------------
+            BIOCHILD |    661,315       21.45       21.45
+              BIOMOM |    387,136       12.56       34.01
+              BIODAD |    274,179        8.89       42.91
+           STEPCHILD |     47,022        1.53       44.43
+             STEPMOM |     16,676        0.54       44.97
+             STEPDAD |     30,346        0.98       45.96
+          ADOPTCHILD |     12,988        0.42       46.38
+            ADOPTMOM |      6,740        0.22       46.60
+            ADOPTDAD |      6,248        0.20       46.80
+                 MOM |          6        0.00       46.80
+                 DAD |          6        0.00       46.80
+              SPOUSE |    516,182       16.75       63.55
+          GRANDCHILD |     60,516        1.96       65.51
+        GRANDCHILD_P |        599        0.02       65.53
+         GRANDPARENT |     60,516        1.96       67.49
+       GRANDPARENT_P |        599        0.02       67.51
+             SIBLING |    605,542       19.64       87.16
+             PARTNER |     48,960        1.59       88.75
+             F_CHILD |      2,621        0.09       88.83
+               CHILD |      7,274        0.24       89.07
+            F_PARENT |      2,849        0.09       89.16
+              PARENT |      7,262        0.24       89.40
+           AUNTUNCLE |      6,234        0.20       89.60
+ AUNTUNCLE_OR_PARENT |     17,793        0.58       90.18
+     GREATGRANDCHILD |        427        0.01       90.19
+    GREATGRANDPARENT |        427        0.01       90.20
+         NEPHEWNIECE |      6,234        0.20       90.41
+CHILD_OR_NEPHEWNIECE |     17,793        0.58       90.98
+   SIBLING_OR_COUSIN |     15,468        0.50       91.48
+               F_SIB |      3,931        0.13       91.61
+           OTHER_REL |    144,258        4.68       96.29
+         OTHER_REL_P |      2,990        0.10       96.39
+               NOREL |     95,159        3.09       99.48
+            DONTKNOW |     15,404        0.50       99.98
+                   . |        754        0.02      100.00
+---------------------+-----------------------------------
+               Total |  3,082,454      100.00
+
+. 
+. save "$tempdir/relationship_pairs_bywave", $replace
+(note: file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/relationship_pairs_bywave.dta not found)
+file C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_data/stata_tmp/relationship_pairs_bywave.dta saved
+
+. 
+. ********************************************************************************
+. *Note: File still has one observation per pair PER WAVE. 
+. ********************************************************************************
+. 
+end of do-file
+
+. 
+. 
+. do "$childhh_base_code/childhh_epilog" "`logdir'" "`fname'"
+
+. * Boilerplate epilog for ChildHH project.
+. 
+. display "Ending random number generator state"
+Ending random number generator state
+
+. display "`c(rngstate)'"
+XAA0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+> 000000000000000000000000000000000000000000000000000000000000000000000001000001391839
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement//stata_logs/compute_secondary_relationships.log
+  log type:  text
+ closed on:   6 Dec 2019, 14:40:47
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
