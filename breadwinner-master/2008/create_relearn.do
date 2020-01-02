@@ -43,7 +43,7 @@ save "$tempdir/famhis.dta", $replace
 * run do_childrens_household_core to create.
 * The file has one observation per person in ego's (EPPPNUM's) household. 
 * It does not include a record for self and thus does not include people living alone.
-use "$demodata/HHComp_asis.dta", clear
+use "$demodata/SIPP08_Processed/HHComp_asis.dta", clear
 
 * Create a dummy indicator for whether ego is a mother to anyone in the household
 * by collapsing all records for same person (ssuid epppnum swave)
@@ -59,9 +59,9 @@ replace nmomtominor=1 if my_sex==2 & inlist(relationship,22,23) & to_age < 18
 gen nbiomomto=1 if relationship==2
 
 * Create indicators for other aspects of household composition
-gen nHHkids=1 if adj_age < 18
-
 gen HHsize=1
+
+gen nHHkids=1 if adj_age < 18
 
 * age of oldest son or daughter in the household
 gen agechild=to_age if inlist(relationship,2,3,8,22,23)
@@ -94,7 +94,7 @@ keep SSUID EPPPNUM SHHADID SWAVE nmomto nmomtominor nbiomomto HHsize nHHkids spa
 * Section: merging to children's households long demographic file, 
 * a person-level data file, to get basic demographic information about ego.
 *******************************************************************************
-merge 1:1 SSUID EPPPNUM SWAVE using "$childhh/demo_long_interviews.dta"
+merge 1:1 SSUID EPPPNUM SWAVE using "$demodata/stata_tmp/demo_long_interviews.dta"
 * Note that _merge==2 are people living alone
 
 rename SSUID ssuid
@@ -180,7 +180,7 @@ sum nHHadults
 keep if adj_age >= 15 & adj_age < 70
 keep if my_sex==2
 
-merge m:1 ssuid epppnum using "$SIPP08keep/famhis.dta"
+merge m:1 ssuid epppnum using "$tempdir/famhis.dta"
 
 drop if _merge ==2
 

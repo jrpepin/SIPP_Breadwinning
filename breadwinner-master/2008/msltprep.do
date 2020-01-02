@@ -1,6 +1,6 @@
 * This file creates transition rates based on status changes between years at duration durmom
 
-use "$tempdir/relearn_year.dta", clear // a file produces by create_yearearn.do
+use "$tempdir/relearn_year.dta", clear // a file produced by create_yearearn.do
 
 gen neghinc=1 if year_uhearn < 0
 
@@ -98,11 +98,3 @@ foreach var in `thenvars'{
 *label values uybw60L1 bwstat
 
 save "$tempdir/msltprep.dta", $replace
-
-
-
-
-
-
-
-

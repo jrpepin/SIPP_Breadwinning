@@ -1,3 +1,5 @@
+log using "$logdir\yearearn_analysis_log.log", replace
+
 *need to add n's to results table
 
 use "$tempdir/relearn_year.dta", clear
@@ -747,4 +749,5 @@ tab yearage yearbw60 if yearspartner==0 [aweight=weight], nofreq row
 * Asian .32 .36
 
 * Want estimates by educational attainment and marital status at first birth
-
+*/
+log close

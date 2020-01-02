@@ -1,7 +1,7 @@
 global replace "replace"
 
-global logdir "$homedir/stata_logs"
-global tempdir "$homedir/stata_tmp"
+global logdir "$homedir/Dropbox\Repositories\SIPP_Breadwinning\DemographySupplement\stata_logs"
+global tempdir "$homedir/Dropbox\Repositories\SIPP_Breadwinning\DemographySupplement\stata_data\stata_tmp"
 
 
 global boxdir "C:\Users\joanna\Box Sync UT\Box Sync"
@@ -16,4 +16,4 @@ global final_wave 15
 global second_wave = ${first_wave} + 1
 global penultimate_wave = ${final_wave} - 1
 
-global demodata "C:\Users\Joanna\Dropbox\Repositories\SIPP_Breadwinning\DemographySupplement\stata_data\SIPP08_Processed"
+global demodata "C:\Users\Joanna\Dropbox\Repositories\SIPP_Breadwinning\DemographySupplement\stata_data"

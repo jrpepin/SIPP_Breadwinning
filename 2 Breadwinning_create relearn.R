@@ -10,7 +10,10 @@ library(tidyverse)
 ## Note that parts of this script is created using data created from the DemographySupplement (see breadwinning.Rmd)
 
 ### This points to where your demography supplement processed data was saved.
-demoDir <- "C:/Users/Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement/stata_data/SIPP08_Processed" 
+demoDir1 <- "C:/Users/Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement/stata_data/SIPP08_Processed" 
+
+### This points to where your demography supplement temporary data was saved.
+demoDir2 <- "C:/Users/Joanna/Dropbox/Repositories/SIPP_Breadwinning/DemographySupplement/stata_data/stata_tmp"
 
 #####################################################################################
 # Section: Create an extract with year of first birth and marital history
@@ -69,25 +72,25 @@ hhdata$epppnum <- as.integer(hhdata$epppnum)
 ## run do_childrens_household_core to create. (see DemographySupplement)
 ## The file has one observation per person in ego's (EPPPNUM's) household. 
 ## It does not include a record for self and thus does not include people living alone.
-asis <- read_dta(paste0(demoDir, "/HHComp_asis.dta"))
+asis <- read_dta(paste0(demoDir1, "/HHComp_asis.dta"))
 
 # Create a dummy indicator for whether ego is a mother to anyone in the household
 # by collapsing all records for same person (ssuid epppnum swave)
 
-asis$nmomto <- ifelse(asis$relationship %in% c(2,5,8), 1, NA)
+asis$nmomto <- ifelse(asis$relationship %in% c(2,5,8), 1, 0)
 asis$nmomto[asis$relationship == 22 & asis$my_sex ==2] <- 1
 asis$nmomto[asis$relationship == 23 & asis$my_sex ==2] <- 1
 
-asis$nmomtominor <- ifelse(asis$relationship %in% c(2,5,8) & asis$to_age < 18, 1, NA)
+asis$nmomtominor <- ifelse(asis$relationship %in% c(2,5,8) & asis$to_age < 18, 1, 0)
 asis$nmomtominor[asis$relationship == 22 & asis$to_age < 18 & asis$my_sex ==2] <- 1
 asis$nmomtominor[asis$relationship == 23 & asis$to_age < 18 & asis$my_sex ==2] <- 1
 
-asis$nbiomomto <- ifelse(asis$relationship ==2 , 1, NA)
+asis$nbiomomto <- ifelse(asis$relationship ==2 & !is.na(asis$relationship), 1, 0)
 
 ### Create indicators for other aspects of household composition
 asis$HHsize <- 1
 
-asis$nHHkids <- NA
+asis$nHHkids <- 0
 asis$nHHkids[asis$adj_age < 18] <- 1
 
 ### age of oldest son or daughter in the household
@@ -95,14 +98,13 @@ asis$agechild <- NA
 asis$agechild <- ifelse(asis$relationship %in% c(2,3,8,22,23), asis$to_age, asis$agechild)
 
 ### spouse or partner
-asis$spouse  <- ifelse(asis$relationship ==12, 1, NA)
-asis$partner <- ifelse(asis$relationship ==18, 1, NA)
+asis$spouse  <- ifelse(asis$relationship ==12 & !is.na(asis$relationship), 1, 0)
+asis$partner <- ifelse(asis$relationship ==18 & !is.na(asis$relationship), 1, 0)
 asis$spartner_pnum <- ifelse(asis$relationship %in% c(12, 18), asis$to_EPPNUM, NA)
+
 
 ### collapse across all people in ego's (EPPPNUM's) household to create a person-level file
   ### with information on that person's household composition in the wave.
-collapse (count) nmomto nmomtominor nbiomomto HHsize nHHkids spouse partner (max) agechild (min) spartner_pnum, by(SSUID EPPPNUM SHHADID SWAVE)
-
 count <- asis %>%
   select(SSUID, EPPPNUM, SHHADID, SWAVE, nmomto, nmomtominor, nbiomomto, HHsize, nHHkids, spouse, partner) %>%
   group_by(SSUID, EPPPNUM, SHHADID, SWAVE) %>% 
@@ -121,3 +123,49 @@ asis_pl$agechild[asis_pl$agechild == "-Inf"] <- NA
 asis_pl$spartner_pnum[asis_pl$spartner_pnum == "Inf"] <- NA
 
 names(asis_pl)[names(asis_pl) == "agechild"] <- "ageoldest"
+
+### some (9) have more than one person in the household coded as partner. 
+asis_pl$partner[asis_pl$partner > 0] <- 1
+
+### a small number (26) have both a spouse and a partner in the household.
+asis_pl$spartner <- NA
+asis_pl$spartner[asis_pl$spouse == 0 & asis_pl$partner == 0] <- 0
+asis_pl$spartner[asis_pl$spouse == 1] <- 1
+asis_pl$spartner[asis_pl$spouse == 0 & asis_pl$partner == 1] <- 2
+
+### add in self as a household member.
+asis_pl$HHsize <- asis_pl$HHsize + 1 # Will fix the HH living alone later.
+
+### Select variables
+asis_pl <- asis_pl %>%
+  select(SSUID, EPPPNUM, SHHADID, SWAVE, 
+         nmomto, nmomtominor, nbiomomto, 
+         HHsize, nHHkids, spartner, ageoldest, spartner_pnum)
+
+#####################################################################################
+# Section: merging to children's households long demographic file, 
+# a person-level data file, to get basic demographic information about ego.
+
+demo <- read_dta(paste0(demoDir2, "/demo_long_interviews.dta"))
+
+withdem <- reduce(list(asis_pl, demo), 
+                  full_join, by = c("SSUID", "EPPPNUM", "SWAVE"))
+
+names(withdem)[names(withdem) == "SSUID"]   <- "ssuid"
+names(withdem)[names(withdem) == "EPPPNUM"] <- "epppnum"
+names(withdem)[names(withdem) == "SWAVE"]   <- "swave"
+names(withdem)[names(withdem) == "SHHADID"] <- "shhadid"
+
+## adding self to count of household kids if self is < 18
+withdem$nHHkids <- ifelse(withdem$adj_age < 18 , withdem$nHHkids + 1,  withdem$nHHkids)
+
+## fixing records living alone
+withdem$HHsize[is.na(withdem$HHsize)] <- 1
+withdem$nHHkids[is.na(withdem$nHHkids) & withdem$adj_age > 17] <- 0
+withdem$nHHkids[is.na(withdem$nHHkids) & withdem$adj_age < 18] <- 1
+withdem$nmomto[is.na(withdem$nmomto)] <- 0
+withdem$nmomtominor[is.na(withdem$nmomtominor)] <- 0
+withdem$nbiomomto[is.na(withdem$nbiomomto)] <- 0
+withdem$spartner[is.na(withdem$spartner)] <- 0
+
+withdem[with(withdem, order("ssuid", "epppnum", "shhadid", "swave")), ]
